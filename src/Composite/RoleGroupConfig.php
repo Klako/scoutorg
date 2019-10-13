@@ -3,7 +3,7 @@
  * Contains RoleGroupConfig class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
+namespace Scoutorg\Composite;
 
 /**
  * Role group configuration for building a

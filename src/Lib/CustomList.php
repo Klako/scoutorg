@@ -3,7 +3,7 @@
  * Contains CustomList class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A custom member list with sub lists.

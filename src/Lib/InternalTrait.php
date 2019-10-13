@@ -3,7 +3,7 @@
  * Contains InernalTrait trait
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A replacement for making namespace private members.
@@ -13,7 +13,7 @@ namespace Org\Lib;
 trait InternalTrait {
     /**
      * Calls a private method only if the
-     * calling class is in the Org namespace.
+     * calling class is in the Scoutorg namespace.
      * @internal
      * @param string $name
      * @param array $args

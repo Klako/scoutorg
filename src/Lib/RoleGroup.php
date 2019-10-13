@@ -3,7 +3,7 @@
  * Contains RoleGroup class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A group for a special role in the scout group

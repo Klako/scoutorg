@@ -3,7 +3,7 @@
  * Contains Branch class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A branch (gren) that contains troops

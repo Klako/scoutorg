@@ -3,7 +3,7 @@
  * Contains ScoutGroupConfig class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * Class that contains settings for a scout group.

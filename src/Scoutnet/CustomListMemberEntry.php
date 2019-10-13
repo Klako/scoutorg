@@ -3,7 +3,7 @@
  * Contains CustomListMemberEntry class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * Contains fields from that are equivalent to custom list members from scoutnet.

@@ -3,7 +3,7 @@
  * Contains ContactInfo class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Contains contact info for a member or guardian.

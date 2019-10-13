@@ -3,8 +3,8 @@
  * Contains MemberEntry class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
-use Org\Lib;
+namespace Scoutorg\Scoutnet;
+use Scoutorg\Lib;
 
 /**
  * Contains fields equivalent to the data received through

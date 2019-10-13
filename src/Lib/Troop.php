@@ -3,7 +3,7 @@
  * Contains Troop class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A troop that is in the scout group.

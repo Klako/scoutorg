@@ -3,9 +3,9 @@
  * Contains ScoutGroupFactory class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
-use Org\Scoutnet;
-use Org\Lib;
+namespace Scoutorg\Composite;
+use Scoutorg\Scoutnet;
+use Scoutorg\Lib;
 
 class ScoutGroupFactory implements Lib\IScoutGroupProvider {
     /** @var Scoutnet\ScoutnetController */
@@ -86,7 +86,8 @@ class ScoutGroupFactory implements Lib\IScoutGroupProvider {
         // Will not ignore two configs with same branch id.
         foreach ($this->branchConfigs as $branchConfig) {
             $branch = new Lib\Branch($branchConfig->getId(), $branchConfig->getName());
-            if (isset($scoutGroup->getBranches(true)[$branchConfig->getId()])) {
+            $branches = $scoutGroup->getBranches(true);
+            if (isset($branches[$branchConfig->getId()])) {
                 $branch = $branches[$branchConfig->getId()];
             }
 

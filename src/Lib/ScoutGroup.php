@@ -3,7 +3,7 @@
  * Contains ScoutGroup class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * The whole scout group that is part of the scout organisation.

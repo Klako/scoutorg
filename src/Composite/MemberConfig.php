@@ -3,7 +3,7 @@
  * Contains MemberConfig class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
+namespace Scoutorg\Composite;
 
 /**
  * Member configuration with an attached role.

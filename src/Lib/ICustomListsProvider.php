@@ -4,7 +4,7 @@
  * @author Alexander Krantz
  */
 
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Interface for a custom list provider

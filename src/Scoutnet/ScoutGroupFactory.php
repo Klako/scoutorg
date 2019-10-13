@@ -3,8 +3,8 @@
  * Contains ScoutGroupFactory class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
-use Org\Lib;
+namespace Scoutorg\Scoutnet;
+use Scoutorg\Lib;
 
 /**
  * Builds a scout group from scoutnet.

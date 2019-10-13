@@ -3,8 +3,8 @@
  * Contains CustomListRuleEntry class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
-use Org\Lib;
+namespace Scoutorg\Scoutnet;
+use Scoutorg\Lib;
 
 /**
  * Contains fields that are equivalent to custom list rules from scoutnet.

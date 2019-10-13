@@ -3,7 +3,7 @@
  * Contains PatrolConfig class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
+namespace Scoutorg\Composite;
 
 /**
  * Patrol configuration for building a patrol in a troop.

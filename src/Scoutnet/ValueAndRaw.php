@@ -3,7 +3,7 @@
  * Contains ValueAndRaw class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * Equivalent to a scoutnet api data field

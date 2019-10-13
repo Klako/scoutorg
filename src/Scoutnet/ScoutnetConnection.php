@@ -3,7 +3,7 @@
  * Contains ScoutnetConnection class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * A scoutnet connection for fetching data from scoutnet.

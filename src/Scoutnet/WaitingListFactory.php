@@ -3,8 +3,8 @@
  * Contains ScoutnetWaitingListFactory class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
-use Org\Lib;
+namespace Scoutorg\Scoutnet;
+use Scoutorg\Lib;
 
 /**
  * A factory for generating a list of members waiting for placement.

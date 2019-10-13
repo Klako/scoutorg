@@ -3,7 +3,7 @@
  * Contains ScoutnetController class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * Contains methods for getting data from scoutnet.

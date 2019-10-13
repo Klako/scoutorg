@@ -3,7 +3,7 @@
  * Contains BranchConfig class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
+namespace Scoutorg\Composite;
 
 /**
  * Branch configuration for building a branch in the scout group.

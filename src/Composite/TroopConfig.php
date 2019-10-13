@@ -3,7 +3,7 @@
  * Contains TroopConfig class
  * @author Alexander Krantz
  */
-namespace Org\Composite;
+namespace Scoutorg\Composite;
 
 /**
  * Troop configuration for building a troop in the scout group.

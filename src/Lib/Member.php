@@ -3,7 +3,7 @@
  * Contains Member class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A scout member with various personal and group info.

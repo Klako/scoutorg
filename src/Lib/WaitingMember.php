@@ -3,7 +3,7 @@
  * Contains WaitingMember class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A member that's waiting for group placement.

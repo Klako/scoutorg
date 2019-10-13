@@ -3,7 +3,7 @@
  * Contains Location class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Contains address and postal info for a location.

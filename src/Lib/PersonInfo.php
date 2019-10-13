@@ -3,7 +3,7 @@
  * Contains PersonalInfo class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Personal info about a member.

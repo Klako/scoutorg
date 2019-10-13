@@ -3,7 +3,7 @@
  * Contains Contact class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Contains a contact or guardian of a member.

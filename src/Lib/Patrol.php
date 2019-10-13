@@ -3,7 +3,7 @@
  * Contains Patrol class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * A scout patrol that is in a troop.

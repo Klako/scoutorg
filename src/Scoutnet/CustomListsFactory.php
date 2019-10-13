@@ -1,5 +1,5 @@
 <?php
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 use \Org\Lib;
 
 class CustomListsFactory implements Lib\ICustomListsProvider {

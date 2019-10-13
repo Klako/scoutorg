@@ -3,7 +3,7 @@
  * Contains BranchConfig class
  * @author Alexander Krantz
  */
-namespace Org\Scoutnet;
+namespace Scoutorg\Scoutnet;
 
 /**
  * Configuration for a branch with troops.

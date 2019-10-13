@@ -3,7 +3,7 @@
  * Contains ScoutOrg class
  * @author Alexander Krantz
  */
-namespace Org\Lib;
+namespace Scoutorg\Lib;
 
 /**
  * Is used for getting structured information about scout groups.
