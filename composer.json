@@ -1,0 +1,19 @@
+{
+    "name": "klako/scoutorg",
+    "description": "Library for fetching scout group information.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "autoload":{
+        "psr-4": {
+            "Scoutorg\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    }
+}
