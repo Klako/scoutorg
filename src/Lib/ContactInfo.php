@@ -1,44 +1,30 @@
 <?php
+
 /**
  * Contains ContactInfo class
  * @author Alexander Krantz
  */
+
 namespace Scoutorg\Lib;
 
 /**
  * Contains contact info for a member or guardian.
+ * @property-read OrgArray<int,string> $phoneNumbers
+ * @property-read OrgArray<int,string> $emailAddresses
  */
-class ContactInfo {
-    /** @var string[] The phone numbers of the person. */
-    private $phoneNumbers;
-
-    /** @var string[] The email addresses of the person. */
-    private $emailAddresses;
-
+class ContactInfo extends OrgObject
+{
     /**
      * Creates contact info.
      * @internal
-     * @param string[] $phoneNumbers A list of phone numbers.
-     * @param string[] $emailAddresses A list of email addresses.
+     * @param int $id
+     * @param OrgArray<mixed,string> $phoneNumbers A list of phone numbers.
+     * @param OrgArray<mixed,string> $emailAddresses A list of email addresses.
      */
-    public function __construct(array $phoneNumbers, array $emailAddresses) {
-        $this->phoneNumbers = $phoneNumbers;
-        $this->emailAddresses = $emailAddresses;
-    }
-
-    /**
-     * Gets a list of phone numbers.
-     * @return string[]
-     */
-    public function getPhoneNumbers() {
-        return $this->phoneNumbers;
-    }
-
-    /**
-     * Gets a list of email addresses.
-     * @return string[]
-     */
-    public function getEmailAddresses() {
-        return $this->emailAddresses;
+    public function __construct(IObjectMutator $mutator, $id, $phoneNumbers, $emailAddresses)
+    {
+        parent::__construct($mutator, $id);
+        $this->setProperty('phoneNumbers', [OrgArray::class], $phoneNumbers, false);
+        $this->setProperty('emailAddresses', [OrgArray::class], $emailAddresses, false);
     }
 }

@@ -1,84 +1,40 @@
 <?php
+
 /**
  * Contains PersonalInfo class
  * @author Alexander Krantz
  */
+
 namespace Scoutorg\Lib;
 
 /**
  * Personal info about a member.
+ * @property-read string $firstname
+ * @property-read string $lastname
+ * @property-read string $ssno
+ * @property-read string $gender
+ * @property-read string $dob
  */
-class PersonInfo {
-    /** @var string The person's first name. */
-    private $firstname;
-
-    /** @var string The person's last name. */
-    private $lastname;
-
-    /** @var string The person's personal number (personnummer) */
-    private $ssno;
-
-    /** @var string The person's gender. */
-    private $gender;
-
-    /** @var string The person's date of birth. */
-    private $dateOfBirth;
-
+class PersonInfo extends OrgObject
+{
     /**
      * Creates a new set of person info.
      * @internal
+     * @param IObjectMutator $mutator
+     * @param int $id
      * @param string $firstname The person's first name.
      * @param string $lastname The person's last name.
      * @param string $ssno The person's swedish personal number.
      * @param string $gender The person's gender.
-     * @param string $dateOfBirth The person's date of birth
+     * @param string $dob The person's date of birth
      */
-    public function __construct(string $firstname, string $lastname, string $ssno, string $gender, string $dateOfBirth) {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->ssno = $ssno;
-        $this->gender = $gender;
-        $this->dateOfBirth = $dateOfBirth;
-    }
-
-    /**
-     * Gets the first name.
-     * @return string
-     */
-    public function getFirstname() {
-        return $this->firstname;
-    }
-
-    /**
-     * Gets the last name.
-     * @return string
-     */
-    public function getLastname() {
-        return $this->lastname;
-    }
-
-    /**
-     * Gets the personal number.
-     * @return string
-     */
-    public function getSsno() {
-        return $this->ssno;
-    }
-
-    /**
-     * Gets the gender, usually 'Man' or 'Kvinna'.
-     * @return string
-     */
-    public function getGender() {
-        return $this->gender;
-    }
-
-    /**
-     * Gets the date of birth.
-     * @return string
-     */ 
-    public function getDateOfBirth()
+    public function __construct(IObjectMutator $mutator, $id, $firstname, $lastname, $ssno, $gender, $dob)
     {
-        return $this->dateOfBirth;
+        parent::__construct($mutator, $id);
+        $this->setProperty('firstname', ['string'], $firstname, false);
+        $this->setProperty('lastname', ['string'], $lastname, false);
+        $this->setProperty('ssno', ['string'], $ssno, false);
+        $this->setProperty('gender', ['string'], $gender, false);
+        $this->setProperty('dob', ['string'], $dob, false);
     }
 }

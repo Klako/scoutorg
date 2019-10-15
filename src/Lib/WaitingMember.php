@@ -1,132 +1,53 @@
 <?php
+
 /**
  * Contains WaitingMember class
  * @author Alexander Krantz
  */
+
 namespace Scoutorg\Lib;
 
 /**
  * A member that's waiting for group placement.
+ * @property-read PersonInfo $personInfo
+ * @property-read ContactInfo $contactInfo
+ * @property-read Location $home
+ * @property-read OrgArray<int,Contact> $contacts
+ * @property-read string $note
+ * @property-read bool $leaderInterest
  */
-class WaitingMember {
-    use InternalTrait;
-
-    /** @var int The member id. */
-    private $id;
-
-    /** @var PersonInfo The member's personal information. */
-    private $personInfo;
-
-    /** @var ContactInfo Contact info of the member. */
-    private $contactInfo;
-
-    /** @var Location The location where the member lives. */
-    private $accommodation;
-
-    /** @var Contact[] All contacts of the member. */
-    private $contacts;
-
-    /** @var string The date the member started waiting. */
-    private $waitingStartdate;
-
-    /** @var string The note attached to the waiting member. */
-    private $note;
-
-    /** @var bool Wether the member's parent or close relative wants to be a leader. */
-    private $leaderInterest;
-
+class WaitingMember extends OrgObject
+{
     /**
      * Creates a new waiting member
      * @internal
      * @param int $id
-     * @param PersonInfo $personInfo
-     * @param ContactInfo $contactInfo
-     * @param Location $accommodation
-     * @param Contact[] $contacts
-     * @param string $waitingStartDate
-     * @param string $note
-     * @param bool $leaderInterest
+     * @param PersonInfo|IPropertyProvider $personInfo
+     * @param ContactInfo|IPropertyProvider $contactInfo
+     * @param Location|IPropertyProvider $home
+     * @param Contact[]|IPropertyProvider $contacts
+     * @param string|IPropertyProvider $waitingStartDate
+     * @param string|IPropertyProvider $note
+     * @param bool|IPropertyProvider $leaderInterest
      */
-    public function __construct(int $id,
-                                PersonInfo $personInfo,
-                                ContactInfo $contactInfo,
-                                Location $accommodation,
-                                array $contacts,
-                                string $waitingStartDate,
-                                string $note,
-                                bool $leaderInterest) {
-        $this->id = $id;
-        $this->personInfo = $personInfo;
-        $this->contactInfo = $contactInfo;
-        $this->accommodation = $accommodation;
-        $this->contacts = $contacts;
-        $this->waitingStartdate = $waitingStartDate;
-        $this->note = $note;
-        $this->leaderInterest = $leaderInterest;
-    }
-
-    /**
-     * Gets the scoutnet id.
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Gets the person info
-     * @return PersonInfo
-     */
-    public function getPersonInfo() {
-        return $this->personInfo;
-    }
-
-    /**
-     * Gets the contact info.
-     * @return ContactInfo
-     */
-    public function getContactInfo() {
-        return $this->contactInfo;
-    }
-
-    /**
-     * Gets the member's accommodation.
-     * @return Location
-     */
-    public function getAccommodation() {
-        return $this->accommodation;
-    }
-
-    /**
-     * Gets a list of contacts.
-     * @return Contact[]
-     */
-    public function getContacts() {
-        return $this->contacts;
-    }
-
-    /**
-     * Gets the date the member started waiting.
-     * @return string
-     */ 
-    public function getWaitingStartdate() {
-        return $this->waitingStartdate;
-    }
-
-    /**
-     * Gets the note attached to the waiting member.
-     * @return string
-     */ 
-    public function getNote() {
-        return $this->note;
-    }
-
-    /**
-     * Gets wether the member's parent or a close relative
-     * is interested in becoming a leader.
-     * @return bool
-     */
-    public function hasLeaderInterest() {
-        return $this->leaderInterest;
+    public function __construct(
+        IObjectMutator $mutator,
+        $id,
+        $personInfo,
+        $contactInfo,
+        $home,
+        $contacts,
+        $waitingStartDate,
+        $note,
+        $leaderInterest
+    ) {
+        parent::__construct($mutator, $id);
+        $this->setProperty('personInfo', [PersonInfo::class], $personInfo);
+        $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
+        $this->setProperty('home', [Location::class], $home);
+        $this->setProperty('contacts', [OrgArray::class], $contacts);
+        $this->setProperty('waitingStartdate', ['string'], $waitingStartDate);
+        $this->setProperty('note', ['string'], $note);
+        $this->setProperty('leaderInterest', ['bool'], $leaderInterest);
     }
 }
