@@ -21,17 +21,17 @@ class ScoutGroup extends OrgObject
     /**
      * Creates a new ScoutGroup with the specified id.
      * @internal
-     * @param int $id The scout group id.
-     * @param string $name
-     * @param OrgArray<int,Member>|IPropertyProvider $members All members of the group.
-     * @param OrgArray<int,Troop>|IPropertyProvider $troops
-     * @param OrgArray<int,Branch>|IPropertyProvider $branches
-     * @param OrgArray<int,RoleGroup>|IPropertyProvider $roleGroups
-     * @param OrgArray<int,CustomList>|IPropertyProvider $customLists
-     * @param OrgArray<int,WaitingList>|IPropertyProvider $waitingList
+     * @param string $source
+     * @param int|string $id
+     * @param MemberArray<int,Member> $members All members of the group.
+     * @param TroopArray<int,Troop> $troops
+     * @param BranchArray<int,Branch> $branches
+     * @param RoleGroupArray<int,RoleGroup> $roleGroups
+     * @param CustomListArray<int,CustomList> $customLists
+     * @param WaitingMemberArray<int,WaitingList> $waitingList
      */
     public function __construct(
-        IObjectMutator $mutator,
+        $source,
         $id,
         $name,
         $members,
@@ -41,8 +41,8 @@ class ScoutGroup extends OrgObject
         $customLists,
         $waitingList
     ) {
-        parent::__construct($mutator, $id);
-        $this->setProperty('name', ['string'], $name, false);
+        parent::__construct($source, $id);
+        $this->setProperty('name', ['string'], $name);
         $this->setProperty('members', [OrgArray::class], $members);
         $this->setProperty('troops', [OrgArray::class], $troops);
         $this->setProperty('branches', [OrgArray::class], $branches);

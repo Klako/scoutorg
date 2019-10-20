@@ -11,22 +11,23 @@ namespace Scoutorg\Lib;
  * A scout patrol that is in a troop.
  * @property-read string $name
  * @property-read Troop $troop
- * @property-read OrgArray<int,Member> $members
+ * @property-read PatrolMemberArray<int,Member> $members
  */
 class Patrol extends OrgObject
 {
     /**
      * Creates a new patrol.
      * @internal
-     * @param int $id
+     * @param string $source
+     * @param int|string $id
      * @param string $name
-     * @param Troop|IPropertyProvider $troop
-     * @param OrgArray<int,Member>|IPropertyProvider $members
+     * @param Troop $troop
+     * @param OrgArray<int,Member> $members
      */
-    public function __construct(IObjectMutator $mutator, $id, $name, $troop, $members)
+    public function __construct($source, $id, $name, $troop, $members)
     {
-        parent::__construct($mutator, $id);
-        $this->setProperty('name', ['string'], $name, false);
+        parent::__construct($source, $id);
+        $this->setProperty('name', ['string'], $name);
         $this->setProperty('troop', [Troop::class], $troop);
         $this->setProperty('members', [OrgArray::class], $members);
     }

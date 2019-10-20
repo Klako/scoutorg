@@ -10,22 +10,22 @@ namespace Scoutorg\Lib;
 /**
  * A group for a special role in the scout group
  * @property-read string $roleName
- * @property-read OrgArray<int,Member> $members
+ * @property-read MemberArray<int,Member> $members
  */
 class RoleGroup extends OrgObject
 {
     /**
      * Creates a new RoleGroup with the specified role.
      * @internal
-     * @param IObjectMutator $mutator
-     * @param int $id
+     * @param string $source
+     * @param int|string $id
      * @param string $roleName
-     * @param OrgArray<int,Member>|IPropertyProvider $members
+     * @param OrgArray<int,Member> $members
      */
-    public function __construct(IObjectMutator $mutator, $id, $roleName, $members)
+    public function __construct($source, $id, $roleName, $members)
     {
-        parent::__construct($mutator, $id);
-        $this->setProperty('roleName', ['string'], $roleName, false);
+        parent::__construct($source, $id);
+        $this->setProperty('roleName', ['string'], $roleName);
         $this->setProperty('members', [OrgArray::class], $members);
     }
 }

@@ -12,7 +12,7 @@ namespace Scoutorg\Lib;
  * @property-read PersonInfo $personInfo
  * @property-read ContactInfo $contactInfo
  * @property-read Location $home
- * @property-read OrgArray<int,Contact> $contacts
+ * @property-read ContactArray<int,Contact> $contacts
  * @property-read string $note
  * @property-read bool $leaderInterest
  */
@@ -21,17 +21,18 @@ class WaitingMember extends OrgObject
     /**
      * Creates a new waiting member
      * @internal
-     * @param int $id
-     * @param PersonInfo|IPropertyProvider $personInfo
-     * @param ContactInfo|IPropertyProvider $contactInfo
-     * @param Location|IPropertyProvider $home
-     * @param Contact[]|IPropertyProvider $contacts
-     * @param string|IPropertyProvider $waitingStartDate
-     * @param string|IPropertyProvider $note
-     * @param bool|IPropertyProvider $leaderInterest
+     * @param string $source
+     * @param int|string $id
+     * @param PersonInfo $personInfo
+     * @param ContactInfo $contactInfo
+     * @param Location $home
+     * @param Contact[] $contacts
+     * @param string $waitingStartDate
+     * @param string $note
+     * @param bool $leaderInterest
      */
     public function __construct(
-        IObjectMutator $mutator,
+        $source,
         $id,
         $personInfo,
         $contactInfo,
@@ -41,7 +42,7 @@ class WaitingMember extends OrgObject
         $note,
         $leaderInterest
     ) {
-        parent::__construct($mutator, $id);
+        parent::__construct($source, $id);
         $this->setProperty('personInfo', [PersonInfo::class], $personInfo);
         $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
         $this->setProperty('home', [Location::class], $home);

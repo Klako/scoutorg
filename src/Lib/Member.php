@@ -23,19 +23,19 @@ class Member extends OrgObject
     /**
      * Creates a new member.
      * @internal
-     * @param IObjectMutator $mutator
-     * @param int $id
+     * @param string $source
+     * @param int|string $id
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param OrgArray<int,Contact>|IPropertyProvider $contacts
+     * @param ContactArray<int,Contact> $contacts
      * @param string $startDate
-     * @param OrgArray<int,Troop>|IPropertyProvider $troops
-     * @param OrgArray<int,Patrol>|IPropertyProvider $patrols
-     * @param OrgArray<int,RoleGroup>|IPropertyProvider $roleGroups
+     * @param TroopMemberArray<int,Troop> $troops
+     * @param PatrolMemberArray<int,Patrol> $patrols
+     * @param RoleGroupArray<int,RoleGroup> $roleGroups
      */
     public function __construct(
-        IObjectMutator $mutator,
+        $source,
         $id,
         $personInfo,
         $contactInfo,
@@ -46,12 +46,12 @@ class Member extends OrgObject
         $patrols,
         $roleGroups
     ) {
-        parent::__construct($mutator, $id);
-        $this->setProperty('personInfo', [PersonInfo::class], $personInfo, false);
-        $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo, false);
-        $this->setProperty('home', [Location::class], $home, false);
+        parent::__construct($source, $id);
+        $this->setProperty('personInfo', [PersonInfo::class], $personInfo);
+        $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
+        $this->setProperty('home', [Location::class], $home);
         $this->setProperty('contacts', [OrgArray::class], $contacts);
-        $this->setProperty('startDate', ['string'], $startDate, false);
+        $this->setProperty('startDate', ['string'], $startDate);
         $this->setProperty('troops', [OrgArray::class], $troops);
         $this->setProperty('patrols', [OrgArray::class], $patrols);
         $this->setProperty('roleGroups', [OrgArray::class], $roleGroups);

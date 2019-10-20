@@ -11,24 +11,24 @@ namespace Scoutorg\Lib;
  * A troop that is in the scout group.
  * @property-read string $name
  * @property-read Branch|null $branch
- * @property-read OrgArray<int,Member> $members
- * @property-read OrgArray<int,Patrol> $patrols
+ * @property-read TroopMemberArray<int,Member> $members
+ * @property-read PatrolArray<int,Patrol> $patrols
  */
 class Troop extends OrgObject
 {
     /**
      * Creates a new troop with the specified info.
      * @internal
-     * @param IObjectMutator $mutator
-     * @param int|IPropertyProvider $id The troop scoutnet id.
-     * @param string|IPropertyProvider $name The troop name.
-     * @param Branch|null|IPropertyProvider $branch
-     * @param OrgArray<int,Member>|IPropertyProvider $members
-     * @param OrgArray<int,Patrol>|IPropertyProvider $patrols
+     * @param string $source
+     * @param int|string $id
+     * @param string $name The troop name.
+     * @param Branch|null $branch
+     * @param OrgArray<int,Member> $members
+     * @param OrgArray<int,Patrol> $patrols
      */
-    public function __construct(IObjectMutator $mutator, $id, $name, $branch, $members, $patrols)
+    public function __construct($source, $id, $name, $branch, $members, $patrols)
     {
-        parent::__construct($mutator, $id);
+        parent::__construct($source, $id);
         $this->setProperty('name', ['string'], $name);
         $this->setProperty('branch', [Branch::class, 'null'], $branch);
         $this->setProperty('members', [OrgArray::class], $members);

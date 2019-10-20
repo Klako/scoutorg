@@ -13,7 +13,7 @@ namespace Scoutorg\Lib;
  * @property-read string $postCode
  * @property-read string $postTowm
  */
-class Location extends OrgObject
+class Location extends ReadOnlyObject
 {
     /**
      * Creates a new location.
@@ -22,11 +22,11 @@ class Location extends OrgObject
      * @param string $postCode The swedish post code of the address.
      * @param string $postTown The town of the post code.
      */
-    public function __construct(IObjectMutator $mutator, $id, $address, $postCode, $postTown)
+    public function __construct($address, $postCode, $postTown)
     {
-        parent::__construct($mutator, $id);
-        $this->setProperty('address', ['string'], $address, false);
-        $this->setProperty('postCode', ['string'], $postCode, false);
-        $this->setProperty('postTown', ['string'], $postTown, false);
+        parent::__construct();
+        $this->setProperty('address', ['string'], $address);
+        $this->setProperty('postCode', ['string'], $postCode);
+        $this->setProperty('postTown', ['string'], $postTown);
     }
 }
