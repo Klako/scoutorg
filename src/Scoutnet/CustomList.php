@@ -24,24 +24,18 @@ class CustomList
 
     /**
      * Creates a new custom list rule entry from a scoutnet entry.
-     * @param JsonReader $jsonReader
+     * @param object $object
      */
-    public function __construct($jsonReader)
+    public function __construct($object)
     {
         $this->properties = [];
-        while ($jsonReader->read()) {
-            if ($jsonReader->name() == 'rules') {
-                $jsonReader->read();
-                $this->properties['rules'] = [];
-                while ($jsonReader->read()) {
-                    if ($jsonReader->type() == JsonReader::END_OBJECT) {
-                        break;
-                    }
-                    $this->properties['rules'][$jsonReader->name()] = new CustomListRule($jsonReader);
-                }
-            } else {
-                $this->properties[$jsonReader->name()] = $jsonReader->value();
-            }
+        $this->properties['id'] = $object->id;
+        $this->properties['title'] = $object->title;
+        $this->properties['list_email_key'] = $object->list_email_key;
+        $this->properties['aliases'] = $object->aliases;
+        $this->properties['rules'] = [];
+        foreach ($object->rules as $id => $rule) {
+            $this->properties['rules'][$id] = new CustomListRule($rule);
         }
     }
 

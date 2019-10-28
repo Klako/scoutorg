@@ -17,7 +17,7 @@ class Value {
      * @param object $object
      */
     public function __construct($object) {
-        $this->value = $object['value'];
+        $this->value = $object->value;
     }
 
     /**

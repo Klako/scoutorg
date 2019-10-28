@@ -21,8 +21,8 @@ class ValueAndRaw {
      * @param object $value
      */
     public function __construct($object) {
-        $this->value = $object['value'];
-        $this->rawValue = $object['raw_value'];
+        $this->value = $object->value;
+        $this->rawValue = $object->raw_value;
     }
 
     /**

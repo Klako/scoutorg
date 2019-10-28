@@ -489,7 +489,7 @@ class ScoutorgFactory
                 if (!isset($this->rolegroups[$roleGroupId])) {
                     $this->rolegroups[$roleGroupId] = [
                         'base' => [
-                            'rolename' => $roleGroup['name']
+                            'rolename' => $roleGroup
                         ],
                         'members' => []
                     ];

@@ -54,8 +54,8 @@ class ScoutnetController
             }
         }
 
-        $jsonReader = $this->connection->fetchGroupInfoApi();
-        $groupInfo = new GroupInfo($jsonReader);
+        $groupInfoObject = $this->connection->fetchGroupInfoApi();
+        $groupInfo = new GroupInfo($groupInfoObject);
 
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource('groupinfo', $groupInfo);
@@ -77,20 +77,12 @@ class ScoutnetController
             }
         }
         
-        $jsonReader = $this->connection->fetchMemberListApi('');
-
-        $jsonReader->read('data');
-        $jsonReader->read();
+        $memberList = $this->connection->fetchMemberListApi('');
 
         $members = [];
-        while ($jsonReader->type() !== JsonReader::END_OBJECT) {
-            $id = intval($jsonReader->name());
-            $jsonReader->read();
-            $members[$id] = new Member($jsonReader);
-            $jsonReader->read();
-        } 
-
-        $jsonReader->close();
+        foreach ($memberList->data as $id => $member) {
+            $members[$id] = new Member($member);
+        }
 
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource('members', $members);
@@ -112,20 +104,12 @@ class ScoutnetController
             }
         }
 
-        $jsonReader = $this->connection->fetchMemberListApi('waiting=1');
-
-        if ($jsonReader->name() !== 'data') {
-            $jsonReader->read('data');
-        }
+        $waitingList = $this->connection->fetchMemberListApi('waiting=1');
 
         $waitingMembers = [];
-        while ($jsonReader->read()) {
-            if ($jsonReader->type() == JsonReader::END_OBJECT) {
-                break;
-            }
-            $waitingMembers[$jsonReader->name()] = new WaitingMember($jsonReader);
+        foreach ($waitingList->data as $id => $waitingMember) {
+            $waitingMembers[$id] = new WaitingMember($waitingMember);
         }
-        $jsonReader->close();
 
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource('waitinglist', $waitingMembers);
@@ -147,16 +131,12 @@ class ScoutnetController
             }
         }
 
-        $jsonReader = $this->connection->fetchCustomListsApi('');
+        $customListsResult = $this->connection->fetchCustomListsApi('');
 
         $customLists = [];
-        while ($jsonReader->read()) {
-            if ($jsonReader->type() == JsonReader::NONE) {
-                break;
-            }
-            $customLists[$jsonReader->name()] = new CustomList($jsonReader);
+        foreach($customListsResult as $id => $customList) {
+            $customLists[$id] = new CustomList($customList);
         }
-        $jsonReader->close();
 
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource('customlists', $customLists);

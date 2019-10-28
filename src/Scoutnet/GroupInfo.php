@@ -13,8 +13,6 @@ use pcrov\JsonReader\JsonReader;
  * @property-read bool $group_email
  * @property-read string $email
  * @property-read string $description
- * @property-read int $below_26
- * @property-read int $active_troops
  */
 class GroupInfo
 {
@@ -22,33 +20,19 @@ class GroupInfo
 
     /**
      * Creates a member object from a json reader
-     * @param JsonReader $jsonReader
+     * @param object $object
      */
-    public function __construct($jsonReader)
+    public function __construct($object)
     {
         $this->properties = [];
-        $jsonReader->read('Group');
-        $jsonReader->read();
-        do {
-            if ($jsonReader->type() == JsonReader::END_OBJECT) {
-                break;
-            }
-            switch ($jsonReader->name()) {
-                case 'name':
-                case 'membercount':
-                case 'rolecount':
-                case 'waitingcount':
-                case 'group_email':
-                case 'email':
-                case 'description':
-                case 'below_26':
-                case 'active_troops':
-                    $this->properties[$jsonReader->name()] = $jsonReader->value();
-                    break;
-                default:
-                    break;
-            }
-        } while ($jsonReader->next());
+        $group = $object->Group;
+        $this->properties['name'] = $group->name;
+        $this->properties['membercount'] = $group->membercount;
+        $this->properties['rolecount'] = $group->rolecount;
+        $this->properties['waitingcount'] = $group->waitingcount;
+        $this->properties['group_email'] = $group->group_email;
+        $this->properties['email'] = $group->email;
+        $this->properties['description'] = $group->description;
     }
 
     public function __get($name)

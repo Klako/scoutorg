@@ -72,10 +72,12 @@ class ScoutnetConnection
 
     public function fetchGroupInfoApi() {
         $groupInfoKey = $this->groupConfig->getGroupInfoKey();
-        $uri = $this->getApiQuery(self::API_GROUPINFO_PATH, '');
-        $groupInfoReader = $this->fetchWebPage($groupInfoKey, $uri);
-
-        return $groupInfoReader;
+        $url = $this->getApiUrl($groupInfoKey, self::API_GROUPINFO_PATH, '');
+        $result = $this->performPageRequest($url);
+        if ($result === false) {
+            return false;
+        }
+        return \json_decode($result);
     }
 
     /**
@@ -88,61 +90,60 @@ class ScoutnetConnection
     public function fetchMemberListApi(string $urlVars)
     {
         $memberListKey = $this->groupConfig->getMemberListKey();
-        $uri = $this->getApiQuery(self::API_MEMBERLIST_PATH, $urlVars);
-        $memberListReader = $this->fetchWebPage($memberListKey, $uri);
-
-        return $memberListReader;
+        $url = $this->getApiUrl($memberListKey, self::API_MEMBERLIST_PATH, $urlVars);
+        $result = $this->performPageRequest($url);
+        if ($result === false) {
+            return false;
+        }
+        return \json_decode($result);
     }
 
     /**
      * Fetches the resulting json object using
      * the scoutnet server's custom list api.
      * @param string $urlVars The uri variables to apply.
-     * @return JsonReader
+     * @return string|false
      */
     public function fetchCustomListsApi(string $urlVars)
     {
         $customListsKey = $this->groupConfig->getCustomListsKey();
-        $uri = $this->getApiQuery(self::API_CUSTOMLISTS_PATH, $urlVars);
-        $customListReader = $this->fetchWebPage($customListsKey, $uri);
-
-        return $customListReader;
+        $url = $this->getApiUrl($customListsKey, self::API_CUSTOMLISTS_PATH, $urlVars);
+        $result = $this->performPageRequest($url);
+        if ($result === false) {
+            return false;
+        }
+        return \json_decode($result);
     }
 
     /**
-     * Fetches a webpage from the url.
-     * @param string $apiKey
-     * @param string $apiQuery
-     * @return JsonReader
+     * Performs one page request.
+     * @param string $url
+     * @return string|false
      */
-    private function fetchWebPage(string $apiKey, string $apiQuery)
-    {
-        $url = $this->getApiUrl($apiKey, $apiQuery);
-        $jsonReader = new JsonReader();
-        $jsonReader->open($url);
-        return $jsonReader;
-    }
-
-    /**
-     * Builds a uri for a resource to be fetched from the scoutnet api.
-     * @param string $apiPath
-     * @param string $urlVars
-     * @return string
-     */
-    private function getApiQuery(string $apiPath, string $urlVars)
-    {
-        return "{$apiPath}?{$urlVars}&format=json";
+    private function performPageRequest(string $url) {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_URL => $url,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_RETURNTRANSFER => true,
+        ]);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
     }
 
     /**
      * Builds a url for fetching a page from the scoutnet api.
      * @param string $apiKey
-     * @param string $apiQuery
+     * @param string $apiPath
+     * @param string $urlVars
      * @return string
      */
-    private function getApiUrl(string $apiKey, string $apiQuery)
+    private function getApiUrl(string $apiKey, string $apiPath, string $urlVars)
     {
         $groupId = $this->groupConfig->getGroupId();
-        return "https://{$groupId}:{$apiKey}@{$this->domain}/{$apiQuery}";
+        return "https://{$groupId}:{$apiKey}@{$this->domain}/{$apiPath}?{$urlVars}&format=json";
     }
 }

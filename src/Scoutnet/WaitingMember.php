@@ -47,26 +47,20 @@ class WaitingMember
 
     /**
      * Creates a member object from a json reader
-     * @param JsonReader $jsonReader
+     * @param object $object
      */
-    public function __construct($jsonReader)
+    public function __construct($object)
     {
         $this->properties = [];
-        while ($jsonReader->read()) {
-            $this->createValue($jsonReader->name(), $jsonReader);
+        foreach ($object as $name => $value) {
+            if (isset($value->raw_value)) {
+                $this->properties[$name] = new ValueAndRaw($value);
+            } else {
+                $this->properties[$name] = new Value($value);
+            }
         }
     }
-
-    private function createValue($name, $jsonReader)
-    {
-        $object = $jsonReader->value();
-        if (isset($object['raw_value'])) {
-            $this->properties[$name] = new ValueAndRaw($object);
-        } else {
-            $this->properties[$name] = new Value($object);
-        }
-    }
-
+    
     public function __get($name)
     {
         return isset($this->properties[$name]) ? $this->properties[$name] : null;

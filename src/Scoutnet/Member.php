@@ -89,29 +89,19 @@ class Member
 
     /**
      * Creates a member object from a json reader
-     * @param JsonReader $jsonReader
+     * @param object $object
      */
-    public function __construct($jsonReader)
+    public function __construct($object)
     {
         $this->properties = [];
-        while ($jsonReader->type() !== JsonReader::END_OBJECT) {
-            if ($jsonReader->name() == 'roles') {
-                $this->properties['roles'] = new Roles($jsonReader->read());
+        foreach ($object as $name => $value) {
+            if ($name == 'roles') {
+                $this->properties['roles'] = new Roles($value);
+            } elseif (isset($value->raw_value)) {
+                $this->properties[$name] = new ValueAndRaw($value);
             } else {
-                $this->createValue($jsonReader->name(), $jsonReader);
+                $this->properties[$name] = new Value($value);
             }
-            $jsonReader->next();
-        }
-        $jsonReader->read();
-    }
-
-    private function createValue($name, $jsonReader)
-    {
-        $object = $jsonReader->value();
-        if (isset($object['raw_value'])) {
-            $this->properties[$name] = new ValueAndRaw($object);
-        } else {
-            $this->properties[$name] = new Value($object);
         }
     }
 
