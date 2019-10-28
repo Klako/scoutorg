@@ -62,9 +62,7 @@ class ScoutorgFactory
             case 'members':
             case 'troops':
             case 'rolegroups':
-                $t = \microtime(true);
                 $this->buildMemberListData($id);
-                echo "built member list data in " . (\microtime(true) - $t) . " seconds\n";
                 break;
             case 'customlists':
                 $this->buildCustomListData($id);
@@ -364,15 +362,12 @@ class ScoutorgFactory
         $this->scoutgroups[$groupId]['troops'] = [];
         $this->scoutgroups[$groupId]['rolegroups'] = [];
 
-        $t = \microtime(true);
         $members = $this->controllers[$groupId]->getMemberList();
-        echo 'Got member list in ' . (\microtime(true) - $t) . " seconds\n";
         $troops = [];
         $patrols = [];
         $troopmembers = [];
         $patrolmembers = [];
 
-        $t = \microtime(true);
         foreach ($members as $memberId => $member) {
             $this->members[$memberId] = [
                 'base' => [
@@ -513,7 +508,6 @@ class ScoutorgFactory
                 ];
             }
         }
-        echo "itarated through memberlist in " . (\microtime(true) - $t) . " seconds\n";
 
         foreach ($patrols as $patrolId => $patrol) {
             if (isset($patrol['base']['name'])) {

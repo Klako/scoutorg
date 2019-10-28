@@ -76,14 +76,8 @@ class ScoutnetController
                 return $cache;
             }
         }
-
-        $t = \microtime(true);
         
         $jsonReader = $this->connection->fetchMemberListApi('');
-
-        echo "Fetched member list in ". (\microtime(true) - $t) . " seconds\n";
-
-        $t = \microtime(true);
 
         $jsonReader->read('data');
         $jsonReader->read();
@@ -97,8 +91,6 @@ class ScoutnetController
         } 
 
         $jsonReader->close();
-
-        echo "Read memberlist data in ". (\microtime(true) - $t) . " seconds\n";
 
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource('members', $members);
