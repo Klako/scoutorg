@@ -11,7 +11,7 @@ namespace Scoutorg\Lib;
  * A scout patrol that is in a troop.
  * @property-read string $name
  * @property-read Troop $troop
- * @property-read PatrolMemberArray<int,Member> $members
+ * @property-read PatrolMemberArray<int,PatrolMember> $members
  */
 class Patrol extends OrgObject
 {

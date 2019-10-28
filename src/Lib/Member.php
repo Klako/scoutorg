@@ -30,8 +30,8 @@ class Member extends OrgObject
      * @param Location $home
      * @param ContactArray<int,Contact> $contacts
      * @param string $startDate
-     * @param TroopMemberArray<int,Troop> $troops
-     * @param PatrolMemberArray<int,Patrol> $patrols
+     * @param TroopMemberArray<int,TroopMember> $troops
+     * @param PatrolMemberArray<int,PatrolMember> $patrols
      * @param RoleGroupArray<int,RoleGroup> $roleGroups
      */
     public function __construct(

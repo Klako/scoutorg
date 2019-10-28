@@ -49,6 +49,6 @@ class WaitingMember extends OrgObject
         $this->setProperty('contacts', [OrgArray::class], $contacts);
         $this->setProperty('waitingStartdate', ['string'], $waitingStartDate);
         $this->setProperty('note', ['string'], $note);
-        $this->setProperty('leaderInterest', ['bool'], $leaderInterest);
+        $this->setProperty('leaderInterest', ['boolean'], $leaderInterest);
     }
 }

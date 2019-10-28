@@ -6,14 +6,6 @@ use Scoutorg\Lib;
 
 class MutableOrgArray extends Lib\OrgArray
 {
-    public function canInsert($orgObject)
-    {
-        if ($this->exists($orgObject->source, $orgObject->id)) {
-            return false;
-        }
-        return true;
-    }
-
     public function insert($orgObject)
     {
         if ($this->exists($orgObject->source, $orgObject->id)){
@@ -21,14 +13,6 @@ class MutableOrgArray extends Lib\OrgArray
         }
         $this->tree[$orgObject->source][$orgObject->id] = $orgObject;
         return true;
-    }
-
-    public function canDelete($source, $index)
-    {
-        if ($this->exists($source, $index)) {
-            return true;
-        }
-        return false;
     }
 
     public function delete($source, $index)

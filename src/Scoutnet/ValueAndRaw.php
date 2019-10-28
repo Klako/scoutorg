@@ -20,9 +20,9 @@ class ValueAndRaw {
      * Creates a new value with raw value from a scoutnet value.
      * @param object $value
      */
-    public function __construct($value) {
-        $this->value = $value->value;
-        $this->rawValue = $value->raw_value;
+    public function __construct($object) {
+        $this->value = $object['value'];
+        $this->rawValue = $object['raw_value'];
     }
 
     /**

@@ -1,30 +1,29 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
 
-class TroopMemberBuilder extends ObjectBuilder
+class PatrolBuilder extends ObjectBuilder
 {
     public function __construct($config, $source, $id, $scoutorg)
     {
         parent::__construct($config, $source, $id, $scoutorg);
     }
-
     public function build()
     {
         $builder = $this->builder;
-        $troopmember = $builder($this->id, 'base');
+        $patrol = $builder($this->source, $this->id, 'base');
 
         $troop = $this->buildSingle('troop', 'troop');
-        $member = $this->buildSingle('member', 'member');
+        $members = $this->buildList('members', 'patrolmember', true);
 
-        return new Lib\TroopMember(
+        return new Lib\Patrol(
             $this->source,
             $this->id,
+            $patrol['name'],
             $troop,
-            $member,
-            $troopmember['role']
+            $members
         );
     }
 }

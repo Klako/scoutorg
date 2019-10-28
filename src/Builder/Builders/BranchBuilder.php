@@ -1,25 +1,28 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
 
-class ContactBuilder extends ObjectBuilder
+class BranchBuilder extends ObjectBuilder
 {
     public function __construct($config, $source, $id, $scoutorg)
     {
         parent::__construct($config, $source, $id, $scoutorg);
     }
+
     public function build()
     {
         $builder = $this->builder;
-        $contact = $builder($this->id, 'base');
+        $branch = $builder($this->source, $this->id, 'base');
 
-        return new Lib\Contact(
+        $troops = $this->buildList('troops', 'troop');
+
+        return new Lib\Branch(
             $this->source,
             $this->id,
-            $contact['name'],
-            $contact['contactinfo']
+            $branch['name'],
+            $troops
         );
     }
 }

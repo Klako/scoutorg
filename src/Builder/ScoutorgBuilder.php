@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Builders;
 
 class ScoutorgBuilder
 {
@@ -49,49 +50,49 @@ class ScoutorgBuilder
         $this->troopmembers = new MutableOrgArray([]);
         $this->patrolmembers = new MutableOrgArray([]);
         $this->types = [
-            'group' => [
+            'scoutgroup' => [
                 'table' => $this->groups,
-                'buildertype' => ScoutGroupBuilder::class
+                'buildertype' => Builders\ScoutGroupBuilder::class
             ],
             'troop' => [
                 'table' => $this->troops,
-                'buildertype' => TroopBuilder::class
+                'buildertype' => Builders\TroopBuilder::class
             ],
             'branch' => [
                 'table' => $this->branches,
-                'buildertype' => BranchBuilder::class
+                'buildertype' => Builders\BranchBuilder::class
             ],
             'patrol' => [
                 'table' => $this->patrols,
-                'buildertype' => PatrolBuilder::class
+                'buildertype' => Builders\PatrolBuilder::class
             ],
             'member' => [
                 'table' => $this->members,
-                'buildertype' => MemberBuilder::class
+                'buildertype' => Builders\MemberBuilder::class
             ],
             'customlist' => [
                 'table' => $this->customlists,
-                'buildertype' => CustomListBuilder::class
+                'buildertype' => Builders\CustomListBuilder::class
             ],
             'rolegroup' => [
                 'table' => $this->rolegroups,
-                'buildertype' => RoleGroupBuilder::class
+                'buildertype' => Builders\RoleGroupBuilder::class
             ],
             'contact' => [
                 'table' => $this->contacts,
-                'buildertype' => ContactBuilder::class
+                'buildertype' => Builders\ContactBuilder::class
             ],
             'waitingmember' => [
                 'table' => $this->waitingmembers,
-                'buildertype' => WaitingMemberBuilder::class
+                'buildertype' => Builders\WaitingMemberBuilder::class
             ],
             'troopmember' => [
                 'table' => $this->troopmembers,
-                'buildertype' => TroopMemberBuilder::class
+                'buildertype' => Builders\TroopMemberBuilder::class
             ],
             'patrolmember' => [
                 'table' => $this->patrolmembers,
-                'buildertype' => PatrolMemberBuilder::class
+                'buildertype' => Builders\PatrolMemberBuilder::class
             ],
         ];
     }

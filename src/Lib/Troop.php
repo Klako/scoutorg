@@ -11,7 +11,7 @@ namespace Scoutorg\Lib;
  * A troop that is in the scout group.
  * @property-read string $name
  * @property-read Branch|null $branch
- * @property-read TroopMemberArray<int,Member> $members
+ * @property-read TroopMemberArray<int,TroopMember> $members
  * @property-read PatrolArray<int,Patrol> $patrols
  */
 class Troop extends OrgObject
@@ -30,7 +30,7 @@ class Troop extends OrgObject
     {
         parent::__construct($source, $id);
         $this->setProperty('name', ['string'], $name);
-        $this->setProperty('branch', [Branch::class, 'null'], $branch);
+        $this->setProperty('branch', [Branch::class, 'NULL'], $branch);
         $this->setProperty('members', [OrgArray::class], $members);
         $this->setProperty('patrols', [OrgArray::class], $patrols);
     }

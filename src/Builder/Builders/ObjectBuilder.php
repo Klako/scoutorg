@@ -1,14 +1,16 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
-class ObjectBuilder
+use Scoutorg\Builder;
+
+abstract class ObjectBuilder
 {
     protected $config;
     /** @var callable $builder */
     protected $builder;
     protected $source, $id;
-    /** @var ScoutorgBuilder $scoutorg */
+    /** @var Builder\ScoutorgBuilder $scoutorg */
     protected $scoutorg;
 
     protected function __construct($config, $source, $id, $scoutorg)

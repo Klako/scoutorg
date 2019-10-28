@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
 
@@ -14,7 +14,7 @@ class WaitingMemberBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $waitingmember = $builder($this->id, 'base');
+        $waitingmember = $builder($this->source, $this->id, 'base');
 
         $contacts = $this->buildList('contacts', 'contact');
 

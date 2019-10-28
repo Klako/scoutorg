@@ -14,10 +14,10 @@ class Value {
 
     /**
      * Creates a new value from a scoutnet value.
-     * @param object $value
+     * @param object $object
      */
-    public function __construct($value) {
-        $this->value = $value->value;
+    public function __construct($object) {
+        $this->value = $object['value'];
     }
 
     /**

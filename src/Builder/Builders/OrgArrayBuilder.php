@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib\OrgArray;
 use Scoutorg\Lib\OrgObject;

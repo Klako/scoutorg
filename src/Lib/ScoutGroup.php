@@ -9,6 +9,7 @@ namespace Scoutorg\Lib;
 
 /**
  * The whole scout group that is part of the scout organisation.
+ * @property-read string $name
  * @property-read OrgArray<int,Member> $members
  * @property-read OrgArray<int,Troop> $troops
  * @property-read OrgArray<int,Branch> $branches
@@ -23,6 +24,7 @@ class ScoutGroup extends OrgObject
      * @internal
      * @param string $source
      * @param int|string $id
+     * @param string $name
      * @param MemberArray<int,Member> $members All members of the group.
      * @param TroopArray<int,Troop> $troops
      * @param BranchArray<int,Branch> $branches

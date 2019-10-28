@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
 
@@ -14,7 +14,7 @@ class CustomListBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $customlist = $builder($this->id, 'base');
+        $customlist = $builder($this->source, $this->id, 'base');
 
         $members = $this->buildList('members', 'member');
         $sublists = $this->buildList('sublists', 'customlist');

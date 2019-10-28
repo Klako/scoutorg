@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
 
@@ -14,7 +14,7 @@ class ScoutGroupBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $scoutgroup = $builder($this->id, 'base');
+        $scoutgroup = $builder($this->source, $this->id, 'base');
 
         $members = $this->buildList('members', 'member');
         $troops = $this->buildList('troops', 'troop');
