@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Configs;
 
 class ContactBuilder extends ObjectBuilder
 {
@@ -13,13 +14,14 @@ class ContactBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $contact = $builder($this->source, $this->id, 'base');
+        /** @var Configs\ContactBase $base */
+        $base = $builder($this->source, $this->id, 'base');
 
         return new Lib\Contact(
             $this->source,
             $this->id,
-            $contact['name'],
-            $contact['contactinfo']
+            $base->name,
+            $base->contactInfo
         );
     }
 }

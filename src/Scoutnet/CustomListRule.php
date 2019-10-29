@@ -37,4 +37,8 @@ class CustomListRule
     {
         return isset($this->properties[$name]) ? $this->properties[$name] : null;
     }
+
+    public function __isset($name){
+        return isset($this->properties[$name]);
+    }
 }

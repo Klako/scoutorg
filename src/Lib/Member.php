@@ -29,7 +29,7 @@ class Member extends OrgObject
      * @param ContactInfo $contactInfo
      * @param Location $home
      * @param ContactArray<int,Contact> $contacts
-     * @param string $startDate
+     * @param string $startdate
      * @param TroopMemberArray<int,TroopMember> $troops
      * @param PatrolMemberArray<int,PatrolMember> $patrols
      * @param RoleGroupArray<int,RoleGroup> $roleGroups
@@ -41,7 +41,7 @@ class Member extends OrgObject
         $contactInfo,
         $home,
         $contacts,
-        $startDate,
+        $startdate,
         $troops,
         $patrols,
         $roleGroups
@@ -51,7 +51,7 @@ class Member extends OrgObject
         $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
         $this->setProperty('home', [Location::class], $home);
         $this->setProperty('contacts', [OrgArray::class], $contacts);
-        $this->setProperty('startDate', ['string'], $startDate);
+        $this->setProperty('startdate', ['string'], $startdate);
         $this->setProperty('troops', [OrgArray::class], $troops);
         $this->setProperty('patrols', [OrgArray::class], $patrols);
         $this->setProperty('roleGroups', [OrgArray::class], $roleGroups);

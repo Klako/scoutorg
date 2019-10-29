@@ -12,7 +12,7 @@ class ReadOnlyObject
         $this->properties = [];
     }
 
-    protected final function setProperty(string $name, array $types, $value)
+    protected function setProperty(string $name, array $types, $value)
     {
         assert(
             \in_array($valueType = \gettype($value), $types)
@@ -23,7 +23,7 @@ class ReadOnlyObject
         $this->properties[$name] = new Property($types, $value);
     }
 
-    public final function __get($name)
+    public function __get($name)
     {
         if (\array_key_exists($name, $this->properties)) {
             if (is_callable($this->properties[$name]->value)) {
@@ -38,5 +38,9 @@ class ReadOnlyObject
             }
             return $this->properties[$name]->value;
         }
+    }
+
+    public function __isset($name){
+        return isset($this->properties[$name]);
     }
 }

@@ -8,6 +8,7 @@
 namespace Scoutorg\Scoutnet;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Configs;
 
 /**
  * Contains fields equivalent to an
@@ -66,6 +67,10 @@ class WaitingMember
         return isset($this->properties[$name]) ? $this->properties[$name] : null;
     }
 
+    public function __isset($name){
+        return isset($this->properties[$name]);
+    }
+
     /**
      * Gets the person info of the waiting member as a new instance.
      * @return Lib\PersonInfo
@@ -120,31 +125,33 @@ class WaitingMember
         $contacts = [];
         // Create contact 1
         if (isset($this->properties['contact_mothers_name'])) {
-            $phoneNumbers = [
-                $this->properties['contact_mobile_mum']->value,
-            ];
-            $emails = [
-                $this->properties['contact_email_mum']->value,
-            ];
-            $contactInfo = new Lib\ContactInfo($phoneNumbers, $emails);
-            $contacts["{$this->properties['member_no']->value}-1"] = [
-                'name' => $this->properties['contact_mothers_name']->value,
-                'contactinfo' => $contactInfo
-            ];
+            $phoneNumbers = [];
+            if (isset($this->properties['contact_mobile_mum'])) {
+                $phoneNumbers[] = $this->properties['contact_mobile_mum']->value;
+            }
+            $emails = [];
+            if (isset($this->properties['contact_email_mum'])) {
+                $emails[] = $this->properties['contact_email_mum']->value;
+            }
+            $contacts["{$this->properties['member_no']->value}-1"] = new Configs\ContactBase(
+                $this->properties['contact_mothers_name']->value,
+                new Lib\ContactInfo($phoneNumbers, $emails)
+            );
         }
         // Create contact 2
         if (isset($this->properties['contact_fathers_name'])) {
-            $phoneNumbers = [
-                $this->properties['contact_mobile_dad']->value,
-            ];
-            $emails = [
-                $this->properties['contact_email_dad']->value,
-            ];
-            $contactInfo = new Lib\ContactInfo($phoneNumbers, $emails);
-            $contacts["{$this->properties['member_no']->value}-2"] = [
-                'name' => $this->properties['contact_fathers_name']->value,
-                'contactinfo' => $contactInfo
-            ];
+            $phoneNumbers = [];
+            if (isset($this->properties['contact_mobile_dad'])) {
+                $phoneNumbers[] = $this->properties['contact_mobile_dad']->value;
+            }
+            $emails = [];
+            if (isset($this->properties['contact_email_dad'])) {
+                $emails[] = $this->properties['contact_email_dad']->value;
+            }
+            $contacts["{$this->properties['member_no']->value}-2"] = new Configs\ContactBase(
+                $this->properties['contact_fathers_name']->value,
+                new Lib\ContactInfo($phoneNumbers, $emails)
+            );
         }
         return $contacts;
     }

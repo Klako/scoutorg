@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Configs;
 
 class RoleGroupBuilder extends ObjectBuilder
 {
@@ -14,14 +15,15 @@ class RoleGroupBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $rolegroup = $builder($this->source, $this->id, 'base');
+        /** @var Configs\RoleGroupBase $base */
+        $base = $builder($this->source, $this->id, 'base');
 
         $members = $this->buildList('members', 'member');
 
         return new Lib\RoleGroup(
             $this->source,
             $this->id,
-            $rolegroup['rolename'],
+            $base->rolename,
             $members
         );
     }

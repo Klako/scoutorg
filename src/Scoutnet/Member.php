@@ -8,8 +8,7 @@
 namespace Scoutorg\Scoutnet;
 
 use Scoutorg\Lib;
-use Scoutorg\Lib\Contact;
-use pcrov\JsonReader\JsonReader;
+use Scoutorg\Builder\Configs;
 
 /**
  * Contains fields equivalent to the data received through
@@ -110,6 +109,10 @@ class Member
         return isset($this->properties[$name]) ? $this->properties[$name] : null;
     }
 
+    public function __isset($name){
+        return isset($this->properties[$name]);
+    }
+
     /**
      * Gets the person info of the member.
      * @return Lib\PersonInfo
@@ -160,6 +163,9 @@ class Member
         );
     }
 
+    /**
+     * @return Configs\ContactBase[]
+     */
     public function getContacts()
     {
         $contacts = [];
@@ -176,13 +182,10 @@ class Member
             if (isset($this->properties['contact_email_mum'])) {
                 $emails[] = $this->properties['contact_email_mum']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-1"] = [
-                'name' => $this->properties['contact_mothers_name']->value,
-                'contactinfo' => new Lib\ContactInfo(
-                    $phoneNumbers,
-                    $emails
-                )
-            ];
+            $contacts["{$this->properties['member_no']->value}-1"] = new Configs\ContactBase(
+                $this->properties['contact_mothers_name']->value,
+                new Lib\ContactInfo($phoneNumbers, $emails)
+            );
         }
         // Create contact 2
         if (isset($this->properties['contact_fathers_name'])) {
@@ -197,13 +200,10 @@ class Member
             if (isset($this->properties['contact_email_dad'])) {
                 $emails[] = $this->properties['contact_email_dad']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-2"] = [
-                'name' => $this->properties['contact_fathers_name']->value,
-                'contactinfo' => new Lib\ContactInfo(
-                    $phoneNumbers,
-                    $emails
-                )
-            ];
+            $contacts["{$this->properties['member_no']->value}-2"] = new Configs\ContactBase(
+                $this->properties['contact_fathers_name']->value,
+                new Lib\ContactInfo($phoneNumbers, $emails)
+            );
         }
         return $contacts;
     }
@@ -211,19 +211,10 @@ class Member
     public function getTroops()
     {
         $troops = [];
-        if (isset($this->properties['unit'])) {
-            $troops[$this->properties['unit']->rawValue] = [
-                'name' => $this->properties['unit']->value
-            ];
-        }
         foreach ($this->properties['roles']->troopRoles as $troopId => $troopRole) {
-            if (isset($troops[$troopId])) {
-                $troops[$troopId]['role'] = $troopRole;
-            } else {
-                $troops[$troopId] = [
-                    'role' => $troopRole,
-                ];
-            }
+            $troops[$troopId] = [
+                'role' => $troopRole
+            ];
         }
         return $troops;
     }
@@ -231,19 +222,10 @@ class Member
     public function getPatrols()
     {
         $patrols = [];
-        if (isset($this->properties['patrol'])) {
-            $patrols[$this->properties['patrol']->rawValue] = [
-                'name' => $this->properties['patrol']->value
-            ];
-        }
         foreach ($this->properties['roles']->patrolRoles as $patrolId => $patrolRole) {
-            if (isset($patrols[$patrolId])) {
-                $patrols[$patrolId]['role'] = $patrolRole;
-            } else {
-                $patrols[$patrolId] = [
-                    'role' => $patrolRole,
-                ];
-            }
+            $patrols[$patrolId] = [
+                'role' => $patrolRole
+            ];
         }
         return $patrols;
     }

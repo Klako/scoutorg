@@ -7,6 +7,8 @@
 
 namespace Scoutorg\Scoutnet;
 
+use Scoutorg\Builder\Configs;
+
 /**
  * Builds a scout group from scoutnet.
  */
@@ -83,15 +85,18 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->members[$id])) {
-                break;
+        if (!isset($this->members[$id])) {
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->members[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->members[$id])) {
+                return false;
             }
         }
-        if (!isset($this->members[$id])) {
-            return false;
-        }
+
 
         switch ($method) {
             case 'base':
@@ -113,14 +118,16 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->troops[$id])) {
-                break;
-            }
-        }
         if (!isset($this->troops[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->troops[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->troops[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -142,15 +149,16 @@ class ScoutorgFactory
         if ($source !== 'scoutnet') {
             return false;
         }
-
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->troopMembers[$id])) {
-                break;
-            }
-        }
         if (!isset($this->troopMembers[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->troopMembers[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->troopMembers[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -171,14 +179,16 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->patrols[$id])) {
-                break;
-            }
-        }
         if (!isset($this->patrols[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->patrols[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->patrols[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -199,14 +209,16 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->patrolMembers[$id])) {
-                break;
-            }
-        }
         if (!isset($this->patrolMembers[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->patrolMembers[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->patrolMembers[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -227,14 +239,16 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            if (isset($this->roleGroups[$id])) {
-                break;
-            }
-        }
         if (!isset($this->roleGroups[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                if (isset($this->roleGroups[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->roleGroups[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -254,15 +268,17 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildMemberListData($controller->getGroupId());
-            $this->buildWaitingListData($controller->getGroupId());
-            if (isset($this->contacts[$id])) {
-                break;
-            }
-        }
         if (!isset($this->contacts[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildMemberListData($controller->getGroupId());
+                $this->buildWaitingListData($controller->getGroupId());
+                if (isset($this->contacts[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->contacts[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -287,9 +303,9 @@ class ScoutorgFactory
                     break;
                 }
             }
-        }
-        if (!isset($this->customLists[$id])) {
-            return false;
+            if (!isset($this->customLists[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -312,14 +328,16 @@ class ScoutorgFactory
             return false;
         }
 
-        foreach ($this->controllers as $controller) {
-            $this->buildWaitingListData($controller->getGroupId());
-            if (isset($this->members[$id])) {
-                break;
-            }
-        }
         if (!isset($this->members[$id])) {
-            return false;
+            foreach ($this->controllers as $controller) {
+                $this->buildWaitingListData($controller->getGroupId());
+                if (isset($this->members[$id])) {
+                    break;
+                }
+            }
+            if (!isset($this->members[$id])) {
+                return false;
+            }
         }
 
         switch ($method) {
@@ -345,9 +363,7 @@ class ScoutorgFactory
         }
         $scoutgroup = $this->controllers[$groupId]->getGroupInfo();
 
-        $this->scoutgroups[$groupId]['base'] = [
-            'name' => $scoutgroup->name
-        ];
+        $this->scoutgroups[$groupId]['base'] = new Configs\ScoutGroupBase($scoutgroup->name);
     }
 
     private function buildMemberListData($groupId)
@@ -363,191 +379,114 @@ class ScoutorgFactory
         $this->scoutgroups[$groupId]['rolegroups'] = [];
 
         $members = $this->controllers[$groupId]->getMemberList();
-        $troops = [];
-        $patrols = [];
-        $troopmembers = [];
-        $patrolmembers = [];
 
+        // Construct troops and patrols.
+        foreach ($members as $member) {
+            if (isset($member->unit)) {
+                $troopId = intval($member->unit->rawValue);
+                if (!isset($this->troops[$troopId])) {
+                    $this->troops[$troopId] = [
+                        'base' => new Configs\TroopBase($member->unit->value),
+                        'members' => [],
+                        'patrols' => [],
+                    ];
+                    $this->scoutgroups[$groupId]['troops'][] = new Configs\Uid('scoutnet', $troopId);
+                }
+
+                if (isset($member->patrol)) {
+                    $patrolId = intval($member->patrol->rawValue);
+                    if (!isset($this->patrols[$patrolId])) {
+                        $this->patrols[$patrolId] = [
+                            'base' => new Configs\PatrolBase($member->patrol->value),
+                            'members' => [],
+                        ];
+                        $this->troops[$troopId]['patrols'][] = new Configs\Uid('scoutnet', $patrolId);
+                    }
+                }
+            }
+        }
+
+        // Construct members and rolegroups.
         foreach ($members as $memberId => $member) {
             $this->members[$memberId] = [
-                'base' => [
-                    'personinfo' => $member->getPersonInfo(),
-                    'contactinfo' => $member->getContactInfo(),
-                    'home' => $member->getHome(),
-                    'startdate' => $member->confirmed_at->value,
-                ],
+                'base' => new Configs\MemberBase(
+                    $member->getPersonInfo(),
+                    $member->getContactInfo(),
+                    $member->getHome(),
+                    $member->confirmed_at->value
+                ),
                 'troops' => [],
                 'patrols' => [],
                 'rolegroups' => [],
                 'contacts' => [],
             ];
-            $this->scoutgroups[$groupId]['members'][] = [
-                'source' => 'scoutnet',
-                'id' => $memberId
-            ];
+            $this->scoutgroups[$groupId]['members'][] = new Configs\Uid('scoutnet', $memberId);
 
             foreach ($member->getContacts() as $contactId => $contact) {
                 $this->contacts[$contactId] = [
                     'base' => $contact
                 ];
-                $this->members[$memberId]['contacts'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $contactId
-                ];
+                $this->members[$memberId]['contacts'][] = new Configs\Uid('scoutnet', $contactId);
             }
 
             foreach ($member->getTroops() as $troopId => $troop) {
-                $troopMemberId = "$troopId-{$memberId}";
+                $troopMemberId = "$troopId-$memberId";
 
-                if (isset($troops[$troopId])) {
-                    if (!isset($troops[$troopId]['base']['name']) && isset($troop['name'])) {
-                        $troops[$troopId]['base']['name'] = $troop['name'];
-                    }
-                } else {
-                    $troops[$troopId] = [
-                        'base' => [
-                            'name' => isset($troop['name']) ? $troop['name'] : null,
-                        ],
-                        'members' => [],
-                        'patrols' => [],
+                if (isset($this->troops[$troopId])) {
+                    $this->troops[$troopId]['members'][] = new Configs\LinkUid(
+                        'scoutnet',
+                        $troopMemberId,
+                        'scoutnet',
+                        $memberId
+                    );
+                    $this->troopMembers[$troopMemberId] = [
+                        'base' => new Configs\TroopMemberBase($troop['role']),
+                        'troop' => new Configs\Uid('scoutnet', $troopId),
+                        'member' => new Configs\Uid('scoutnet', $memberId),
                     ];
+                    $this->members[$memberId]['troops'][] = new Configs\LinkUid(
+                        'scoutnet',
+                        $troopMemberId,
+                        'scoutnet',
+                        $troopId
+                    );
                 }
-
-                $troops[$troopId]['members'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $troopMemberId,
-                    'target' => [
-                        'source' => 'scoutnet',
-                        'id' => $memberId,
-                    ]
-                ];
-
-                $troopmembers[$troopMemberId] = [
-                    'base' => [
-                        'role' => isset($troop['role']) ? $troop['role'] : '',
-                    ],
-                    'troop' => [
-                        'source' => 'scoutnet',
-                        'id' => $troopId,
-                    ],
-                    'member' => [
-                        'source' => 'scoutnet',
-                        'id' => $memberId,
-                    ],
-                ];
             }
 
             foreach ($member->getPatrols() as $patrolId => $patrol) {
                 $patrolMemberId = "$patrolId-$memberId";
 
-                if (isset($patrols[$patrolId])) {
-                    if (!isset($patrols[$patrolId]['name']) && isset($patrol['name'])) {
-                        $patrols[$patrolId]['name'] = $patrol['name'];
-                        $patrols[$patrolId]['troop'] = [
-                            'source' => 'scoutnet',
-                            'id' => intval($member->unit->rawValue)
-                        ];
-                    }
-                } else {
-                    $patrols[$patrolId] = [
-                        'base' => [
-                            'name' => isset($patrol['name']) ? $patrol['name'] : null,
-                        ],
-                        'troop' => isset($patrol['name']) ? [
-                            'source' => 'scoutnet',
-                            'id' => intval($member->unit->rawValue)
-                        ] : null,
-                        'members' => []
+                if (isset($this->patrols[$patrolId])) {
+                    $this->patrols[$patrolId]['members'][] = new Configs\LinkUid(
+                        'scoutnet',
+                        $patrolMemberId,
+                        'scoutnet',
+                        $memberId
+                    );
+                    $this->patrolMembers[$patrolMemberId] = [
+                        'base' => new Configs\PatrolMemberBase($patrol['role']),
+                        'patrol' => new Configs\Uid('scoutnet', $patrolId),
+                        'member' => new Configs\Uid('scoutnet', $memberId),
                     ];
+                    $this->members[$memberId]['patrols'][] = new Configs\LinkUid(
+                        'scoutnet',
+                        $patrolMemberId,
+                        'scoutnet',
+                        $patrolId
+                    );
                 }
-
-                $patrols[$patrolId]['members'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $patrolMemberId,
-                    'target' => [
-                        'source' => 'scoutnet',
-                        'id' => intval($member->member_no->value),
-                    ]
-                ];
-
-                $patrolmembers[$patrolMemberId] = [
-                    'base' => [
-                        'role' => isset($patrol['role']) ? $patrol['role'] : '',
-                    ],
-                    'patrol' => [
-                        'source' => 'scoutnet',
-                        'id' => $patrolId,
-                    ],
-                    'member' => [
-                        'source' => 'scoutnet',
-                        'id' => $memberId,
-                    ],
-                ];
             }
 
             foreach ($member->getRoleGroups() as $roleGroupId => $roleGroup) {
-                if (!isset($this->rolegroups[$roleGroupId])) {
-                    $this->rolegroups[$roleGroupId] = [
-                        'base' => [
-                            'rolename' => $roleGroup
-                        ],
+                if (!isset($this->roleGroups[$roleGroupId])) {
+                    $this->roleGroups[$roleGroupId] = [
+                        'base' => new Configs\RoleGroupBase($roleGroup),
                         'members' => []
                     ];
+                    $this->scoutgroups[$groupId]['rolegroups'][] = new Configs\Uid('scoutnet', $roleGroupId);
                 }
-                $this->roleGroups[$roleGroupId]['members'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $memberId
-                ];
-                $this->members[$memberId]['rolegroups'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $roleGroupId
-                ];
-                $this->scoutgroups[$groupId]['rolegroups'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $roleGroupId
-                ];
-            }
-        }
-
-        foreach ($patrols as $patrolId => $patrol) {
-            if (isset($patrol['base']['name'])) {
-                $this->patrols[$patrolId] = $patrol;
-                $troops[$patrol['troop']['id']]['patrols'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $patrolId,
-                ];
-                foreach ($patrol['members'] as $patrolmember) {
-                    $this->members['patrols'][] = [
-                        'source' => 'scoutnet',
-                        'id' => $patrolmember['id'],
-                        'target' => [
-                            'source' => 'scoutnet',
-                            'id' => $patrolId
-                        ]
-                    ];
-                    $this->patrolMembers[$patrolmember['id']] = $patrolmembers[$patrolmember['id']];
-                }
-            }
-        }
-
-        foreach ($troops as $troopId => $troop) {
-            if (isset($troop['base']['name'])) {
-                $this->troops[$troopId] = $troop;
-                foreach ($troop['members'] as $troopmember) {
-                    $this->members['troops'][] = [
-                        'source' => 'scoutnet',
-                        'id' => $troopmember['id'],
-                        'target' => [
-                            'source' => 'scoutnet',
-                            'id' => $troopId
-                        ]
-                    ];
-                    $this->troopMembers[$troopmember['id']] = $troopmembers[$troopmember['id']];
-                }
-                $this->scoutgroups[$groupId]['troops'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $troopId
-                ];
+                $this->roleGroups[$roleGroupId]['members'][] = new Configs\Uid('scoutnet', $memberId);
+                $this->members[$memberId]['rolegroups'][] = new Configs\Uid('scoutnet', $roleGroupId);
             }
         }
     }
@@ -560,31 +499,25 @@ class ScoutorgFactory
             return;
         }
 
+        $this->scoutgroups[$groupId]['customlists'] = [];
+
         $customlists = $this->controllers[$groupId]->getCustomLists();
 
         foreach ($customlists as $customListId => $customList) {
             $this->customLists[$customListId] = [
-                'base' => [
-                    'title' => $customList->title,
-                    'description' => $customList->description
-                ],
+                'base' => new Configs\CustomListBase($customList->title, $customList->description),
                 'members' => [],
                 'sublists' => []
             ];
+            $this->scoutgroups[$groupId]['customlists'][] = new Configs\Uid('scoutnet', $customListId);
             foreach ($customList->rules as $ruleId => $rule) {
                 $ruleListId = "$customListId-$ruleId";
                 $this->customLists[$ruleListId] = [
-                    'base' => [
-                        'title' => $rule->title,
-                        'description' => ''
-                    ],
+                    'base' => new Configs\CustomListBase($rule->title, ''),
                     'members' => null,
                     'sublists' => []
                 ];
-                $this->customLists[$customListId]['sublists'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $ruleListId
-                ];
+                $this->customLists[$customListId]['sublists'][] = new Configs\Uid('scoutnet', $ruleListId);
             }
         }
     }
@@ -622,10 +555,10 @@ class ScoutorgFactory
 
         $members = $this->controllers[$groupId]->getCustomListMembers($listId, $ruleId);
         foreach ($members as $member) {
-            $this->customLists[$customListId]['members'][] = [
-                'source' => 'scoutnet',
-                'id' => intval($member->member_no->value)
-            ];
+            $this->customLists[$customListId]['members'][] = new Configs\Uid(
+                'scoutnet',
+                intval($member->member_no->value)
+            );
         }
     }
 
@@ -642,14 +575,15 @@ class ScoutorgFactory
         foreach ($waitingMembers as $waitingMember) {
             $memberId = intval($waitingMember->member_no->value);
             $this->waitingMembers[$memberId] = [
-                'base' => [
-                    'personinfo' => $waitingMember->getPersonInfo(),
-                    'contactinfo' => $waitingMember->getContactInfo(),
-                    'home' => $waitingMember->getHome(),
-                    'waitingstartdate' => $waitingMember->waiting_since->value,
-                    'note' => $waitingMember->note->value,
-                    'leaderinterest' => boolval($waitingMember->contact_leader_interest->value)
-                ],
+                'base' => new Configs\WaitingMemberBase(
+                    $waitingMember->getPersonInfo(),
+                    $waitingMember->getContactInfo(),
+                    $waitingMember->getHome(),
+                    $waitingMember->waiting_since->value,
+                    isset($waitingMember->note) ? $waitingMember->note->value : '',
+                    isset($waitingMember->contact_leader_interest) ?
+                        boolval($waitingMember->contact_leader_interest->value) : false
+                ),
                 'contacts' => []
             ];
 
@@ -657,10 +591,7 @@ class ScoutorgFactory
                 $this->contacts[$contactId] = [
                     'base' => $contact
                 ];
-                $this->waitingMembers[$memberId]['contacts'][] = [
-                    'source' => 'scoutnet',
-                    'id' => $contactId
-                ];
+                $this->waitingMembers[$memberId]['contacts'][] = new Configs\Uid('scoutnet', $contactId);
             }
         }
     }

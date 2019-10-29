@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Configs;
 
 class TroopMemberBuilder extends ObjectBuilder
 {
@@ -14,7 +15,8 @@ class TroopMemberBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
-        $troopmember = $builder($this->source, $this->id, 'base');
+        /** @var Configs\TroopMemberBase $base */
+        $base = $builder($this->source, $this->id, 'base');
 
         $troop = $this->buildSingle('troop', 'troop');
         $member = $this->buildSingle('member', 'member');
@@ -24,7 +26,7 @@ class TroopMemberBuilder extends ObjectBuilder
             $this->id,
             $troop,
             $member,
-            $troopmember['role']
+            $base->role
         );
     }
 }

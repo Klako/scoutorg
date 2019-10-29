@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib;
+use Scoutorg\Builder\Configs;
 
 class WaitingMemberBuilder extends ObjectBuilder
 {
@@ -14,6 +15,7 @@ class WaitingMemberBuilder extends ObjectBuilder
     public function build()
     {
         $builder = $this->builder;
+        /** @var Configs\WaitingMemberBase $base */
         $waitingmember = $builder($this->source, $this->id, 'base');
 
         $contacts = $this->buildList('contacts', 'contact');
@@ -21,13 +23,13 @@ class WaitingMemberBuilder extends ObjectBuilder
         return new Lib\WaitingMember(
             $this->source,
             $this->id,
-            $waitingmember['personinfo'],
-            $waitingmember['contactinfo'],
-            $waitingmember['home'],
+            $base->personInfo,
+            $base->contactInfo,
+            $base->home,
             $contacts,
-            $waitingmember['waitingstartdate'],
-            $waitingmember['note'],
-            $waitingmember['leaderinterest']
+            $base->waitingStartdate,
+            $base->note,
+            $base->leaderInterest
         );
     }
 }

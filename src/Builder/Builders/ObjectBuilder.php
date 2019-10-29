@@ -3,6 +3,7 @@
 namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Builder;
+use Scoutorg\Builder\Configs;
 
 abstract class ObjectBuilder
 {
@@ -30,16 +31,12 @@ abstract class ObjectBuilder
             $array = new OrgArrayBuilder();
             $builders = $this->config['builders'];
             foreach ($builders as $builder) {
+                /** @var Configs\Uid[] $relations */
                 $relations = $builder($this->source, $this->id, $buildermethod);
                 foreach ($relations as $relation) {
-                    $orgObject = $this->scoutorg->get($scoutorgtype, $relation['source'], $relation['id']);
+                    $orgObject = $this->scoutorg->get($scoutorgtype, $relation->source, $relation->id);
                     if ($orgObject) {
-                        if ($isIntermediary) {
-                            $forcedIndex = $relation['target'];
-                        } else {
-                            $forcedIndex = null;
-                        }
-                        $array->addObject($orgObject, $forcedIndex);
+                        $array->addObject($orgObject);
                     } else {
                         // TODO: Send error, orgobject doesn't exist.
                     }
@@ -49,10 +46,34 @@ abstract class ObjectBuilder
         };
     }
 
+    protected function buildLinkList($buildermethod, $scoutorgtype)
+    {
+        return function ($that) use ($buildermethod, $scoutorgtype) {
+            $array = new OrgArrayBuilder();
+            $builders = $this->config['builders'];
+            foreach ($builders as $builder) {
+                /** @var Configs\LinkUid[] $relations */
+                $relations = $builder($this->source, $this->id, $buildermethod);
+                foreach ($relations as $relation) {
+                    $orgObject = $this->scoutorg->get($scoutorgtype, $relation->source, $relation->id);
+                    if ($orgObject) {
+                        $array->addObject($orgObject, [
+                            'source' => $relation->targetSource,
+                            'id' => $relation->targetId
+                        ]);
+                    } else {
+                        // TODO: Send error, orgobject doesn't exist.
+                    }
+                }
+            }
+        };
+    }
+
     protected function buildSingle($buildermethod, $scoutorgtype)
     {
         return function ($that) use ($buildermethod, $scoutorgtype) {
             $builders = $this->config['builders'];
+            /** @var Configs\Uid|bool $relation */
             $relation = false;
             foreach ($builders as $builder) {
                 $result = $builder($this->source, $this->id, $buildermethod);
@@ -65,7 +86,7 @@ abstract class ObjectBuilder
             if (!$relation) {
                 return null;
             }
-            $orgObject = $this->scoutorg->get($scoutorgtype, $relation['source'], $relation['id']);
+            $orgObject = $this->scoutorg->get($scoutorgtype, $relation->source, $relation->id);
             if (!$orgObject) {
                 // TODO: Send error, orgobject doesn't exist.
                 return null;
