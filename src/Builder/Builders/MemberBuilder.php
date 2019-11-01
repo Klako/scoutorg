@@ -7,25 +7,25 @@ use Scoutorg\Builder\Configs;
 
 class MemberBuilder extends ObjectBuilder
 {
-    public function __construct($config, $source, $id, $scoutorg)
+    public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $source, $id, $scoutorg);
+        parent::__construct($config, $scoutorg);
     }
-    
-    public function build()
-    {
-        $builder = $this->builder;
-        /** @var Configs\MemberBase $base */
-        $base = $builder($this->source, $this->id, 'base');
 
-        $contacts = $this->buildList('contacts', 'contact');
-        $troops = $this->buildLinkList('troops', 'troopmember');
-        $patrols = $this->buildLinkList('patrols', 'patrolmember');
-        $rolegroups = $this->buildList('rolegroups', 'rolegroup');
+    public function build($source, $id)
+    {
+        $builder = $this->config['builders'][$source];
+        /** @var Configs\MemberBase $base */
+        $base = $builder($source, $id, 'base');
+
+        $contacts = $this->buildList('contacts', Lib\Contact::class, $source, $id);
+        $troops = $this->buildLinkList('troops', Lib\TroopMember::class, $source, $id);
+        $patrols = $this->buildLinkList('patrols', Lib\PatrolMember::class, $source, $id);
+        $rolegroups = $this->buildList('rolegroups', Lib\RoleGroup::class, $source, $id);
 
         return new Lib\Member(
-            $this->source,
-            $this->id,
+            $source,
+            $id,
             $base->personInfo,
             $base->contactInfo,
             $base->home,

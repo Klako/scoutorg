@@ -25,22 +25,7 @@ class ScoutnetController
 
     /** @var int The ttl of the long lived cache in seconds. zero = disabled. */
     private $cacheTtl;
-
-    /** @var GroupInfo short lived cache */
-    private $groupInfo;
-
-    /** @var Members[] short lived cache */
-    private $memberList;
-
-    /** @var WaitingMember[] short lived cache */
-    private $waitingList;
-
-    /** @var CustomList[] short lived cache */
-    private $customLists;
-
-    /** @var CustomListMember[][] short lived cache */
-    private $customListsMembers;
-
+    
     /**
      * Creates a new scoutnet group link.
      * @param ScoutnetConnection $connection
@@ -62,10 +47,6 @@ class ScoutnetController
 
     public function getGroupInfo()
     {
-        if ($this->groupInfo) {
-            return $this->groupInfo;
-        }
-
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $cache = $this->getCacheResource('groupinfo');
             if ($cache) {
@@ -80,8 +61,6 @@ class ScoutnetController
             $this->setCacheResource('groupinfo', $groupInfo);
         }
 
-        $this->groupInfo = $groupInfo;
-
         return $groupInfo;
     }
 
@@ -91,10 +70,6 @@ class ScoutnetController
      */
     public function getMemberList()
     {
-        if ($this->memberList) {
-            return $this->memberList;
-        }
-
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $cache = $this->getCacheResource('members');
             if ($cache) {
@@ -113,8 +88,6 @@ class ScoutnetController
             $this->setCacheResource('members', $members);
         }
 
-        $this->memberList = $members;
-
         return $members;
     }
 
@@ -124,10 +97,6 @@ class ScoutnetController
      */
     public function getWaitingList()
     {
-        if ($this->waitingList) {
-            return $this->waitingList;
-        }
-
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $cache = $this->getCacheResource('waitinglist');
             if ($cache) {
@@ -146,8 +115,6 @@ class ScoutnetController
             $this->setCacheResource('waitinglist', $waitingMembers);
         }
 
-        $this->waitingList = $waitingMembers;
-
         return $waitingMembers;
     }
 
@@ -157,10 +124,6 @@ class ScoutnetController
      */
     public function getCustomLists()
     {
-        if ($this->customLists) {
-            return $this->customLists;
-        }
-
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $cache = $this->getCacheResource('customlists');
             if ($cache) {
@@ -179,8 +142,6 @@ class ScoutnetController
             $this->setCacheResource('customlists', $customLists);
         }
 
-        $this->customLists = $customLists;
-
         return $customLists;
     }
 
@@ -193,10 +154,6 @@ class ScoutnetController
      */
     public function getCustomListMembers(int $listId, int $ruleId = CustomListRuleEntry::NO_RULE_ID)
     {
-        if (isset($this->customListsMembers["$listId-$ruleId"])){
-            return $this->customListsMembers["$listId-$ruleId"];
-        }
-
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $cache = $this->getCacheResource("customlistmembers:$listId:$ruleId");
             if ($cache) {
@@ -219,8 +176,6 @@ class ScoutnetController
         if ($this->cacheTtl !== self::CACHE_DISABLE) {
             $this->setCacheResource("customlistmembers:$listId:$ruleId", $customListMembers);
         }
-
-        $this->customListsMembers["$listId-$ruleId"] = $customListMembers;
 
         return $customListMembers;
     }

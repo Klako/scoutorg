@@ -9,113 +9,51 @@ class ScoutorgBuilder
 {
     private $config;
 
-    /** @var Lib\MutableOrgArray<mixed,Lib\ScoutGroup> */
-    private $groups;
-    /** @var Lib\MutableOrgArray<mixed,Lib\Troop> */
-    private $troops;
-    /** @var Lib\MutableOrgArray<mixed,Lib\Branch> */
-    private $branches;
-    /** @var Lib\MutableOrgArray<mixed,Lib\Patrol> */
-    private $patrols;
-    /** @var Lib\MutableOrgArray<mixed,Lib\Member> */
-    private $members;
-    /** @var Lib\MutableOrgArray<mixed,Lib\CustomList> */
-    private $customlists;
-    /** @var Lib\MutableOrgArray<mixed,Lib\WaitingMember> */
-    private $waitingmembers;
-    /** @var Lib\MutableOrgArray<mixed,Lib\Contact> */
-    private $contacts;
-    /** @var Lib\MutableOrgArray<mixed,Lib\RoleGroup> */
-    private $rolegroups;
-
-    /** @var Lib\MutableOrgArray<mixed,Lib\TroopMember> */
-    private $troopmembers;
-    /** @var Lib\MutableOrgArray<mixed,Lib\PatrolMember> */
-    private $patrolmembers;
-
-    private $types;
+    private $tables;
 
     public function __construct($config)
     {
         $this->config = $config;
-        $this->groups = new MutableOrgArray([]);
-        $this->troops = new MutableOrgArray([]);
-        $this->branches = new MutableOrgArray([]);
-        $this->patrols = new MutableOrgArray([]);
-        $this->members = new MutableOrgArray([]);
-        $this->customlists = new MutableOrgArray([]);
-        $this->waitingmembers = new MutableOrgArray([]);
-        $this->contacts = new MutableOrgArray([]);
-        $this->rolegroups = new MutableOrgArray([]);
-        $this->troopmembers = new MutableOrgArray([]);
-        $this->patrolmembers = new MutableOrgArray([]);
-        $this->types = [
-            'scoutgroup' => [
-                'table' => $this->groups,
-                'buildertype' => Builders\ScoutGroupBuilder::class
-            ],
-            'troop' => [
-                'table' => $this->troops,
-                'buildertype' => Builders\TroopBuilder::class
-            ],
-            'branch' => [
-                'table' => $this->branches,
-                'buildertype' => Builders\BranchBuilder::class
-            ],
-            'patrol' => [
-                'table' => $this->patrols,
-                'buildertype' => Builders\PatrolBuilder::class
-            ],
-            'member' => [
-                'table' => $this->members,
-                'buildertype' => Builders\MemberBuilder::class
-            ],
-            'customlist' => [
-                'table' => $this->customlists,
-                'buildertype' => Builders\CustomListBuilder::class
-            ],
-            'rolegroup' => [
-                'table' => $this->rolegroups,
-                'buildertype' => Builders\RoleGroupBuilder::class
-            ],
-            'contact' => [
-                'table' => $this->contacts,
-                'buildertype' => Builders\ContactBuilder::class
-            ],
-            'waitingmember' => [
-                'table' => $this->waitingmembers,
-                'buildertype' => Builders\WaitingMemberBuilder::class
-            ],
-            'troopmember' => [
-                'table' => $this->troopmembers,
-                'buildertype' => Builders\TroopMemberBuilder::class
-            ],
-            'patrolmember' => [
-                'table' => $this->patrolmembers,
-                'buildertype' => Builders\PatrolMemberBuilder::class
-            ],
-        ];
+        $this->setTable(Lib\ScoutGroup::class, Builders\ScoutGroupBuilder::class);
+        $this->setTable(Lib\Troop::class, Builders\TroopBuilder::class);
+        $this->setTable(Lib\Branch::class, Builders\BranchBuilder::class);
+        $this->setTable(Lib\Patrol::class, Builders\PatrolBuilder::class);
+        $this->setTable(Lib\Member::class, Builders\MemberBuilder::class);
+        $this->setTable(Lib\CustomList::class, Builders\CustomListBuilder::class);
+        $this->setTable(Lib\RoleGroup::class, Builders\RoleGroupBuilder::class);
+        $this->setTable(Lib\Contact::class, Builders\ContactBuilder::class);
+        $this->setTable(Lib\WaitingMember::class, Builders\WaitingMemberBuilder::class);
+        $this->setTable(Lib\TroopMember::class, Builders\TroopMemberBuilder::class);
+        $this->setTable(Lib\PatrolMember::class, Builders\PatrolMemberBuilder::class);
     }
 
     public function get($type, $source, $id)
     {
         assert(
-            \in_array($type, \array_keys($this->types)),
+            \in_array($type, \array_keys($this->tables)),
             new \InvalidArgumentException("$type is not a scoutorg object type")
         );
 
-        $table = $this->types[$type]['table'];
+        $table = $this->tables[$type]->table;
         if (!$table->exists($source, $id)) {
-            $builderType = $this->types[$type]['buildertype'];
 
-            /** @var ObjectBuilder $builder */
-            $builder = new $builderType($this->config[$type], $source, $id, $this);
+            /** @var Builders\ObjectBuilder $builder */
+            $builder = $this->tables[$type]->builder;
+
+            $orgObject = $builder->build($source, $id);
 
             // TODO: error on null
 
-            $table->insert($builder->build());
+            $table->insert($orgObject);
         }
 
         return $table->get($source, $id);
+    }
+
+    private function setTable($type, $builder) {
+        $this->tables[$type] = (object)[
+            'table' => new MutableOrgArray([]),
+            'builder' => new $builder($this->config[$type], $this),
+        ];
     }
 }

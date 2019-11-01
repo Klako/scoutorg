@@ -8,31 +8,25 @@ use Scoutorg\Builder\Configs;
 abstract class ObjectBuilder
 {
     protected $config;
-    /** @var callable $builder */
-    protected $builder;
-    protected $source, $id;
     /** @var Builder\ScoutorgBuilder $scoutorg */
     protected $scoutorg;
 
-    protected function __construct($config, $source, $id, $scoutorg)
+    protected function __construct($config, $scoutorg)
     {
         $this->config = $config;
-        $this->builder = $config['builders'][$source];
-        $this->source = $source;
-        $this->id = $id;
         $this->scoutorg = $scoutorg;
     }
 
-    public abstract function build();
+    public abstract function build($source, $id);
 
-    protected function buildList($buildermethod, $scoutorgtype, $isIntermediary = false)
+    protected function buildList($buildermethod, $scoutorgtype, $source, $id)
     {
-        return function ($that) use ($buildermethod, $scoutorgtype, $isIntermediary) {
+        return function ($that) use ($buildermethod, $scoutorgtype, $source, $id) {
             $array = new OrgArrayBuilder();
             $builders = $this->config['builders'];
             foreach ($builders as $builder) {
                 /** @var Configs\Uid[] $relations */
-                $relations = $builder($this->source, $this->id, $buildermethod);
+                $relations = $builder($source, $id, $buildermethod);
                 foreach ($relations as $relation) {
                     $orgObject = $this->scoutorg->get($scoutorgtype, $relation->source, $relation->id);
                     if ($orgObject) {
@@ -46,20 +40,20 @@ abstract class ObjectBuilder
         };
     }
 
-    protected function buildLinkList($buildermethod, $scoutorgtype)
+    protected function buildLinkList($buildermethod, $scoutorgtype, $source, $id)
     {
-        return function ($that) use ($buildermethod, $scoutorgtype) {
+        return function ($that) use ($buildermethod, $scoutorgtype, $source, $id) {
             $array = new OrgArrayBuilder();
             $builders = $this->config['builders'];
             foreach ($builders as $builder) {
                 /** @var Configs\LinkUid[] $relations */
-                $relations = $builder($this->source, $this->id, $buildermethod);
+                $relations = $builder($source, $id, $buildermethod);
                 foreach ($relations as $relation) {
                     $orgObject = $this->scoutorg->get($scoutorgtype, $relation->source, $relation->id);
                     if ($orgObject) {
                         $array->addObject($orgObject, [
-                            'source' => $relation->targetSource,
-                            'id' => $relation->targetId
+                            'source' => $relation->target->source,
+                            'id' => $relation->target->id
                         ]);
                     } else {
                         // TODO: Send error, orgobject doesn't exist.
@@ -69,14 +63,14 @@ abstract class ObjectBuilder
         };
     }
 
-    protected function buildSingle($buildermethod, $scoutorgtype)
+    protected function buildSingle($buildermethod, $scoutorgtype, $source, $id)
     {
-        return function ($that) use ($buildermethod, $scoutorgtype) {
+        return function ($that) use ($buildermethod, $scoutorgtype, $source, $id) {
             $builders = $this->config['builders'];
             /** @var Configs\Uid|bool $relation */
             $relation = false;
             foreach ($builders as $builder) {
-                $result = $builder($this->source, $this->id, $buildermethod);
+                $result = $builder($source, $id, $buildermethod);
                 if ($result && !$relation) { // Result and no existing relation
                     $relation = $result;
                 } elseif ($result) { // Result and existing relation

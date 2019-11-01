@@ -7,22 +7,22 @@ use Scoutorg\Builder\Configs;
 
 class WaitingMemberBuilder extends ObjectBuilder
 {
-    public function __construct($config, $source, $id, $scoutorg)
+    public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $source, $id, $scoutorg);
+        parent::__construct($config, $scoutorg);
     }
 
-    public function build()
+    public function build($source, $id)
     {
-        $builder = $this->builder;
+        $builder = $this->config['builders'][$source];
         /** @var Configs\WaitingMemberBase $base */
-        $waitingmember = $builder($this->source, $this->id, 'base');
+        $waitingmember = $builder($source, $id, 'base');
 
-        $contacts = $this->buildList('contacts', 'contact');
+        $contacts = $this->buildList('contacts', Lib\WaitingMember::class, $source, $id);
 
         return new Lib\WaitingMember(
-            $this->source,
-            $this->id,
+            $source,
+            $id,
             $base->personInfo,
             $base->contactInfo,
             $base->home,

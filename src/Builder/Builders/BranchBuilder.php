@@ -7,22 +7,22 @@ use Scoutorg\Builder\Configs;
 
 class BranchBuilder extends ObjectBuilder
 {
-    public function __construct($config, $source, $id, $scoutorg)
+    public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $source, $id, $scoutorg);
+        parent::__construct($config, $scoutorg);
     }
 
-    public function build()
+    public function build($source, $id)
     {
-        $builder = $this->builder;
+        $builder = $this->config['builders'][$source];
         /** @var Configs\BranchBase $base */
-        $base = $builder($this->source, $this->id, 'base');
+        $base = $builder($source, $id, 'base');
 
-        $troops = $this->buildList('troops', 'troop');
+        $troops = $this->buildList('troops', Lib\Troop::class, $source, $id);
 
         return new Lib\Branch(
-            $this->source,
-            $this->id,
+            $source,
+            $id,
             $base->name,
             $troops
         );

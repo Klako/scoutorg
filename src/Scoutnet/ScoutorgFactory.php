@@ -328,14 +328,14 @@ class ScoutorgFactory
             return false;
         }
 
-        if (!isset($this->members[$id])) {
+        if (!isset($this->waitingMembers[$id])) {
             foreach ($this->controllers as $controller) {
                 $this->buildWaitingListData($controller->getGroupId());
-                if (isset($this->members[$id])) {
+                if (isset($this->waitingMembers[$id])) {
                     break;
                 }
             }
-            if (!isset($this->members[$id])) {
+            if (!isset($this->waitingMembers[$id])) {
                 return false;
             }
         }
@@ -348,7 +348,7 @@ class ScoutorgFactory
                 return false;
         }
 
-        return $this->members[$id][$method];
+        return $this->waitingMembers[$id][$method];
     }
 
     /**
@@ -436,8 +436,7 @@ class ScoutorgFactory
                     $this->troops[$troopId]['members'][] = new Configs\LinkUid(
                         'scoutnet',
                         $troopMemberId,
-                        'scoutnet',
-                        $memberId
+                        new Configs\Uid('scoutnet', $memberId)
                     );
                     $this->troopMembers[$troopMemberId] = [
                         'base' => new Configs\TroopMemberBase($troop['role']),
@@ -447,8 +446,7 @@ class ScoutorgFactory
                     $this->members[$memberId]['troops'][] = new Configs\LinkUid(
                         'scoutnet',
                         $troopMemberId,
-                        'scoutnet',
-                        $troopId
+                        new Configs\Uid('scoutnet', $troopId)
                     );
                 }
             }
@@ -460,8 +458,7 @@ class ScoutorgFactory
                     $this->patrols[$patrolId]['members'][] = new Configs\LinkUid(
                         'scoutnet',
                         $patrolMemberId,
-                        'scoutnet',
-                        $memberId
+                        new Configs\Uid('scoutnet', $memberId)
                     );
                     $this->patrolMembers[$patrolMemberId] = [
                         'base' => new Configs\PatrolMemberBase($patrol['role']),
@@ -471,8 +468,7 @@ class ScoutorgFactory
                     $this->members[$memberId]['patrols'][] = new Configs\LinkUid(
                         'scoutnet',
                         $patrolMemberId,
-                        'scoutnet',
-                        $patrolId
+                        new Configs\Uid('scoutnet', $patrolId)
                     );
                 }
             }
@@ -505,7 +501,10 @@ class ScoutorgFactory
 
         foreach ($customlists as $customListId => $customList) {
             $this->customLists[$customListId] = [
-                'base' => new Configs\CustomListBase($customList->title, $customList->description),
+                'base' => new Configs\CustomListBase(
+                    $customList->title,
+                    $customList->description ? $customList->description : ''
+                ),
                 'members' => [],
                 'sublists' => []
             ];

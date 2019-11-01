@@ -4,6 +4,7 @@ namespace Scoutorg\Builder\Builders;
 
 use Scoutorg\Lib\OrgArray;
 use Scoutorg\Lib\OrgObject;
+use Scoutorg\Builder\Configs;
 
 class OrgArrayBuilder
 {
@@ -17,7 +18,7 @@ class OrgArrayBuilder
     /**
      * Adds an organizational object.
      * @param OrgObject $orgObject
-     * @param array $index
+     * @param Configs\Uid $index
      * @return bool
      */
     public function addObject($orgObject, $index = null)
@@ -28,8 +29,8 @@ class OrgArrayBuilder
                 . ', got ' . (\gettype($orgObject) === 'object' ? \get_class($orgObject) : \gettype($orgObject)))
         );
         if ($index) {
-            $source = $index['source'];
-            $id = $index['id'];
+            $source = $index->source;
+            $id = $index->id;
         } else {
             $source = $orgObject->source;
             $id = $orgObject->id;

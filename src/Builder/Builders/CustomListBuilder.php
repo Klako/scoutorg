@@ -7,23 +7,23 @@ use Scoutorg\Builder\Configs;
 
 class CustomListBuilder extends ObjectBuilder
 {
-    public function __construct($config, $source, $id, $scoutorg)
+    public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $source, $id, $scoutorg);
+        parent::__construct($config, $scoutorg);
     }
 
-    public function build()
+    public function build($source, $id)
     {
-        $builder = $this->builder;
+        $builder = $this->config['builders'][$source];
         /** @var Configs\CustomListBase $base */
-        $base = $builder($this->source, $this->id, 'base');
+        $base = $builder($source, $id, 'base');
 
-        $members = $this->buildList('members', 'member');
-        $sublists = $this->buildList('sublists', 'customlist');
+        $members = $this->buildList('members', Lib\Member::class, $source, $id);
+        $sublists = $this->buildList('sublists', Lib\CustomList::class, $source, $id);
 
         return new Lib\CustomList(
-            $this->source,
-            $this->id,
+            $source,
+            $id,
             $base->title,
             $base->description,
             $members,

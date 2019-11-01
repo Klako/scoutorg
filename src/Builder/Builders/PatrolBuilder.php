@@ -7,22 +7,23 @@ use Scoutorg\Builder\Configs;
 
 class PatrolBuilder extends ObjectBuilder
 {
-    public function __construct($config, $source, $id, $scoutorg)
+    public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $source, $id, $scoutorg);
+        parent::__construct($config, $scoutorg);
     }
-    public function build()
+    
+    public function build($source, $id)
     {
-        $builder = $this->builder;
+        $builder = $this->config['builders'][$source];
         /** @var Configs\PatrolBase $base */
-        $base = $builder($this->source, $this->id, 'base');
+        $base = $builder($source, $id, 'base');
 
-        $troop = $this->buildSingle('troop', 'troop');
-        $members = $this->buildLinkList('members', 'patrolmember');
+        $troop = $this->buildSingle('troop', Lib\Troop::class, $source, $id);
+        $members = $this->buildLinkList('members', Lib\PatrolMember::class, $source, $id);
 
         return new Lib\Patrol(
-            $this->source,
-            $this->id,
+            $source,
+            $id,
             $base->name,
             $troop,
             $members
