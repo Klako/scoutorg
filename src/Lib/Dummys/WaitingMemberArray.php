@@ -1,6 +1,8 @@
 <?php
 
-namespace Scoutorg\Lib;
+namespace Scoutorg\Lib\Dummys;
+
+use Scoutorg\Lib;
 
 class WaitingMemberArray extends OrgArray
 {

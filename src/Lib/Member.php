@@ -28,11 +28,11 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param ContactArray<int,Contact> $contacts
+     * @param Dummys\ContactArray<int,Contact> $contacts
      * @param string $startdate
-     * @param TroopMemberArray<int,TroopMember> $troops
-     * @param PatrolMemberArray<int,PatrolMember> $patrols
-     * @param RoleGroupArray<int,RoleGroup> $roleGroups
+     * @param Dummys\TroopMemberArray<int,TroopMember> $troops
+     * @param Dummys\PatrolMemberArray<int,PatrolMember> $patrols
+     * @param Dummys\RoleGroupArray<int,RoleGroup> $roleGroups
      */
     public function __construct(
         $source,

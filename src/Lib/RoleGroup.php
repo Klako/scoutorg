@@ -10,7 +10,7 @@ namespace Scoutorg\Lib;
 /**
  * A group for a special role in the scout group
  * @property-read string $roleName
- * @property-read MemberArray<int,Member> $members
+ * @property-read Dummys\MemberArray<int,Member> $members
  */
 class RoleGroup extends OrgObject
 {

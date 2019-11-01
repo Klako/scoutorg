@@ -1,11 +1,13 @@
 <?php
 
-namespace Scoutorg\Lib;
+namespace Scoutorg\Lib\Dummys;
 
-class RoleGroupArray extends OrgArray
+use Scoutorg\Lib;
+
+class BranchArray extends Lib\OrgArray
 {
     /** 
-     * @return RoleGroup
+     * @return Branch
      */
     public function get($source, $id) {
         return parent::get($source, $id);

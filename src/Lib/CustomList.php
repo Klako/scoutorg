@@ -11,8 +11,8 @@ namespace Scoutorg\Lib;
  * A custom member list with sub lists.
  * @property-read string $title
  * @property-read string $description
- * @property-read MemberArray<int,Member> $members
- * @property-read CustomListArray<int,CustomList> $subLists
+ * @property-read Dummys\MemberArray<int,Member> $members
+ * @property-read Dummys\CustomListArray<int,CustomList> $subLists
  */
 class CustomList extends OrgObject
 {
