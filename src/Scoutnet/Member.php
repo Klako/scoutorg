@@ -230,7 +230,7 @@ class Member
         return $patrols;
     }
 
-    public function getRoleGroups()
+    public function getGroupRoles()
     {
         return $this->properties['roles']->groupRoles;
     }

@@ -16,7 +16,7 @@ namespace Scoutorg\Lib;
  * @property-read string $startDate
  * @property-read OrgArray<int,Troop> $troops
  * @property-read OrgArray<int,Patrol> $patrols
- * @property-read OrgArray<int,RoleGroup> $roleGroups
+ * @property-read OrgArray<int,GroupRole> $groupRoles
  */
 class Member extends OrgObject
 {
@@ -28,11 +28,11 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param Dummys\ContactArray<int,Contact> $contacts
+     * @param Dummies\ContactArray<int,Contact> $contacts
      * @param string $startdate
-     * @param Dummys\TroopMemberArray<int,TroopMember> $troops
-     * @param Dummys\PatrolMemberArray<int,PatrolMember> $patrols
-     * @param Dummys\RoleGroupArray<int,RoleGroup> $roleGroups
+     * @param Dummies\TroopMemberArray<int,TroopMember> $troops
+     * @param Dummies\PatrolMemberArray<int,PatrolMember> $patrols
+     * @param Dummies\GroupRoleArray<int,GroupRole> $groupRoles
      */
     public function __construct(
         $source,
@@ -44,7 +44,7 @@ class Member extends OrgObject
         $startdate,
         $troops,
         $patrols,
-        $roleGroups
+        $groupRoles
     ) {
         parent::__construct($source, $id);
         $this->setProperty('personInfo', [PersonInfo::class], $personInfo);
@@ -54,6 +54,6 @@ class Member extends OrgObject
         $this->setProperty('startdate', ['string'], $startdate);
         $this->setProperty('troops', [OrgArray::class], $troops);
         $this->setProperty('patrols', [OrgArray::class], $patrols);
-        $this->setProperty('roleGroups', [OrgArray::class], $roleGroups);
+        $this->setProperty('groupRoles', [OrgArray::class], $groupRoles);
     }
 }

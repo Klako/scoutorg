@@ -21,7 +21,7 @@ class ScoutorgFactory
     private $members = [];
     private $troops = [];
     private $patrols = [];
-    private $roleGroups = [];
+    private $groupRoles = [];
     private $customLists = [];
     private $waitingMembers = [];
     private $troopMembers = [];
@@ -63,7 +63,7 @@ class ScoutorgFactory
                 return [];
             case 'members':
             case 'troops':
-            case 'rolegroups':
+            case 'grouproles':
                 $this->buildMemberListData($id);
                 break;
             case 'customlists':
@@ -103,7 +103,7 @@ class ScoutorgFactory
             case 'contacts':
             case 'troops':
             case 'patrols':
-            case 'rolegroups':
+            case 'grouproles':
                 break;
             default:
                 return false;
@@ -233,20 +233,20 @@ class ScoutorgFactory
         return $this->patrolMembers[$id][$method];
     }
 
-    public function roleGroupHandler($source, $id, $method)
+    public function groupRoleHandler($source, $id, $method)
     {
         if ($source !== 'scoutnet') {
             return false;
         }
 
-        if (!isset($this->roleGroups[$id])) {
+        if (!isset($this->groupRoles[$id])) {
             foreach ($this->controllers as $controller) {
                 $this->buildMemberListData($controller->getGroupId());
-                if (isset($this->roleGroups[$id])) {
+                if (isset($this->groupRoles[$id])) {
                     break;
                 }
             }
-            if (!isset($this->roleGroups[$id])) {
+            if (!isset($this->groupRoles[$id])) {
                 return false;
             }
         }
@@ -259,7 +259,7 @@ class ScoutorgFactory
                 return false;
         }
 
-        return $this->roleGroups[$id][$method];
+        return $this->groupRoles[$id][$method];
     }
 
     public function contactHandler($source, $id, $method)
@@ -376,7 +376,7 @@ class ScoutorgFactory
 
         $this->scoutgroups[$groupId]['members'] = [];
         $this->scoutgroups[$groupId]['troops'] = [];
-        $this->scoutgroups[$groupId]['rolegroups'] = [];
+        $this->scoutgroups[$groupId]['groupRoles'] = [];
 
         $members = $this->controllers[$groupId]->getMemberList();
 
@@ -406,7 +406,7 @@ class ScoutorgFactory
             }
         }
 
-        // Construct members and rolegroups.
+        // Construct members and grouproles.
         foreach ($members as $memberId => $member) {
             $this->members[$memberId] = [
                 'base' => new Configs\MemberBase(
@@ -417,7 +417,7 @@ class ScoutorgFactory
                 ),
                 'troops' => [],
                 'patrols' => [],
-                'rolegroups' => [],
+                'grouproles' => [],
                 'contacts' => [],
             ];
             $this->scoutgroups[$groupId]['members'][] = new Configs\Uid('scoutnet', $memberId);
@@ -473,16 +473,16 @@ class ScoutorgFactory
                 }
             }
 
-            foreach ($member->getRoleGroups() as $roleGroupId => $roleGroup) {
-                if (!isset($this->roleGroups[$roleGroupId])) {
-                    $this->roleGroups[$roleGroupId] = [
-                        'base' => new Configs\RoleGroupBase($roleGroup),
+            foreach ($member->getGroupRoles() as $groupRoleId => $groupRole) {
+                if (!isset($this->groupRoles[$groupRoleId])) {
+                    $this->groupRoles[$groupRoleId] = [
+                        'base' => new Configs\GroupRoleBase($groupRole),
                         'members' => []
                     ];
-                    $this->scoutgroups[$groupId]['rolegroups'][] = new Configs\Uid('scoutnet', $roleGroupId);
+                    $this->scoutgroups[$groupId]['grouproles'][] = new Configs\Uid('scoutnet', $groupRoleId);
                 }
-                $this->roleGroups[$roleGroupId]['members'][] = new Configs\Uid('scoutnet', $memberId);
-                $this->members[$memberId]['rolegroups'][] = new Configs\Uid('scoutnet', $roleGroupId);
+                $this->groupRoles[$groupRoleId]['members'][] = new Configs\Uid('scoutnet', $memberId);
+                $this->members[$memberId]['grouproles'][] = new Configs\Uid('scoutnet', $groupRoleId);
             }
         }
     }

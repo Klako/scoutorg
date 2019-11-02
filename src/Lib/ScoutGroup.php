@@ -7,15 +7,17 @@
 
 namespace Scoutorg\Lib;
 
+use Scoutorg\Lib\Dummies\GroupRoleArray;
+
 /**
  * The whole scout group that is part of the scout organisation.
  * @property-read string $name
- * @property-read Dummys\MemberArray<int,Member> $members
- * @property-read Dummys\TroopArray<int,Troop> $troops
- * @property-read Dummys\BranchArray<int,Branch> $branches
- * @property-read Dummys\RoleGroupArray<int,RoleGroup> $roleGroups
- * @property-read Dummys\CustomListArray<int,CustomList> $customLists
- * @property-read Dummys\WaitingMemberArray<int,WaitingList> $waitingList
+ * @property-read Dummies\MemberArray<int,Member> $members
+ * @property-read Dummies\TroopArray<int,Troop> $troops
+ * @property-read Dummies\BranchArray<int,Branch> $branches
+ * @property-read Dummies\GroupRoleArray<int,GroupRole> $groupRoles
+ * @property-read Dummies\CustomListArray<int,CustomList> $customLists
+ * @property-read Dummies\WaitingMemberArray<int,WaitingList> $waitingList
  */
 class ScoutGroup extends OrgObject
 {
@@ -28,7 +30,7 @@ class ScoutGroup extends OrgObject
      * @param MemberArray<int,Member> $members All members of the group.
      * @param TroopArray<int,Troop> $troops
      * @param BranchArray<int,Branch> $branches
-     * @param RoleGroupArray<int,RoleGroup> $roleGroups
+     * @param GroupRoleArray<int,GroupRole> $groupRoles
      * @param CustomListArray<int,CustomList> $customLists
      * @param WaitingMemberArray<int,WaitingList> $waitingList
      */
@@ -39,7 +41,7 @@ class ScoutGroup extends OrgObject
         $members,
         $troops,
         $branches,
-        $roleGroups,
+        $groupRoles,
         $customLists,
         $waitingList
     ) {
@@ -48,7 +50,7 @@ class ScoutGroup extends OrgObject
         $this->setProperty('members', [OrgArray::class], $members);
         $this->setProperty('troops', [OrgArray::class], $troops);
         $this->setProperty('branches', [OrgArray::class], $branches);
-        $this->setProperty('roleGroups', [OrgArray::class], $roleGroups);
+        $this->setProperty('groupRoles', [OrgArray::class], $groupRoles);
         $this->setProperty('customLists', [OrgArray::class], $customLists);
         $this->setProperty('waitingList', [OrgArray::class], $waitingList);
     }

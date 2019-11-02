@@ -21,7 +21,7 @@ class ScoutGroupBuilder extends ObjectBuilder
         $members = $this->buildList('members', Lib\Member::class, $source, $id);
         $troops = $this->buildList('troops', Lib\Troop::class, $source, $id);
         $branches = $this->buildList('branches', Lib\Branch::class, $source, $id);
-        $roleGroups = $this->buildList('rolegroups', Lib\RoleGroup::class, $source, $id);
+        $groupRoles = $this->buildList('grouproles', Lib\GroupRole::class, $source, $id);
         $customLists = $this->buildList('customlists', Lib\CustomList::class, $source, $id);
         $waitingList = $this->buildList('waitingmembers', Lib\WaitingMember::class, $source, $id);
 
@@ -32,7 +32,7 @@ class ScoutGroupBuilder extends ObjectBuilder
             $members,
             $troops,
             $branches,
-            $roleGroups,
+            $groupRoles,
             $customLists,
             $waitingList
         );

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contains RoleGroup class
+ * Contains GroupRole class
  * @author Alexander Krantz
  */
 
@@ -10,12 +10,12 @@ namespace Scoutorg\Lib;
 /**
  * A group for a special role in the scout group
  * @property-read string $roleName
- * @property-read Dummys\MemberArray<int,Member> $members
+ * @property-read Dummies\MemberArray<int,Member> $members
  */
-class RoleGroup extends OrgObject
+class GroupRole extends OrgObject
 {
     /**
-     * Creates a new RoleGroup with the specified role.
+     * Creates a new group role with the specified role.
      * @internal
      * @param string $source
      * @param int|string $id

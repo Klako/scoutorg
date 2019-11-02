@@ -12,7 +12,7 @@ namespace Scoutorg\Lib;
  * @property-read PersonInfo $personInfo
  * @property-read ContactInfo $contactInfo
  * @property-read Location $home
- * @property-read Dummys\ContactArray<int,Contact> $contacts
+ * @property-read Dummies\ContactArray<int,Contact> $contacts
  * @property-read string $note
  * @property-read bool $leaderInterest
  */

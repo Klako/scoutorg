@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Lib\Dummys;
+namespace Scoutorg\Lib\Dummies;
 
 use Scoutorg\Lib;
 

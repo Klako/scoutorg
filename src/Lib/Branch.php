@@ -10,7 +10,7 @@ namespace Scoutorg\Lib;
 /**
  * A branch (gren) that contains troops.
  * @property-read string $name
- * @property-read Dummys\TroopArray<int,Troop> $troops
+ * @property-read Dummies\TroopArray<int,Troop> $troops
  */
 class Branch extends OrgObject
 {

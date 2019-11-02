@@ -20,7 +20,7 @@ class ScoutorgBuilder
         $this->setTable(Lib\Patrol::class, Builders\PatrolBuilder::class);
         $this->setTable(Lib\Member::class, Builders\MemberBuilder::class);
         $this->setTable(Lib\CustomList::class, Builders\CustomListBuilder::class);
-        $this->setTable(Lib\RoleGroup::class, Builders\RoleGroupBuilder::class);
+        $this->setTable(Lib\GroupRole::class, Builders\GroupRoleBuilder::class);
         $this->setTable(Lib\Contact::class, Builders\ContactBuilder::class);
         $this->setTable(Lib\WaitingMember::class, Builders\WaitingMemberBuilder::class);
         $this->setTable(Lib\TroopMember::class, Builders\TroopMemberBuilder::class);

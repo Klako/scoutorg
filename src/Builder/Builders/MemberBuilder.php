@@ -21,7 +21,7 @@ class MemberBuilder extends ObjectBuilder
         $contacts = $this->buildList('contacts', Lib\Contact::class, $source, $id);
         $troops = $this->buildLinkList('troops', Lib\TroopMember::class, $source, $id);
         $patrols = $this->buildLinkList('patrols', Lib\PatrolMember::class, $source, $id);
-        $rolegroups = $this->buildList('rolegroups', Lib\RoleGroup::class, $source, $id);
+        $grouproles = $this->buildList('grouproles', Lib\GroupRole::class, $source, $id);
 
         return new Lib\Member(
             $source,
@@ -33,7 +33,7 @@ class MemberBuilder extends ObjectBuilder
             $base->startdate,
             $troops,
             $patrols,
-            $rolegroups
+            $grouproles
         );
     }
 }
