@@ -9,11 +9,23 @@
             "Scoutorg\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Scoutorg\\Tests\\": "tests/"
+        }
+    },
     "require": {
-        "php": "^7.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "php": ">=7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.4"
+        "phpunit/phpunit": "^8.4",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "php": ">=7.3",
+        "symfony/process": "^5.0",
+        "slim/slim": "^4.4",
+        "slim/psr7": "^1.0",
+        "tuupola/slim-basic-auth": "^3.2"
     }
 }
