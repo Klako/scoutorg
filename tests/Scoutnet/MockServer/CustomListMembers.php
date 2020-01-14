@@ -2,14 +2,13 @@
 
 namespace Scoutorg\Tests\Scoutnet\MockServer;
 
-use Amp\Success;
-use Amp\Http\Server\Response;
-use Amp\Http\Status;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
 
 class CustomListMembers extends ApiEndpoint
 {
-    protected function getResponse($id, $key, $request)
+    protected function getResponse(Request $request, Response $response, $args): Response
     {
-        
+        return $response;
     }
 }

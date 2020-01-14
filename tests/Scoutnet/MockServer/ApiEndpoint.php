@@ -11,6 +11,9 @@ abstract class ApiEndpoint
     /** @var \PDO */
     protected $db;
 
+    /** @var int */
+    protected $groupId;
+
     public function __construct($db)
     {
         $this->db = $db;
@@ -18,6 +21,7 @@ abstract class ApiEndpoint
 
     public function __invoke(Request $request, Response $response, $args)
     {
+        $this->groupId = $request->getAttribute('groupId');
         return $this->getResponse($request, $response, $args);
     }
 

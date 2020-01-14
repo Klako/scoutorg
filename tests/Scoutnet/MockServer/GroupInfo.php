@@ -2,21 +2,44 @@
 
 namespace Scoutorg\Tests\Scoutnet\MockServer;
 
-use Fig\Http\Message\StatusCodeInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GroupInfo extends ApiEndpoint 
+class GroupInfo extends ApiEndpoint
 {
     protected function getResponse(Request $request, Response $response, $args): Response
     {
-        $group = $this->db->query("SELECT * FROM groups WHERE id = 1")->fetch();
-        $membercount = $this->db->query("SELECT COUNT(*) FROM groupmembers WHERE `group` = 1")->fetchColumn();
-        $rolecount = $this->db->query("SELECT COUNT(*) FROM membergrouproles WHERE `group` = 1")->fetchColumn();
-        $waitingcount = $this->db->query("SELECT COUNT(*) FROM groupwaitingmembers WHERE `group` = 1")->fetchColumn();
+        $group = $this->db->query("SELECT * FROM groups WHERE id = {$this->db->quote($this->groupId)}")->fetch();
+        $membercount = $this->db->query("SELECT COUNT(*) FROM groupmembers WHERE `group` = {$this->db->quote($this->groupId)}")->fetchColumn();
+        $rolecount = $this->db->query(
+            <<<SQL
+            SELECT
+                COUNT(*)
+            FROM groupmemberroles gmr
+            LEFT JOIN groupmembers gm ON gm.id = gmr.groupmember
+            WHERE gm.`group` = {$this->db->quote($this->groupId)}
+            GROUP BY gm.id
+            SQL
+        )->fetchColumn();
+        $waitingcount = $this->db->query("SELECT COUNT(*) FROM groupwaitingmembers WHERE `group` = {$this->db->quote($this->groupId)}")->fetchColumn();
         $group_email = $group['group_email'] ? 'true' : 'false';
 
-        $leader = $this->db->query("SELECT first_name, last_name, email FROM members WHERE id = {$group['leader']}");
+        $leader = $this->db->query("SELECT first_name, last_name, email FROM members WHERE member_no = {$this->db->quote($group['leader'])}")->fetch();
+        if ($leader) {
+            $leaderInfo = <<<JSON
+            {
+                "name": "{$leader['first_name']} {$leader['last_name']}",
+                "contactdetails": "{$leader['email']}"
+            }
+            JSON;
+        } else {
+            $leaderInfo = <<<JSON
+            {
+                "name" : "",
+                "email": ""
+            }
+            JSON;
+        }
 
         $body = <<<JSON
         {
@@ -29,10 +52,7 @@ class GroupInfo extends ApiEndpoint
                 "email": "{$group['email']}",
                 "description": "{$group['description']}"
             },
-            "Leader": {
-                "name": "{$leader['first_name']} {$leader['last_name']}",
-                "contactdetails": "{$leader['email']}"
-            },
+            "Leader": $leaderInfo,
             "projects": "Not in use."
         }
         JSON;
