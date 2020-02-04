@@ -9,9 +9,27 @@ class Members extends ApiEndpoint
 {
     protected function getResponse(Request $request, Response $response, $args): Response
     {
+        $params = $request->getQueryParams();
+
+        $returnObject = null;
+
+        if (isset($params['waiting']) && $params['waiting']) {
+            $returnObject = $this->getWaitingMembers();
+        } else {
+            $returnObject = $this->getMembers();
+        }
+
+        $response = $response->withHeader('Content-Type', 'application/json');
+        $response->getBody()->write(\json_encode($returnObject));
+
+        return $response;
+    }
+
+    private function getMembers()
+    {
         $stmt = $this->db->query(
             <<<SQL
-            SELECT *
+            SELECT m.*
             FROM groupmembers gm
             LEFT JOIN members m ON m.member_no = gm.member
             WHERE gm.`group` = {$this->db->quote($this->groupId)}
@@ -31,7 +49,7 @@ class Members extends ApiEndpoint
                         'raw_value' => $status['id'],
                         'value' => $status['value']
                     ];
-                } elseif ($colName = 'sex') {
+                } elseif ($colName == 'sex') {
                     $sex = $this->db->query("SELECT * FROM sexes WHERE id = {$this->db->quote($colValue)}")->fetch();
                     $memberObj->{$colName} = (object) [
                         'raw_value' => $sex['id'],
@@ -141,9 +159,56 @@ class Members extends ApiEndpoint
             $returnObject->data->{$member['member_no']} = $memberObj;
         }
 
-        $response = $response->withHeader('Content-Type', 'application/json');
-        $response->getBody()->write(\json_encode($returnObject));
+        return $returnObject;
+    }
 
-        return $response;
+    private function getWaitingMembers()
+    {
+        $stmt = $this->db->query(
+            <<<SQL
+            SELECT wm.*
+            FROM groupwaitingmembers gwm
+            LEFT JOIN waitingmembers wm ON wm.member_no = gwm.waitingmember
+            WHERE gwm.`group` = {$this->db->quote($this->groupId)}
+            SQL
+        );
+
+        $returnObject = new \stdClass;
+        $returnObject->data = new \stdClass;
+
+        while ($member = $stmt->fetch()) {
+            $memberObj = new \stdClass;
+            // Populate member info.
+            foreach ($member as $colName => $colValue) {
+                if ($colName == 'status') {
+                    $status = $this->db->query("SELECT * FROM statuses WHERE id = {$this->db->quote($colValue)}")->fetch();
+                    $memberObj->{$colName} = (object) [
+                        'raw_value' => $status['id'],
+                        'value' => $status['value']
+                    ];
+                } elseif ($colName == 'sex') {
+                    $sex = $this->db->query("SELECT * FROM sexes WHERE id = {$this->db->quote($colValue)}")->fetch();
+                    $memberObj->{$colName} = (object) [
+                        'raw_value' => $sex['id'],
+                        'value' => $sex['value']
+                    ];
+                } else {
+                    $memberObj->{$colName} = (object) [
+                        'value' => $colValue
+                    ];
+                }
+            }
+            // Populate membership info.
+            // Group
+            $group = $this->db->query("SELECT * FROM groups WHERE id = {$this->db->quote($this->groupId)}")->fetch();
+            $memberObj->group = (object) [
+                'raw_value' => $group['id'],
+                'value' => $group['name']
+            ];
+
+            $returnObject->data->{$member['member_no']} = $memberObj;
+        }
+
+        return $returnObject;
     }
 }

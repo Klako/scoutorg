@@ -1,5 +1,6 @@
 <?php
 
+use Scoutorg\Tests\Scoutnet\MockServer\CustomLists;
 use Scoutorg\Tests\Scoutnet\MockServer\GroupInfo;
 use Scoutorg\Tests\Scoutnet\MockServer\Members;
 use Slim\Factory\AppFactory;
@@ -9,6 +10,7 @@ $ds = DIRECTORY_SEPARATOR;
 require __DIR__ . "{$ds}..{$ds}..{$ds}..{$ds}vendor{$ds}autoload.php";
 
 $db = new \PDO('sqlite:' . __DIR__ . "{$ds}membernet.db");
+$db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
 
 $app = AppFactory::create();
 
@@ -23,5 +25,6 @@ $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
 
 $app->get('/api/organisation/group', new GroupInfo($db));
 $app->get('/api/group/memberlist', new Members($db));
+$app->get('/api/group/customlists', new CustomLists($db));
 
 $app->run();
