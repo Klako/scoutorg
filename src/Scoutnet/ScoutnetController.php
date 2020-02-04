@@ -7,8 +7,6 @@
 
 namespace Scoutorg\Scoutnet;
 
-use pcrov\JsonReader\JsonReader;
-
 /**
  * Contains methods for getting data from scoutnet.
  */
@@ -17,22 +15,23 @@ class ScoutnetController
     /** @var string The url variables for fetching the waiting list. */
     const API_MEMBERLIST_WAITING_URLVARS = 'waiting=1';
 
-    /** @var int The value of the scoutnet cache when it is disabled. */
-    const CACHE_DISABLE = 0;
-
     /** @var ScoutnetConnection The scoutnet connection. */
     private $connection;
 
-    /** @var int The ttl of the long lived cache in seconds. zero = disabled. */
+    /** @var ICacheHandler */
+    private $cacheHandler;
+
+    /** @var int The ttl of the long lived cache in seconds. */
     private $cacheTtl;
-    
+
     /**
      * Creates a new scoutnet group link.
      * @param ScoutnetConnection $connection
      */
-    public function __construct(ScoutnetConnection $connection, int $cacheTtl = self::CACHE_DISABLE)
+    public function __construct(ScoutnetConnection $connection, $cacheHandler = null, int $cacheTtl = 0)
     {
         $this->connection = $connection;
+        $this->cacheHandler = $cacheHandler;
         $this->cacheTtl = $cacheTtl;
     }
 
@@ -47,19 +46,15 @@ class ScoutnetController
 
     public function getGroupInfo()
     {
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $cache = $this->getCacheResource('groupinfo');
-            if ($cache) {
-                return $cache;
-            }
+        $cache = $this->getCacheResource('groupinfo');
+        if ($cache) {
+            return $cache;
         }
 
         $groupInfoObject = $this->connection->fetchGroupInfoApi();
         $groupInfo = new GroupInfo($groupInfoObject);
 
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $this->setCacheResource('groupinfo', $groupInfo);
-        }
+        $this->setCacheResource('groupinfo', $groupInfo);
 
         return $groupInfo;
     }
@@ -70,11 +65,9 @@ class ScoutnetController
      */
     public function getMemberList()
     {
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $cache = $this->getCacheResource('members');
-            if ($cache) {
-                return $cache;
-            }
+        $cache = $this->getCacheResource('members');
+        if ($cache) {
+            return $cache;
         }
 
         $memberList = $this->connection->fetchMemberListApi('');
@@ -84,9 +77,7 @@ class ScoutnetController
             $members[$id] = new Member($member);
         }
 
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $this->setCacheResource('members', $members);
-        }
+        $this->setCacheResource('members', $members);
 
         return $members;
     }
@@ -97,11 +88,9 @@ class ScoutnetController
      */
     public function getWaitingList()
     {
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $cache = $this->getCacheResource('waitinglist');
-            if ($cache) {
-                return $cache;
-            }
+        $cache = $this->getCacheResource('waitinglist');
+        if ($cache) {
+            return $cache;
         }
 
         $waitingList = $this->connection->fetchMemberListApi('waiting=1');
@@ -111,9 +100,7 @@ class ScoutnetController
             $waitingMembers[$id] = new WaitingMember($waitingMember);
         }
 
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $this->setCacheResource('waitinglist', $waitingMembers);
-        }
+        $this->setCacheResource('waitinglist', $waitingMembers);
 
         return $waitingMembers;
     }
@@ -124,11 +111,9 @@ class ScoutnetController
      */
     public function getCustomLists()
     {
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $cache = $this->getCacheResource('customlists');
-            if ($cache) {
-                return $cache;
-            }
+        $cache = $this->getCacheResource('customlists');
+        if ($cache) {
+            return $cache;
         }
 
         $customListsResult = $this->connection->fetchCustomListsApi('');
@@ -138,9 +123,7 @@ class ScoutnetController
             $customLists[$id] = new CustomList($customList);
         }
 
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $this->setCacheResource('customlists', $customLists);
-        }
+        $this->setCacheResource('customlists', $customLists);
 
         return $customLists;
     }
@@ -152,32 +135,24 @@ class ScoutnetController
      * Leave to default (CustomListRuleEntry::NO_RULE_ID) if the whole mailing list is wanted.
      * @return CustomListMember[]
      */
-    public function getCustomListMembers(int $listId, int $ruleId = CustomListRuleEntry::NO_RULE_ID)
+    public function getCustomListMembers(int $listId, int $ruleId = CustomListRule::NO_RULE_ID)
     {
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $cache = $this->getCacheResource("customlistmembers:$listId:$ruleId");
-            if ($cache) {
-                return $cache;
-            }
+        $cache = $this->getCacheResource("customlistmembers:$listId:$ruleId");
+        if ($cache) {
+            return $cache;
         }
 
         $urlVars = $this->buildCustomListVars($listId, $ruleId);
-        $jsonReader = $this->connection->fetchCustomListsApi($urlVars);
+        $memberList = $this->connection->fetchCustomListsApi($urlVars);
 
-        $customListMembers = [];
-        while ($jsonReader->read()) {
-            if ($jsonReader->type() == JsonReader::NONE) {
-                break;
-            }
-            $customListMembers[$jsonReader->name()] = new CustomListMember($jsonReader);
-        }
-        $jsonReader->close();
-
-        if ($this->cacheTtl !== self::CACHE_DISABLE) {
-            $this->setCacheResource("customlistmembers:$listId:$ruleId", $customListMembers);
+        $members = [];
+        foreach ($memberList->data as $id => $member) {
+            $members[$id] = new CustomListMember($member);
         }
 
-        return $customListMembers;
+        $this->setCacheResource("customlistmembers:$listId:$ruleId", $members);
+
+        return $members;
     }
 
     /**
@@ -198,24 +173,30 @@ class ScoutnetController
     }
 
     /**
-     * Gets a cache resource from the APCu.
+     * Gets a cache resource.
      * @param string $uri The resource uri (name of the resource in scoutnet).
      * @return mixed
      */
     private function getCacheResource(string $key)
     {
-        return \apcu_fetch($this->getCacheKey($key));
+        if ($this->cacheHandler) {
+            return $this->cacheHandler->load($this->getCacheKey($key));
+        }
+        return false;
     }
 
     /**
-     * Sets a cache resource in the APCu.
-     * @param string $uri The resource uri (name of the resource inte scoutnet).
+     * Sets a cache resource.
+     * @param string $uri The resource uri (name of the resource in scoutnet).
      * @param mixed $data The data to store.
      * @return mixed
      */
     private function setCacheResource(string $key, $data)
     {
-        return \apcu_store($this->getCacheKey($key), $data, $this->cacheTtl);
+        if ($this->cacheHandler) {
+            return $this->cacheHandler->store($this->getCacheKey($key), $data, $this->cacheTtl);
+        }
+        return false;
     }
 
     /**

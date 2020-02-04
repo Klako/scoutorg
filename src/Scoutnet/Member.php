@@ -8,14 +8,11 @@
 namespace Scoutorg\Scoutnet;
 
 use Scoutorg\Lib;
-use Scoutorg\Builder\Configs;
+use Scoutorg\Builder\Bases;
 
 /**
  * Contains fields equivalent to the data received through
- * the scoutnet api. This class is a little magicky since it
- * acts as both a member array and is type hinted as an 
- * individual member. That is to skip having to copy each member to
- * another class.
+ * the scoutnet api.
  * @property-read Value $member_no The scoutnet id.
  * @property-read Value $first_name The first name.
  * @property-read Value $last_name The last name.
@@ -87,7 +84,7 @@ class Member
     private $properties;
 
     /**
-     * Creates a member object from a json reader
+     * Creates a member from a json object.
      * @param object $object
      */
     public function __construct($object)
@@ -109,7 +106,8 @@ class Member
         return isset($this->properties[$name]) ? $this->properties[$name] : null;
     }
 
-    public function __isset($name){
+    public function __isset($name)
+    {
         return isset($this->properties[$name]);
     }
 
@@ -164,7 +162,7 @@ class Member
     }
 
     /**
-     * @return Configs\ContactBase[]
+     * @return Bases\ContactBase[]
      */
     public function getContacts()
     {
@@ -182,7 +180,7 @@ class Member
             if (isset($this->properties['contact_email_mum'])) {
                 $emails[] = $this->properties['contact_email_mum']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-1"] = new Configs\ContactBase(
+            $contacts["{$this->properties['member_no']->value}-1"] = new Bases\ContactBase(
                 $this->properties['contact_mothers_name']->value,
                 new Lib\ContactInfo($phoneNumbers, $emails)
             );
@@ -200,7 +198,7 @@ class Member
             if (isset($this->properties['contact_email_dad'])) {
                 $emails[] = $this->properties['contact_email_dad']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-2"] = new Configs\ContactBase(
+            $contacts["{$this->properties['member_no']->value}-2"] = new Bases\ContactBase(
                 $this->properties['contact_fathers_name']->value,
                 new Lib\ContactInfo($phoneNumbers, $emails)
             );
@@ -210,22 +208,24 @@ class Member
 
     public function getTroops()
     {
-        $troops = [];
-        foreach ($this->properties['roles']->troopRoles as $troopId => $troopRole) {
-            $troops[$troopId] = [
-                'role' => $troopRole
-            ];
+        $troops = $this->properties['roles']->getTroopRoles();
+        if (isset($this->properties['unit'])) {
+            $troop = $this->properties['unit'];
+            if (!isset($troops[$troop->raw_value])){
+                $troops[$troop->raw_value] = [];
+            }
         }
         return $troops;
     }
 
     public function getPatrols()
     {
-        $patrols = [];
-        foreach ($this->properties['roles']->patrolRoles as $patrolId => $patrolRole) {
-            $patrols[$patrolId] = [
-                'role' => $patrolRole
-            ];
+        $patrols = $this->properties['roles']->getPatrolRoles();
+        if (isset($this->properties['patrol'])){
+            $patrol = $this->properties['patrol'];
+            if (!isset($patrols[$patrol->raw_value])){
+                $patrols[$patrol->raw_value] = [];
+            }
         }
         return $patrols;
     }

@@ -8,7 +8,7 @@
 namespace Scoutorg\Scoutnet;
 
 use Scoutorg\Lib;
-use Scoutorg\Builder\Configs;
+use Scoutorg\Builder\Bases;
 
 /**
  * Contains fields equivalent to an
@@ -118,7 +118,7 @@ class WaitingMember
     /**
      * Gets the list of contacts of the waiting member
      * as new instances.
-     * @return Lib\Contact[]
+     * @return Bases\ContactBase[]
      */
     public function getContacts()
     {
@@ -133,7 +133,7 @@ class WaitingMember
             if (isset($this->properties['contact_email_mum'])) {
                 $emails[] = $this->properties['contact_email_mum']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-1"] = new Configs\ContactBase(
+            $contacts["{$this->properties['member_no']->value}-1"] = new Bases\ContactBase(
                 $this->properties['contact_mothers_name']->value,
                 new Lib\ContactInfo($phoneNumbers, $emails)
             );
@@ -148,7 +148,7 @@ class WaitingMember
             if (isset($this->properties['contact_email_dad'])) {
                 $emails[] = $this->properties['contact_email_dad']->value;
             }
-            $contacts["{$this->properties['member_no']->value}-2"] = new Configs\ContactBase(
+            $contacts["{$this->properties['member_no']->value}-2"] = new Bases\ContactBase(
                 $this->properties['contact_fathers_name']->value,
                 new Lib\ContactInfo($phoneNumbers, $emails)
             );

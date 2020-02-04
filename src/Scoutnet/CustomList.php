@@ -7,8 +7,6 @@
 
 namespace Scoutorg\Scoutnet;
 
-use pcrov\JsonReader\JsonReader;
-
 /**
  * Contains fields that are equivalent to custom lists from scoutnet.
  * @property-read int $id
@@ -31,6 +29,7 @@ class CustomList
         $this->properties = [];
         $this->properties['id'] = $object->id;
         $this->properties['title'] = $object->title;
+        $this->properties['description'] = $object->description;
         $this->properties['list_email_key'] = $object->list_email_key;
         $this->properties['aliases'] = $object->aliases;
         $this->properties['rules'] = [];

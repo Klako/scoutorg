@@ -7,8 +7,6 @@
 
 namespace Scoutorg\Scoutnet;
 
-use pcrov\JsonReader\JsonReader;
-
 /**
  * Contains fields that are equivalent to custom list rules from scoutnet.
  * @property-read int $id

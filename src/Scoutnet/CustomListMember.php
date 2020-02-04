@@ -7,8 +7,6 @@
 
 namespace Scoutorg\Scoutnet;
 
-use pcrov\JsonReader\JsonReader;
-
 /**
  * Contains fields from that are equivalent to custom list members from scoutnet.
  * @property-read Value $email The member's email.

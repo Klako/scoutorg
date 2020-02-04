@@ -7,8 +7,6 @@
 
 namespace Scoutorg\Scoutnet;
 
-use pcrov\JsonReader\JsonReader;
-
 /**
  * A scoutnet connection for fetching data from scoutnet.
  * Also handles cache.
@@ -24,8 +22,11 @@ class ScoutnetConnection
     /** @var string The api path for fetching member lists */
     const API_MEMBERLIST_PATH = 'api/group/memberlist';
 
-    /** @var string The domain/address of the server with the scoutnet api. */
-    private $domain;
+    /** @var string The v/address of the server with the scoutnet api. */
+    private $host;
+
+    /** @var int The port of the web server on the given host */
+    private $port;
 
     /** @var ScoutGroupConfig The scoutnet group configuration. */
     private $groupConfig;
@@ -33,32 +34,33 @@ class ScoutnetConnection
     /**
      * Creates a new connection.
      * @param ScoutGroupConfig $groupConfig
-     * @param string $domain
+     * @param string $host
      * @param int $cacheLifeTime
      */
-    public function __construct(ScoutGroupConfig $groupConfig, string $domain = 'www.scoutnet.se')
+    public function __construct(ScoutGroupConfig $groupConfig, string $host = 'www.scoutnet.se', int $port = 80)
     {
         $this->groupConfig = $groupConfig;
-        $this->domain = $domain;
+        $this->host = $host;
+        $this->port = $port;
     }
 
     /**
-     * Gets the domain to be used.
+     * Gets the host to be used.
      * @return string
      */
-    public function getDomain()
+    public function getHost()
     {
-        return $this->domain;
+        return $this->host;
     }
 
     /**
-     * Sets the domain to be used.
-     * @param string $domain
+     * Sets the host to be used.
+     * @param string $host
      * @return void
      */
-    public function setDomain($domain)
+    public function setHost($host)
     {
-        $this->domain = $domain;
+        $this->host = $host;
     }
 
     /**
@@ -85,9 +87,9 @@ class ScoutnetConnection
      * the scoutnet server's member list api.
      * @param string $urlVars The uri variables to apply.
      * @param bool $force Wether to force to fetch and cache.
-     * @return JsonReader
+     * @return object
      */
-    public function fetchMemberListApi(string $urlVars)
+    public function fetchMemberListApi(string $urlVars = '')
     {
         $memberListKey = $this->groupConfig->getMemberListKey();
         $url = $this->getApiUrl($memberListKey, self::API_MEMBERLIST_PATH, $urlVars);
@@ -104,7 +106,7 @@ class ScoutnetConnection
      * @param string $urlVars The uri variables to apply.
      * @return string|false
      */
-    public function fetchCustomListsApi(string $urlVars)
+    public function fetchCustomListsApi(string $urlVars = '')
     {
         $customListsKey = $this->groupConfig->getCustomListsKey();
         $url = $this->getApiUrl($customListsKey, self::API_CUSTOMLISTS_PATH, $urlVars);
@@ -144,6 +146,6 @@ class ScoutnetConnection
     private function getApiUrl(string $apiKey, string $apiPath, string $urlVars)
     {
         $groupId = $this->groupConfig->getGroupId();
-        return "https://{$groupId}:{$apiKey}@{$this->domain}/{$apiPath}?{$urlVars}&format=json";
+        return "{$groupId}:{$apiKey}@{$this->host}:{$this->port}/{$apiPath}?{$urlVars}&format=json";
     }
 }
