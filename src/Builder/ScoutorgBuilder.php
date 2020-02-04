@@ -3,57 +3,76 @@
 namespace Scoutorg\Builder;
 
 use Scoutorg\Lib;
-use Scoutorg\Builder\Builders;
+use Scoutorg\Builder\Tables;
 
+/**
+ * @property-read Tables\ScoutGroupTable $scoutGroups
+ * @property-read Tables\TroopTable $troops
+ * @property-read Tables\BranchTable $branches
+ * @property-read Tables\PatrolTable $patrols
+ * @property-read Tables\MemberTable $members
+ * @property-read Tables\CustomListTable $customLists
+ * @property-read Tables\ContactTable $contacts
+ * @property-read Tables\WaitingMemberTable $waitingMembers
+ * @property-read Tables\TroopMemberTable $troopMembers
+ * @property-read Tables\PatrolMemberTable $patrolMembers
+ * @property-read Tables\TroopRoleTable $troopRoles
+ * @property-read Tables\PatrolRoleTable $patrolRoles
+ * @property-read Tables\GrouRoleTable $groupRoles
+ */
 class ScoutorgBuilder
 {
-    private $config;
-
+    /** @var array<string,Tables\BuilderTable> */
     private $tables;
 
-    public function __construct($config)
+    /** @var array<string,Tables\BuilderTable> */
+    private $baseIndexedTables;
+
+    /**
+     * @param Config $config
+     */
+    public function __construct(Config $config)
     {
-        $this->config = $config;
-        $this->setTable(Lib\ScoutGroup::class, Builders\ScoutGroupBuilder::class);
-        $this->setTable(Lib\Troop::class, Builders\TroopBuilder::class);
-        $this->setTable(Lib\Branch::class, Builders\BranchBuilder::class);
-        $this->setTable(Lib\Patrol::class, Builders\PatrolBuilder::class);
-        $this->setTable(Lib\Member::class, Builders\MemberBuilder::class);
-        $this->setTable(Lib\CustomList::class, Builders\CustomListBuilder::class);
-        $this->setTable(Lib\GroupRole::class, Builders\GroupRoleBuilder::class);
-        $this->setTable(Lib\Contact::class, Builders\ContactBuilder::class);
-        $this->setTable(Lib\WaitingMember::class, Builders\WaitingMemberBuilder::class);
-        $this->setTable(Lib\TroopMember::class, Builders\TroopMemberBuilder::class);
-        $this->setTable(Lib\PatrolMember::class, Builders\PatrolMemberBuilder::class);
+        $this->tables = [];
+        $this->setTable('scoutGroups', Bases\ScoutGroupBase::class, new Tables\ScoutGroupTable($config, $this));
+        $this->setTable('troops', Bases\TroopBase::class, new Tables\TroopTable($config, $this));
+        $this->setTable('branches', Bases\BranchBase::class, new Tables\BranchTable($config, $this));
+        $this->setTable('patrols', Bases\PatrolBase::class, new Tables\PatrolTable($config, $this));
+        $this->setTable('members', Bases\MemberBase::class, new Tables\MemberTable($config, $this));
+        $this->setTable('customLists', Bases\CustomListBase::class, new Tables\CustomListTable($config, $this));
+        $this->setTable('contacts', Bases\ContactBase::class, new Tables\ContactTable($config, $this));
+        $this->setTable('groupWaiters', Bases\GroupWaiterBase::class, new Tables\GroupWaiterTable($config, $this));
+        $this->setTable('troopMembers', Bases\TroopMemberBase::class, new Tables\TroopMemberTable($config, $this));
+        $this->setTable('patrolMembers', Bases\PatrolMemberBase::class, new Tables\PatrolMemberTable($config, $this));
+        $this->setTable('troopRoles', Bases\TroopRoleBase::class, new Tables\TroopRoleTable($config, $this));
+        $this->setTable('patrolRoles', Bases\PatrolRoleBase::class, new Tables\PatrolRoleTable($config, $this));
+        $this->setTable('groupRoles', bases\GroupRoleBase::class, new Tables\GrouRoleTable($config, $this));
+        $this->setTable('groupMembers', Bases\GroupMemberBase::class, new Tables\GroupMemberTable($config, $this));
     }
 
-    public function get($type, $source, $id)
+    private function setTable($name, $baseClass, $table)
     {
-        assert(
-            \in_array($type, \array_keys($this->tables)),
-            new \InvalidArgumentException("$type is not a scoutorg object type")
-        );
+        $this->tables[$name] = $table;
+        $this->baseIndexedTables[$baseClass] = $table;
+    }
 
-        $table = $this->tables[$type]->table;
-        if (!$table->exists($source, $id)) {
+    /**
+     * Gets the table corresponding to the specified
+     * fully qualified base class name.
+     * @param string $baseClass 
+     * @return Tables\BuilderTable|null 
+     */
+    public function getTable(string $baseClass)
+    {
+        return $this->baseIndexedTables[$baseClass] ?? null;
+    }
 
-            /** @var Builders\ObjectBuilder $builder */
-            $builder = $this->tables[$type]->builder;
-
-            $orgObject = $builder->build($source, $id);
-
-            // TODO: error on null
-
-            $table->insert($orgObject);
+    public function __get($name)
+    {
+        if (isset($this->tables[$name])) {
+            return $this->tables[$name];
+        } else {
+            throw new \Exception("Property $name is not defined");
         }
-
-        return $table->get($source, $id);
-    }
-
-    private function setTable($type, $builder) {
-        $this->tables[$type] = (object)[
-            'table' => new MutableOrgArray([]),
-            'builder' => new $builder($this->config[$type], $this),
-        ];
     }
 }
