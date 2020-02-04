@@ -3,14 +3,13 @@
 namespace Scoutorg\Builder\Tables;
 
 use Scoutorg\Builder\Bases;
-use Scoutorg\Builder\Bases\MemberBase;
 use Scoutorg\Lib\Member;
 
 class MemberTable extends BuilderTable
 {
     public function __construct($config, $scoutorg)
     {
-        parent::__construct($config, $scoutorg, MemberBase::class);
+        parent::__construct($config, $scoutorg, Bases\MemberBase::class);
     }
 
     /**
@@ -27,7 +26,7 @@ class MemberTable extends BuilderTable
     /**
      * @param string $source 
      * @param int|string $id 
-     * @param MemberBase $base 
+     * @param Bases\MemberBase $base 
      * @return Member 
      */
     protected function build($source, $id, $base)
@@ -36,7 +35,7 @@ class MemberTable extends BuilderTable
         $troops = $this->promiseEdgeList($source, $id, 'troops', Bases\TroopBase::class, Bases\TroopMemberBase::class);
         $patrols = $this->promiseEdgeList($source, $id, 'patrols', Bases\PatrolBase::class, Bases\PatrolMemberBase::class);
         $groups = $this->promiseEdgeList($source, $id, 'groups', Bases\ScoutGroupBase::class, Bases\GroupMemberBase::class);
-        $waitGroups = $this->promiseEdgeList($source, $id, 'waitGroups', Bases\ScoutGroupBase::class, Bases\GroupWaiterBase::class);
+        $waitGroups = $this->promiseEdgeList($source, $id, 'waitgroups', Bases\ScoutGroupBase::class, Bases\GroupWaiterBase::class);
 
         return new Member(
             $source,
