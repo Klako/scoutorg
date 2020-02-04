@@ -11,7 +11,7 @@ namespace Scoutorg\Lib;
  * containing information about the relationship.
  * @property-read Troop $troop
  * @property-read Member $member
- * @property-read string[] $roles
+ * @property-read Arrays\TroopRoleArray<TroopRole> $roles
  */
 class TroopMember extends OrgObject
 {
@@ -21,13 +21,13 @@ class TroopMember extends OrgObject
      * @param int|string $id
      * @param Troop $troop
      * @param Member $member
-     * @param string[] $roles
+     * @param OrgArray<TroopRoles> $roles
      */
-    public function __construct($source, $id, $troop, $member, $roles)
+    public function __construct(string $source, $id, $troop, $member, $roles)
     {
         parent::__construct($source, $id);
-        $this->setProperty('troop', [Troop::class], $troop);
-        $this->setProperty('member', [Member::class], $member);
-        $this->setProperty('role', ['array'], $roles);
+        $this->setObject('troop', $troop, Troop::class);
+        $this->setObject('member', $member, Member::class);
+        $this->setArray('roles', $roles, Arrays\TroopRoleArray::class);
     }
 }

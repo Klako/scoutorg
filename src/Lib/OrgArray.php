@@ -11,24 +11,24 @@ class OrgArray implements \IteratorAggregate, \Countable
         $this->tree = $tree;
     }
 
-    public function exists($source, $index)
+    public function exists(string $source, $id): bool
     {
         return isset($this->tree[$source])
-            && isset($this->tree[$source][$index]);
+            && isset($this->tree[$source][$id]);
     }
 
-    public function get($source, $index)
+    public function get(string $source, $id): OrgObject
     {
         if (!isset($this->tree[$source])) {
             throw new \OutOfRangeException("Source '$source' doesn't exist");
         }
-        if (!isset($this->tree[$source][$index])) {
-            throw new \OutOfRangeException("Index '$index' in source '$source' doesn't exist");
+        if (!isset($this->tree[$source][$id])) {
+            throw new \OutOfRangeException("Id '$id' in source '$source' doesn't exist");
         }
-        return $this->tree[$source][$index];
+        return $this->tree[$source][$id];
     }
 
-    public function count()
+    public function count(): int
     {
         $sum = 0;
         foreach ($this->tree as $sourceArray) {
@@ -41,6 +41,17 @@ class OrgArray implements \IteratorAggregate, \Countable
     {
         foreach ($this->tree as $sourceArray) {
             yield from $sourceArray;
+        }
+    }
+
+    /**
+     * @param $source
+     * @return \Generator<int|string,OrgObject>
+     */
+    public function fromSource(string $source): \Generator
+    {
+        if (isset($this->tree[$source])) {
+            yield from $this->tree[$source];
         }
     }
 }

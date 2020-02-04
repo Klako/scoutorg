@@ -10,7 +10,7 @@ namespace Scoutorg\Lib;
 /**
  * A branch (gren) that contains troops.
  * @property-read string $name
- * @property-read Dummies\TroopArray<int,Troop> $troops
+ * @property-read Arrays\TroopArray<Troop> $troops
  */
 class Branch extends OrgObject
 {
@@ -20,12 +20,12 @@ class Branch extends OrgObject
      * @param string $source
      * @param int|string $id
      * @param string $name
-     * @param OrgArray $troops
+     * @param OrgArray<Troop>|IArrayPromise $troops
      */
-    public function __construct($source, $id, $name, $troops)
+    public function __construct(string $source, $id, string $name, $troops)
     {
-        parent::construct($source, $id);
-        $this->setProperty('name', ['string'], $name);
-        $this->setProperty('troops', [OrgArray::class], $troops);
+        parent::__construct($source, $id);
+        $this->setProperty('name', $name);
+        $this->setArray('troops', $troops, Arrays\TroopArray::class);
     }
 }

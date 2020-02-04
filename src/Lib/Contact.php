@@ -22,10 +22,10 @@ class Contact extends OrgObject
      * @param string $name
      * @param ContactInfo $contactInfo
      */
-    public function __construct($source, $id, $name, $contactInfo)
+    public function __construct(string $source, $id, string $name, ContactInfo $contactInfo)
     {
-        parent::_construct($source, $id);
-        $this->setProperty('name', ['string'], $name);
-        $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
+        parent::__construct($source, $id);
+        $this->setProperty('name', $name);
+        $this->setProperty('contactInfo', $contactInfo);
     }
 }

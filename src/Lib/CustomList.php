@@ -11,8 +11,8 @@ namespace Scoutorg\Lib;
  * A custom member list with sub lists.
  * @property-read string $title
  * @property-read string $description
- * @property-read Dummies\MemberArray<int,Member> $members
- * @property-read Dummies\CustomListArray<int,CustomList> $subLists
+ * @property-read Arrays\MemberArray<Member> $members
+ * @property-read Arrays\CustomListArray<CustomList> $subLists
  */
 class CustomList extends OrgObject
 {
@@ -23,15 +23,15 @@ class CustomList extends OrgObject
      * @param int|string $id
      * @param string $title
      * @param string $description
-     * @param OrgArray<int,Member> $members
-     * @param OrgArray<int,CustomList> $subLists
+     * @param OrgArray<Member> $members
+     * @param OrgArray<CustomList> $subLists
      */
-    public function __construct($source, $id, $title, $description, $members, $subLists)
+    public function __construct(string $source, $id, string $title, string $description, $members, $subLists)
     {
         parent::__construct($source, $id);
-        $this->setProperty('title', ['string'], $title);
-        $this->setProperty('description', ['string'], $description);
-        $this->setProperty('members', [OrgArray::class], $members);
-        $this->setProperty('subLists', [OrgArray::class], $subLists);
+        $this->setProperty('title', $title);
+        $this->setProperty('description', $description);
+        $this->setArray('members', $members, Arrays\MemberArray::class);
+        $this->setArray('subLists', $subLists, Arrays\CustomListArray::class);
     }
 }

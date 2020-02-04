@@ -20,10 +20,10 @@ class ContactInfo extends ReadOnlyObject
      * @param string[] $phoneNumbers A list of phone numbers.
      * @param string[] $emails A list of email addresses.
      */
-    public function __construct($phoneNumbers, $emails)
+    public function __construct(array $phoneNumbers, array $emails)
     {
         parent::__construct();
-        $this->setProperty('phoneNumbers', ['array'], $phoneNumbers);
-        $this->setProperty('emails', ['array'], $emails);
+        $this->setProperty('phoneNumbers', $phoneNumbers);
+        $this->setProperty('emails', $emails);
     }
 }

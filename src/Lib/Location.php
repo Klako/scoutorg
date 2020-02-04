@@ -22,11 +22,11 @@ class Location extends ReadOnlyObject
      * @param string $postCode The swedish post code of the address.
      * @param string $postTown The town of the post code.
      */
-    public function __construct($address, $postCode, $postTown)
+    public function __construct(string $address, string $postCode, string $postTown)
     {
         parent::__construct();
-        $this->setProperty('address', ['string'], $address);
-        $this->setProperty('postCode', ['string'], $postCode);
-        $this->setProperty('postTown', ['string'], $postTown);
+        $this->setProperty('address', $address);
+        $this->setProperty('postCode', $postCode);
+        $this->setProperty('postTown', $postTown);
     }
 }

@@ -12,8 +12,9 @@ namespace Scoutorg\Lib;
  * @property-read PersonInfo $personInfo
  * @property-read ContactInfo $contactInfo
  * @property-read Location $home
+ * @property-read string $note
+ * @property-read bool $leaderInterest
  * @property-read OrgArray<int,Contact> $contacts
- * @property-read string $startDate
  * @property-read OrgArray<int,Troop> $troops
  * @property-read OrgArray<int,Patrol> $patrols
  * @property-read OrgArray<int,GroupRole> $groupRoles
@@ -28,32 +29,37 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param Dummies\ContactArray<int,Contact> $contacts
+     * @param Arrays\ContactArray<Contact> $contacts
      * @param string $startdate
-     * @param Dummies\TroopMemberArray<int,TroopMember> $troops
-     * @param Dummies\PatrolMemberArray<int,PatrolMember> $patrols
-     * @param Dummies\GroupRoleArray<int,GroupRole> $groupRoles
+     * @param Arrays\TroopMemberArray<TroopMember> $troops
+     * @param Arrays\PatrolMemberArray<PatrolMember> $patrols
+     * @param Arrays\GroupMemberArray<GroupMember> $groups
+     * @param Arrays\GroupWaiterArray<GroupWaiter> $waitGroups
      */
     public function __construct(
-        $source,
+        string $source,
         $id,
-        $personInfo,
-        $contactInfo,
-        $home,
+        PersonInfo $personInfo,
+        ContactInfo $contactInfo,
+        Location $home,
+        string $note,
+        bool $leaderInterest,
         $contacts,
-        $startdate,
         $troops,
         $patrols,
-        $groupRoles
+        $groups,
+        $waitGroups
     ) {
         parent::__construct($source, $id);
-        $this->setProperty('personInfo', [PersonInfo::class], $personInfo);
-        $this->setProperty('contactInfo', [ContactInfo::class], $contactInfo);
-        $this->setProperty('home', [Location::class], $home);
-        $this->setProperty('contacts', [OrgArray::class], $contacts);
-        $this->setProperty('startdate', ['string'], $startdate);
-        $this->setProperty('troops', [OrgArray::class], $troops);
-        $this->setProperty('patrols', [OrgArray::class], $patrols);
-        $this->setProperty('groupRoles', [OrgArray::class], $groupRoles);
+        $this->setProperty('personInfo', $personInfo);
+        $this->setProperty('contactInfo', $contactInfo);
+        $this->setProperty('home', $home);
+        $this->setProperty('note', $note);
+        $this->setProperty('leaderInterest', $leaderInterest);
+        $this->setArray('contacts', $contacts, Arrays\ContactArray::class);
+        $this->setArray('troops', $troops, Arrays\TroopMemberArray::class);
+        $this->setArray('patrols', $patrols, Arrays\PatrolMemberArray::class);
+        $this->setArray('groups', $groups, Arrays\GroupMemberArray::class);
+        $this->setArray('waitGroups', $waitGroups, Arrays\GroupWaiterArray::class);
     }
 }

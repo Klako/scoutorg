@@ -11,8 +11,8 @@ namespace Scoutorg\Lib;
  * A troop that is in the scout group.
  * @property-read string $name
  * @property-read Branch|null $branch
- * @property-read Dummies\TroopMemberArray<int,TroopMember> $members
- * @property-read Dummies\PatrolArray<int,Patrol> $patrols
+ * @property-read Arrays\TroopMemberArray<TroopMember> $members
+ * @property-read Arrays\PatrolArray<Patrol> $patrols
  */
 class Troop extends OrgObject
 {
@@ -23,15 +23,15 @@ class Troop extends OrgObject
      * @param int|string $id
      * @param string $name The troop name.
      * @param Branch|null $branch
-     * @param OrgArray<int,Member> $members
-     * @param OrgArray<int,Patrol> $patrols
+     * @param OrgArray<TroopMember> $members
+     * @param OrgArray<Patrol> $patrols
      */
-    public function __construct($source, $id, $name, $branch, $members, $patrols)
+    public function __construct(string $source, $id, string $name, $branch, $members, $patrols)
     {
         parent::__construct($source, $id);
-        $this->setProperty('name', ['string'], $name);
-        $this->setProperty('branch', [Branch::class, 'NULL'], $branch);
-        $this->setProperty('members', [OrgArray::class], $members);
-        $this->setProperty('patrols', [OrgArray::class], $patrols);
+        $this->setProperty('name', $name);
+        $this->setObject('branch', $branch, Branch::class);
+        $this->setArray('members', $members, Arrays\TroopMemberArray::class);
+        $this->setArray('patrols', $patrols, Arrays\PatrolArray::class);
     }
 }

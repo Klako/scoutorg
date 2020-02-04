@@ -26,13 +26,13 @@ class PersonInfo extends ReadOnlyObject
      * @param string $gender The person's gender.
      * @param string $dob The person's date of birth.
      */
-    public function __construct($firstname, $lastname, $ssno, $gender, $dob)
+    public function __construct(string $firstname, string $lastname, string $ssno, string $gender, string $dob)
     {
         parent::__construct();
-        $this->setProperty('firstname', ['string'], $firstname);
-        $this->setProperty('lastname', ['string'], $lastname);
-        $this->setProperty('ssno', ['string'], $ssno);
-        $this->setProperty('gender', ['string'], $gender);
-        $this->setProperty('dob', ['string'], $dob);
+        $this->setProperty('firstname', $firstname);
+        $this->setProperty('lastname', $lastname);
+        $this->setProperty('ssno', $ssno);
+        $this->setProperty('gender', $gender);
+        $this->setProperty('dob', $dob);
     }
 }

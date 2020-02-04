@@ -7,17 +7,15 @@
 
 namespace Scoutorg\Lib;
 
-use Scoutorg\Lib\Dummies\GroupRoleArray;
-
 /**
  * The whole scout group that is part of the scout organisation.
  * @property-read string $name
- * @property-read Dummies\MemberArray<int,Member> $members
- * @property-read Dummies\TroopArray<int,Troop> $troops
- * @property-read Dummies\BranchArray<int,Branch> $branches
- * @property-read Dummies\GroupRoleArray<int,GroupRole> $groupRoles
- * @property-read Dummies\CustomListArray<int,CustomList> $customLists
- * @property-read Dummies\WaitingMemberArray<int,WaitingList> $waitingList
+ * @property-read Arrays\GroupMemberArray<Member> $members
+ * @property-read Arrays\TroopArray<Troop> $troops
+ * @property-read Arrays\BranchArray<Branch> $branches
+ * @property-read Arrays\GroupRoleArray<GroupRole> $groupRoles
+ * @property-read Arrays\CustomListArray<CustomList> $customLists
+ * @property-read Arrays\WaitingMemberArray<WaitingList> $waitingList
  */
 class ScoutGroup extends OrgObject
 {
@@ -27,17 +25,17 @@ class ScoutGroup extends OrgObject
      * @param string $source
      * @param int|string $id
      * @param string $name
-     * @param MemberArray<int,Member> $members All members of the group.
-     * @param TroopArray<int,Troop> $troops
-     * @param BranchArray<int,Branch> $branches
-     * @param GroupRoleArray<int,GroupRole> $groupRoles
-     * @param CustomListArray<int,CustomList> $customLists
-     * @param WaitingMemberArray<int,WaitingList> $waitingList
+     * @param GroupMemberArray<Member> $members All members of the group.
+     * @param TroopArray<Troop> $troops
+     * @param BranchArray<Branch> $branches
+     * @param GroupRoleArray<GroupRole> $groupRoles
+     * @param CustomListArray<CustomList> $customLists
+     * @param WaitingMemberArray<WaitingList> $waitingList
      */
     public function __construct(
-        $source,
+        string $source,
         $id,
-        $name,
+        string $name,
         $members,
         $troops,
         $branches,
@@ -46,12 +44,12 @@ class ScoutGroup extends OrgObject
         $waitingList
     ) {
         parent::__construct($source, $id);
-        $this->setProperty('name', ['string'], $name);
-        $this->setProperty('members', [OrgArray::class], $members);
-        $this->setProperty('troops', [OrgArray::class], $troops);
-        $this->setProperty('branches', [OrgArray::class], $branches);
-        $this->setProperty('groupRoles', [OrgArray::class], $groupRoles);
-        $this->setProperty('customLists', [OrgArray::class], $customLists);
-        $this->setProperty('waitingList', [OrgArray::class], $waitingList);
+        $this->setProperty('name', $name);
+        $this->setArray('members', $members, Arrays\GroupMemberArray::class);
+        $this->setArray('troops', $troops, Arrays\TroopArray::class);
+        $this->setArray('branches', $branches, Arrays\BranchArray::class);
+        $this->setArray('groupRoles', $groupRoles, Arrays\GroupRoleArray::class);
+        $this->setArray('customLists', $customLists, Arrays\CustomListArray::class);
+        $this->setArray('waitingList', $waitingList, Arrays\GroupWaiterArray::class);
     }
 }

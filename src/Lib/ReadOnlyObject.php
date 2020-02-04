@@ -4,7 +4,7 @@ namespace Scoutorg\Lib;
 
 class ReadOnlyObject
 {
-    /** @var Property[] */
+    /** @var array<string,mixed> */
     private $properties = null;
 
     protected function __construct()
@@ -12,35 +12,59 @@ class ReadOnlyObject
         $this->properties = [];
     }
 
-    protected function setProperty(string $name, array $types, $value)
+    protected function setProperty($name, $value, $types = [])
     {
-        assert(
-            \in_array($valueType = \gettype($value), $types)
-                || (\is_object($value) && \in_array($valueType = \get_class($value), $types))
-                || \is_callable($value),
-            new \TypeError("Error when setting property '$name', expected [" . join(', ', $types) . "], got $valueType")
-        ); // Should not run in production.
-        $this->properties[$name] = new Property($types, $value);
+        if ($types){
+            self::checkType($name, $value, $types);
+        }
+        $this->properties[$name] = $value;
+    }
+
+    protected function getProperty($name)
+    {
+        return $this->properties[$name] ?? null;
+    }
+
+    protected static function checkType($name, $value, $types)
+    {
+        foreach ($types as $type) {
+            if (
+                !($valueType = \gettype($value) === $type)
+                && !($valueType = is_a($value, $type))
+            ) {
+                self::throwTypeError($name, $valueType, $types);
+            }
+        }
+    }
+
+    protected static function throwTypeError(&$name, &$actual, &$expected)
+    {
+        throw new \TypeError(
+            "Value $name has the wrong type, expected [" . \join(', ', $expected) . "], got $actual"
+        );
     }
 
     public function __get($name)
     {
         if (\array_key_exists($name, $this->properties)) {
-            if (is_callable($this->properties[$name]->value)) {
-                $func = $this->properties[$name]->value;
-                $value = $func($this);
-                assert(
-                    \in_array($valueType = \gettype($value), $this->properties[$name]->types)
-                        || (\is_object($value) && \in_array($valueType = \get_class($value), $this->properties[$name]->types)),
-                    new \TypeError("Error when setting property '$name', expected [" . join(', ', $this->properties[$name]->types) . "], got $valueType")
-                );
-                $this->properties[$name]->value = $value;
+            $value = $this->properties[$name];
+            if ($value instanceof IObjectPromise) {
+                $value = $value->getObject();
+                self::checkType($name, $value, [OrgObject::class]);
+                $this->properties[$name] = $value;
+            } elseif ($value instanceof IArrayPromise) {
+                $value = $value->getArray();
+                self::checkType($name, $value, [OrgArray::class]);
+                $this->properties[$name] = $value;
             }
-            return $this->properties[$name]->value;
+            return $value;
+        } else {
+            throw new \Exception("Property $name is not defined");
         }
     }
 
-    public function __isset($name){
+    public function __isset($name)
+    {
         return isset($this->properties[$name]);
     }
 }

@@ -1,21 +1,15 @@
 <?php
 
-/**
- * Contains GroupRole class
- * @author Alexander Krantz
- */
-
 namespace Scoutorg\Lib;
 
 /**
- * A group for a special role in the scout group
+ * A type of role.
  * @property-read string $name
  */
-class GroupRole extends OrgObject
+class PatrolRole extends OrgObject
 {
     /**
-     * Creates a new group role with the specified role.
-     * @internal
+     * Creates a new patrol role.
      * @param string $source
      * @param int|string $id
      * @param string $name
