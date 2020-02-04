@@ -12,7 +12,6 @@ class Uid
 
     public function __construct(string $source, $id)
     {
-        parent::__construct();
         $this->source = $source;
         Helpers::checkType('id', $id, ['integer', 'string']);
         $this->id = $id;

@@ -6,15 +6,17 @@ class Helpers
 {
     public static function checkType($name, $value, $types)
     {
+        $foundType = false;
         foreach ($types as $type) {
-            if (
-                !($valueType = \gettype($value) === $type)
-                && !($valueType = is_a($value, $type))
-            ) {
-                throw new \TypeError(
-                    "Value $name has the wrong type, expected [" . \join(', ', $types) . "], got $valueType"
-                );
+            if (\gettype($value) === $type || is_a($value, $type)) {
+                $foundType = true;
+                break;
             }
+        }
+        if (!$foundType) {
+            throw new \TypeError(
+                "Value of '$name' has the wrong type, expected [" . \join(', ', $types) . '], got ' . \gettype($value)
+            );
         }
     }
 }

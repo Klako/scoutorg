@@ -3,6 +3,8 @@
 namespace Scoutorg\Tests\Scoutnet;
 
 use PHPUnit\Framework\TestCase;
+use Scoutorg\Builder\ScoutorgBuilder;
+use Scoutorg\Lib;
 use Symfony\Component\Process\Process;
 
 class ScoutorgBuilderTest extends TestCase
@@ -12,8 +14,6 @@ class ScoutorgBuilderTest extends TestCase
 
     /** @var \PDO */
     private static $db;
-
-    private static $builder;
 
     static function setUpBeforeClass(): void
     {
@@ -35,5 +35,15 @@ class ScoutorgBuilderTest extends TestCase
     static function tearDownAfterClass(): void
     {
         self::$process->stop();
+    }
+
+    function testGroupInfo(){
+        $builder = new ScoutorgBuilder(Config::getBuilderConfig());
+
+        $group = $builder->scoutGroups->get('scoutnet', 1);
+
+        self::assertTrue(\get_class($group) === Lib\ScoutGroup::class);
+
+        self::assertIsString($group->name);
     }
 }

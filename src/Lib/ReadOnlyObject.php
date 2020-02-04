@@ -14,7 +14,7 @@ class ReadOnlyObject
 
     protected function setProperty($name, $value, $types = [])
     {
-        if ($types){
+        if ($types) {
             self::checkType($name, $value, $types);
         }
         $this->properties[$name] = $value;
@@ -27,21 +27,18 @@ class ReadOnlyObject
 
     protected static function checkType($name, $value, $types)
     {
+        $foundType = false;
         foreach ($types as $type) {
-            if (
-                !($valueType = \gettype($value) === $type)
-                && !($valueType = is_a($value, $type))
-            ) {
-                self::throwTypeError($name, $valueType, $types);
+            if (\gettype($value) === $type || is_a($value, $type)) {
+                $foundType = true;
+                break;
             }
         }
-    }
-
-    protected static function throwTypeError(&$name, &$actual, &$expected)
-    {
-        throw new \TypeError(
-            "Value $name has the wrong type, expected [" . \join(', ', $expected) . "], got $actual"
-        );
+        if (!$foundType) {
+            throw new \TypeError(
+                "Value of '$name' has the wrong type, expected [" . \join(', ', $types) . '], got ' . \gettype($value)
+            );
+        }
     }
 
     public function __get($name)

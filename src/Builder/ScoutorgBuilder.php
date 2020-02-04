@@ -18,7 +18,7 @@ use Scoutorg\Builder\Tables;
  * @property-read Tables\PatrolMemberTable $patrolMembers
  * @property-read Tables\TroopRoleTable $troopRoles
  * @property-read Tables\PatrolRoleTable $patrolRoles
- * @property-read Tables\GrouRoleTable $groupRoles
+ * @property-read Tables\GroupRoleTable $groupRoles
  */
 class ScoutorgBuilder
 {
@@ -46,7 +46,7 @@ class ScoutorgBuilder
         $this->setTable('patrolMembers', Bases\PatrolMemberBase::class, new Tables\PatrolMemberTable($config, $this));
         $this->setTable('troopRoles', Bases\TroopRoleBase::class, new Tables\TroopRoleTable($config, $this));
         $this->setTable('patrolRoles', Bases\PatrolRoleBase::class, new Tables\PatrolRoleTable($config, $this));
-        $this->setTable('groupRoles', bases\GroupRoleBase::class, new Tables\GrouRoleTable($config, $this));
+        $this->setTable('groupRoles', bases\GroupRoleBase::class, new Tables\GroupRoleTable($config, $this));
         $this->setTable('groupMembers', Bases\GroupMemberBase::class, new Tables\GroupMemberTable($config, $this));
     }
 

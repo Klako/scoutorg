@@ -45,9 +45,9 @@ class Config
         );
     }
 
-    public static function getScoutorgConfig()
+    public static function getBuilderConfig()
     {
-        $handler = self::getScoutorgHandler();
+        $handler = self::getScoutnetPartProvider();
 
         $config = new BuilderConfig();
         $config->addProvider('scoutnet', $handler);
@@ -59,7 +59,7 @@ class Config
      * Gets default scoutorg factory
      * @return PartProvider
      */
-    public static function getScoutorgHandler()
+    public static function getScoutnetPartProvider()
     {
         $controller = new ScoutnetController(self::getScoutnetConnection());
         return new PartProvider($controller);

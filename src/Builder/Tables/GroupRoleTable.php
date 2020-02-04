@@ -5,7 +5,7 @@ namespace Scoutorg\Builder\Tables;
 use Scoutorg\Builder\Bases\GroupRoleBase;
 use Scoutorg\Lib\GroupRole;
 
-class GrouRoleTable extends BuilderTable
+class GroupRoleTable extends BuilderTable
 {
     public function __construct($config, $scoutorg)
     {
