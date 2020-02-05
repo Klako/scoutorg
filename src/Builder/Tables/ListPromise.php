@@ -43,7 +43,7 @@ class ListPromise implements IArrayPromise
             $uids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($uids as $uid) {
                 Builder\Helpers::checkType('uid', $uid, [Builder\Uid::class]);
-                $object = $table->get($uids->getSource(), $uids->getId());
+                $object = $table->get($uid->getSource(), $uid->getId());
                 if ($object) {
                     $arrayBuilder->addObject($object);
                 }

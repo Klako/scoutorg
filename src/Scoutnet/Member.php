@@ -211,8 +211,8 @@ class Member
         $troops = $this->properties['roles']->getTroopRoles();
         if (isset($this->properties['unit'])) {
             $troop = $this->properties['unit'];
-            if (!isset($troops[$troop->raw_value])){
-                $troops[$troop->raw_value] = [];
+            if (!isset($troops[$troop->rawValue])){
+                $troops[$troop->rawValue] = [];
             }
         }
         return $troops;
@@ -223,8 +223,8 @@ class Member
         $patrols = $this->properties['roles']->getPatrolRoles();
         if (isset($this->properties['patrol'])){
             $patrol = $this->properties['patrol'];
-            if (!isset($patrols[$patrol->raw_value])){
-                $patrols[$patrol->raw_value] = [];
+            if (!isset($patrols[$patrol->rawValue])){
+                $patrols[$patrol->rawValue] = [];
             }
         }
         return $patrols;
@@ -232,6 +232,6 @@ class Member
 
     public function getGroupRoles()
     {
-        return $this->properties['roles']->groupRoles;
+        return $this->properties['roles']->getGroupRoles();
     }
 }

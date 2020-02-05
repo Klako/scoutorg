@@ -70,6 +70,6 @@ class PartProvider implements IPartProvider
             return [];
         }
 
-        return $this->getLinkParts($uid->getId(), $type, $name) ?: [];
+        return $this->handlers[$type]->getLinkParts($uid->getId(), $name) ?: [];
     }
 }

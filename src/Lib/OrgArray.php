@@ -17,7 +17,7 @@ class OrgArray implements \IteratorAggregate, \Countable
             && isset($this->tree[$source][$id]);
     }
 
-    public function get(string $source, $id): OrgObject
+    public function get(string $source, $id)
     {
         if (!isset($this->tree[$source])) {
             throw new \OutOfRangeException("Source '$source' doesn't exist");

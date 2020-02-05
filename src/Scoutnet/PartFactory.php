@@ -117,12 +117,14 @@ class PartFactory
             $this->groupMembers->setBase($groupMemberId, new GroupMemberBase($member->confirmed_at->value));
             $this->groupMembers->setLink($groupMemberId, 'group', new Uid('scoutnet', $groupId));
             $this->groupMembers->setLink($groupMemberId, 'member', new Uid('scoutnet', $memberId));
-            foreach ($member->getGroupRoles()[$groupId] as $roleId => $roleName) {
-                if (!$this->groupRoles->hasBase($roleId)) {
-                    $this->groupRoles->setBase($roleId, new Bases\GroupRoleBase($roleName));
+            if (isset($member->getGroupRoles()[$groupId])) {
+                foreach ($member->getGroupRoles()[$groupId] as $roleId => $roleName) {
+                    if (!$this->groupRoles->hasBase($roleId)) {
+                        $this->groupRoles->setBase($roleId, new Bases\GroupRoleBase($roleName));
+                    }
+                    $this->scoutgroups->addLink($groupId, 'grouproles', new Uid('scoutnet', $roleId));
+                    $this->groupMembers->addLink($groupMemberId, 'roles', new Uid('scoutnet', $roleId));
                 }
-                $this->scoutgroups->addLink($groupId, 'grouproles', new Uid('scoutnet', $roleId));
-                $this->groupMembers->addLink($groupMemberId, 'roles', new Uid('scoutnet', $roleId));
             }
             $this->scoutgroups->addLink($groupId, 'members', new EdgeUid(
                 'scoutnet',
