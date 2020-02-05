@@ -10,12 +10,12 @@ namespace Scoutorg\Lib;
 /**
  * The whole scout group that is part of the scout organisation.
  * @property-read string $name
- * @property-read Arrays\GroupMemberArray<Member> $members
- * @property-read Arrays\TroopArray<Troop> $troops
- * @property-read Arrays\BranchArray<Branch> $branches
- * @property-read Arrays\GroupRoleArray<GroupRole> $groupRoles
- * @property-read Arrays\CustomListArray<CustomList> $customLists
- * @property-read Arrays\WaitingMemberArray<WaitingList> $waitingList
+ * @property-read Arrays\GroupMemberArray<mixed,Member> $members
+ * @property-read Arrays\TroopArray<mixed,Troop> $troops
+ * @property-read Arrays\BranchArray<mixed,Branch> $branches
+ * @property-read Arrays\GroupRoleArray<mixed,GroupRole> $groupRoles
+ * @property-read Arrays\CustomListArray<mixed,CustomList> $customLists
+ * @property-read Arrays\WaitingMemberArray<mixed,WaitingList> $waitingList
  */
 class ScoutGroup extends OrgObject
 {

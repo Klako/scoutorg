@@ -7,7 +7,7 @@ namespace Scoutorg\Lib;
  * @property-read string $startdate
  * @property-read ScoutGroup $group
  * @property-read Member $member
- * @property-read Arrays\GroupRoleArray<GroupRole> $roles
+ * @property-read Arrays\GroupRoleArray<mixed,GroupRole> $roles
  * @package Scoutorg\Lib
  */
 class GroupMember extends OrgObject

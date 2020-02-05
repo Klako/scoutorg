@@ -29,12 +29,12 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param Arrays\ContactArray<Contact> $contacts
+     * @param Arrays\ContactArray<mixed,Contact> $contacts
      * @param string $startdate
-     * @param Arrays\TroopMemberArray<TroopMember> $troops
-     * @param Arrays\PatrolMemberArray<PatrolMember> $patrols
-     * @param Arrays\GroupMemberArray<GroupMember> $groups
-     * @param Arrays\GroupWaiterArray<GroupWaiter> $waitGroups
+     * @param Arrays\TroopMemberArray<mixed,TroopMember> $troops
+     * @param Arrays\PatrolMemberArray<mixed,PatrolMember> $patrols
+     * @param Arrays\GroupMemberArray<mixed,GroupMember> $groups
+     * @param Arrays\GroupWaiterArray<mixed,GroupWaiter> $waitGroups
      */
     public function __construct(
         string $source,

@@ -11,7 +11,7 @@ namespace Scoutorg\Lib;
  * containing information about the relationship.
  * @property-read Troop $troop
  * @property-read Member $member
- * @property-read Arrays\TroopRoleArray<TroopRole> $roles
+ * @property-read Arrays\TroopRoleArray<mixed,TroopRole> $roles
  */
 class TroopMember extends OrgObject
 {

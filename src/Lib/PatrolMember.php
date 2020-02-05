@@ -11,7 +11,7 @@ namespace Scoutorg\Lib;
  * containing information about the relationship.
  * @property-read Patrol $patrol
  * @property-read Member $member
- * @property-read Arrays\PatrolRoleArray<PatrolRole> $roles
+ * @property-read Arrays\PatrolRoleArray<mixed,PatrolRole> $roles
  */
 class PatrolMember extends OrgObject
 {
