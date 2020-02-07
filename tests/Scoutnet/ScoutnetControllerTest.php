@@ -125,10 +125,10 @@ class ScoutnetControllerTest extends TestCase
         $groupId = Config::getGroupConfig()->getGroupId();
         $dbwaitinglist = $db->query(
             <<<SQL
-            SELECT wm.*
-            FROM groupwaitingmembers gwm
-            LEFT JOIN waitingmembers wm ON wm.member_no = gwm.waitingmember
-            WHERE gwm.`group` = {$db->quote($groupId)}
+            SELECT m.*
+            FROM groupwaiters gw
+            LEFT JOIN members m ON m.member_no = gw.member
+            WHERE gw.`group` = {$db->quote($groupId)}
             SQL
         )->fetchAll();
 

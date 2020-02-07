@@ -29,147 +29,8 @@ class Members extends ApiEndpoint
     {
         $stmt = $this->db->query(
             <<<SQL
-            SELECT m.*
-            FROM groupmembers gm
-            LEFT JOIN members m ON m.member_no = gm.member
-            WHERE gm.`group` = {$this->db->quote($this->groupId)}
-            SQL
-        );
-
-        $returnObject = new \stdClass;
-        $returnObject->data = new \stdClass;
-
-        while ($member = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-            $memberObj = new \stdClass;
-            // Populate member info.
-            foreach ($member as $colName => $colValue) {
-                if ($colName == 'status') {
-                    $status = $this->db->query("SELECT * FROM statuses WHERE id = {$this->db->quote($colValue)}")->fetch();
-                    $memberObj->{$colName} = (object) [
-                        'raw_value' => $status['id'],
-                        'value' => $status['value']
-                    ];
-                } elseif ($colName == 'sex') {
-                    $sex = $this->db->query("SELECT * FROM sexes WHERE id = {$this->db->quote($colValue)}")->fetch();
-                    $memberObj->{$colName} = (object) [
-                        'raw_value' => $sex['id'],
-                        'value' => $sex['value']
-                    ];
-                } else {
-                    $memberObj->{$colName} = (object) [
-                        'value' => $colValue
-                    ];
-                }
-            }
-            // Populate membership info.
-            // Group
-            $group = $this->db->query("SELECT * FROM groups WHERE id = {$this->db->quote($this->groupId)}")->fetch();
-            $memberObj->group = (object) [
-                'raw_value' => $group['id'],
-                'value' => $group['name']
-            ];
-            // Troop
-            $troop = $this->db->query(
-                <<<SQL
-                SELECT
-                    t.id id,
-                    t.name `name`
-                FROM troopmembers tm
-                LEFT JOIN troops t ON t.id = tm.troop
-                WHERE tm.member = {$this->db->quote($member['member_no'])}
-                LIMIT 1
-                SQL
-            )->fetch();
-            if ($troop) {
-                $memberObj->unit = (object) [
-                    'raw_value' => $troop['id'],
-                    'value' => $troop['name']
-                ];
-            }
-            // Patrol
-            $patrol = $this->db->query(
-                <<<SQL
-                SELECT
-                    p.id id,
-                    p.name `name`
-                FROM patrolmembers pm
-                LEFT JOIN patrols p ON p.id = pm.patrol
-                WHERE pm.member = {$this->db->quote($member['member_no'])}
-                LIMIT 1
-                SQL
-            )->fetch();
-            if ($patrol) {
-                $memberObj->patrol = (object) [
-                    'raw_value' => $patrol['id'],
-                    'value' => $patrol['name']
-                ];
-            }
-            // Roles
-            $memberObj->roles = []; // Default value is an array???
-            $roles = $this->db->query(
-                <<<SQL
-                SELECT
-                	'group' type,
-                    gm.`group` org,
-                	gr.id id,
-                	gr.name name
-                FROM groupmembers gm
-                INNER JOIN groupmemberroles gmr ON gmr.groupmember = gm.id
-                INNER JOIN grouproles gr ON gr.id = gmr.role
-                WHERE gm.member = {$this->db->quote($member['member_no'])}
-                UNION
-                SELECT
-                	'troop' type,
-                    tm.troop org,
-                	tr.id id,
-                	tr.name name
-                FROM troopmembers tm
-                INNER JOIN troopmemberroles tmr ON tmr.troopmember = tm.id
-                INNER JOIN trooproles tr ON tr.id = tmr.role
-                WHERE tm.member = {$this->db->quote($member['member_no'])}
-                UNION
-                SELECT
-                	'patrol' type,
-                    pm.patrol org,
-                	pr.id id,
-                	pr.name name
-                FROM patrolmembers pm
-                INNER JOIN patrolmemberroles pmr ON pmr.patrolmember= pm.id
-                INNER JOIN patrolroles pr ON pr.id = pmr.role
-                WHERE pm.member = {$this->db->quote($member['member_no'])}
-                SQL
-            )->fetchAll();
-            if ($roles) {
-                $rolesValue = new \stdClass;
-                foreach ($roles as $role) {
-                    if (!isset($rolesValue->{$role['type']})) {
-                        $rolesValue->{$role['type']} = new \stdClass;
-                    }
-                    if (!isset($rolesValue->{$role['type']}->{$role['org']})) {
-                        $rolesValue->{$role['type']}->{$role['org']} = new \stdClass;
-                    }
-                    $rolesValue->{$role['type']}->{$role['org']}->{$role['id']} = (object) [
-                        'role_id' => $role['id'],
-                        'role_name' => $role['name']
-                    ];
-                }
-                $returnObject->value = $rolesValue;
-            }
-
-            $returnObject->data->{$member['member_no']} = $memberObj;
-        }
-
-        return $returnObject;
-    }
-
-    private function getWaitingMembers()
-    {
-        $stmt = $this->db->query(
-            <<<SQL
-            SELECT wm.*
-            FROM groupwaitingmembers gwm
-            LEFT JOIN waitingmembers wm ON wm.member_no = gwm.waitingmember
-            WHERE gwm.`group` = {$this->db->quote($this->groupId)}
+            SELECT * FROM v_memberlist
+            WHERE `group` = {$this->db->quote($this->groupId)}
             SQL
         );
 
@@ -179,36 +40,222 @@ class Members extends ApiEndpoint
         while ($member = $stmt->fetch()) {
             $memberObj = new \stdClass;
             // Populate member info.
-            foreach ($member as $colName => $colValue) {
-                if ($colName == 'status') {
-                    $status = $this->db->query("SELECT * FROM statuses WHERE id = {$this->db->quote($colValue)}")->fetch();
-                    $memberObj->{$colName} = (object) [
-                        'raw_value' => $status['id'],
-                        'value' => $status['value']
+
+            self::addValue($memberObj, 'member_no', $member);
+            self::addValue($memberObj, 'first_name', $member);
+            self::addValue($memberObj, 'last_name', $member);
+            self::addValue($memberObj, 'ssno', $member);
+            self::addValue($memberObj, 'note', $member);
+            self::addValue($memberObj, 'date_of_birth', $member);
+            self::addValueRaw($memberObj, 'status', 'status_name', $member);
+            self::addValue($memberObj, 'created_at', $member);
+            self::addValue($memberObj, 'confirmed_at', $member);
+            self::addValueRaw($memberObj, 'group', 'group_name', $member);
+            self::addValueRaw($memberObj, 'unit', 'unit_name', $member);
+            self::addValueRaw($memberObj, 'patrol', 'patrol_name', $member);
+            self::addValueRaw($memberObj, 'sex', 'sex_name', $member);
+            self::addValue($memberObj, 'address_1', $member);
+            self::addValue($memberObj, 'postcode', $member);
+            self::addValue($memberObj, 'town', $member);
+            self::addValue($memberObj, 'country', $member);
+            self::addValue($memberObj, 'email', $member);
+            self::addValue($memberObj, 'contact_alt_email', $member);
+            self::addValue($memberObj, 'contact_mobile_phone', $member);
+            self::addValue($memberObj, 'contact_home_phone', $member);
+            self::addValue($memberObj, 'contact_mothers_name', $member);
+            self::addValue($memberObj, 'contact_email_mum', $member);
+            self::addValue($memberObj, 'contact_mobile_mum', $member);
+            self::addValue($memberObj, 'contact_telephone_mum', $member);
+            self::addValue($memberObj, 'contact_fathers_name', $member);
+            self::addValue($memberObj, 'contact_email_dad', $member);
+            self::addValue($memberObj, 'contact_mobile_dad', $member);
+            self::addValue($memberObj, 'contact_telephone_dad', $member);
+            self::addValue($memberObj, 'contact_leader_interest', $member);
+
+            // Initiate roles object
+            $rolesObj = null;
+
+            // Get all group roles of group and member
+            $groupRoles = $this->db->query(
+                <<<SQL
+                SELECT * FROM v_grouproles
+                WHERE `group` = {$this->db->quote($this->groupId)}
+                AND member = {$this->db->quote($member['member_no'])}
+                SQL
+            )->fetchAll();
+
+            // Make group roles objects
+            if ($groupRoles) {
+                $groupRolesObj = new \stdClass;
+                $groupRoleIds = [];
+                $groupRoleNames = [];
+                foreach ($groupRoles as $role) {
+                    if (!isset($groupRolesObj->{$role['group']})) {
+                        $groupRolesObj->{$role['group']} = new \stdClass;
+                    }
+                    $groupRolesObj->{$role['group']}->{$role['role_id']} = (object) [
+                        'role_id' => $role['role_id'],
+                        'role_name' => $role['role_name']
                     ];
-                } elseif ($colName == 'sex') {
-                    $sex = $this->db->query("SELECT * FROM sexes WHERE id = {$this->db->quote($colValue)}")->fetch();
-                    $memberObj->{$colName} = (object) [
-                        'raw_value' => $sex['id'],
-                        'value' => $sex['value']
+                    $groupRoleIds[] = $role['role_id'];
+                    $groupRoleNames[] = $role['role_name'];
+                }
+                $rolesObj = new \stdClass;
+                $rolesObj->group = $groupRolesObj;
+                $memberObj->group_role = (object) [
+                    'raw_value' => \implode(',', $groupRoleIds),
+                    'value' => \implode(', ', $groupRoleNames)
+                ];
+            }
+
+            // Get all troop roles of group and member
+            $troopRoles = $this->db->query(
+                <<<SQL
+                SELECT * FROM v_trooproles
+                WHERE `group` = {$this->db->quote($this->groupId)}
+                AND member = {$this->db->quote($member['member_no'])}
+                SQL
+            )->fetchAll();
+
+            // Make troop roles object
+            if ($troopRoles) {
+                $troopRolesObj = new \stdClass;
+                $troopRoleIds = [];
+                $troopRoleNames = [];
+                foreach ($troopRoles as $role) {
+                    if (!isset($troopRolesObj->{$role['troop']})) {
+                        $troopRolesObj->{$role['troop']} = new \stdClass;
+                    }
+                    $troopRolesObj->{$role['troop']}->{$role['role_id']} = (object) [
+                        'role_id' => $role['role_id'],
+                        'role_name' => $role['role_name']
                     ];
-                } else {
-                    $memberObj->{$colName} = (object) [
-                        'value' => $colValue
+                    $troopRoleIds[] = $role['role_id'];
+                    $troopRoleNames[] = $role['role_name'];
+                }
+                if (!$rolesObj) {
+                    $rolesObj = new \stdClass;
+                }
+                $rolesObj->troop = $troopRolesObj;
+                $memberObj->unit_role = (object) [
+                    'raw_value' => \implode(',', $troopRoleIds),
+                    'value' => \implode(', ', $troopRoleNames)
+                ];
+            }
+
+            // Get all patrol roles of group and member
+            $patrolRoles = $this->db->query(
+                <<<SQL
+                SELECT * FROM v_patrolroles
+                WHERE `group` = {$this->db->quote($this->groupId)}
+                AND member = {$this->db->quote($member['member_no'])}
+                SQL
+            )->fetchAll();
+
+            // Make patrol roles object
+            if ($patrolRoles) {
+                $patrolRolesObj = new \stdClass;
+                foreach ($patrolRoles as $role) {
+                    if (!isset($patrolRolesObj->{$role['patrol']})) {
+                        $patrolRolesObj->{$role['patrol']} = new \stdClass;
+                    }
+                    $patrolRolesObj->{$role['patrol']}->{$role['role_id']} = (object) [
+                        'role_id' => $role['role_id'],
+                        'role_name' => $role['role_name']
                     ];
                 }
+                if (!$rolesObj) {
+                    $rolesObj = new \stdClass;
+                }
+                $rolesObj->troop = $patrolRolesObj;
             }
-            // Populate membership info.
-            // Group
-            $group = $this->db->query("SELECT * FROM groups WHERE id = {$this->db->quote($this->groupId)}")->fetch();
-            $memberObj->group = (object) [
-                'raw_value' => $group['id'],
-                'value' => $group['name']
-            ];
+
+            if ($rolesObj) {
+                $memberObj->roles = (object) [
+                    'value' => $rolesObj
+                ];
+            } else {
+                $memberObj->roles = [];
+            }
 
             $returnObject->data->{$member['member_no']} = $memberObj;
         }
 
         return $returnObject;
+    }
+
+
+
+    private function getWaitingMembers()
+    {
+        $stmt = $this->db->query(
+            <<<SQL
+            SELECT * FROM v_waitinglist
+            WHERE `group` = {$this->db->quote($this->groupId)}
+            SQL
+        );
+
+        $returnObject = new \stdClass;
+        $returnObject->data = new \stdClass;
+
+        while ($member = $stmt->fetch()) {
+            $memberObj = new \stdClass;
+            // Populate member info.
+            self::addValue($memberObj, 'member_no', $member);
+            self::addValue($memberObj, 'first_name', $member);
+            self::addValue($memberObj, 'last_name', $member);
+            self::addValue($memberObj, 'ssno', $member);
+            self::addValue($memberObj, 'note', $member);
+            self::addValue($memberObj, 'date_of_birth', $member);
+            self::addValueRaw($memberObj, 'status', 'status_name', $member);
+            self::addValue($memberObj, 'created_at', $member);
+            self::addValue($memberObj, 'waiting_since', $member);
+            self::addValueRaw($memberObj, 'group', 'group_name', $member);
+            self::addValueRaw($memberObj, 'sex', 'sex_name', $member);
+            self::addValue($memberObj, 'address_1', $member);
+            self::addValue($memberObj, 'postcode', $member);
+            self::addValue($memberObj, 'town', $member);
+            self::addValue($memberObj, 'country', $member);
+            self::addValue($memberObj, 'email', $member);
+            self::addValue($memberObj, 'contact_alt_email', $member);
+            self::addValue($memberObj, 'contact_mobile_phone', $member);
+            self::addValue($memberObj, 'contact_home_phone', $member);
+            self::addValue($memberObj, 'contact_mothers_name', $member);
+            self::addValue($memberObj, 'contact_email_mum', $member);
+            self::addValue($memberObj, 'contact_mobile_mum', $member);
+            self::addValue($memberObj, 'contact_telephone_mum', $member);
+            self::addValue($memberObj, 'contact_fathers_name', $member);
+            self::addValue($memberObj, 'contact_email_dad', $member);
+            self::addValue($memberObj, 'contact_mobile_dad', $member);
+            self::addValue($memberObj, 'contact_telephone_dad', $member);
+            self::addValue($memberObj, 'contact_leader_interest', $member);
+
+            $returnObject->data->{$member['member_no']} = $memberObj;
+        }
+
+        return $returnObject;
+    }
+
+    private static function addValue($object, $name, &$dbRow)
+    {
+        if (!isset($dbRow[$name]) && $dbRow[$name] !== null) {
+            return false;
+        }
+        $object->{$name} = (object) [
+            'value' => strval($dbRow[$name])
+        ];
+        return true;
+    }
+
+    private static function addValueRaw($object, $rawName, $valueName, &$dbRow)
+    {
+        if (!isset($dbRow[$rawName]) && $dbRow[$rawName] !== null) {
+            return false;
+        }
+        $object->{$rawName} = (object) [
+            'raw_value' => strval($dbRow[$rawName]),
+            'value' => strval($dbRow[$valueName])
+        ];
+        return true;
     }
 }

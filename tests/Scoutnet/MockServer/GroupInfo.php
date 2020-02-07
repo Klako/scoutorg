@@ -21,7 +21,7 @@ class GroupInfo extends ApiEndpoint
             GROUP BY gm.id
             SQL
         )->fetchColumn();
-        $waitingcount = $this->db->query("SELECT COUNT(*) FROM groupwaitingmembers WHERE `group` = {$this->db->quote($this->groupId)}")->fetchColumn();
+        $waitingcount = $this->db->query("SELECT COUNT(*) FROM groupwaiters WHERE `group` = {$this->db->quote($this->groupId)}")->fetchColumn();
         $group_email = $group['group_email'] ? 'true' : 'false';
 
         $leader = $this->db->query("SELECT first_name, last_name, email FROM members WHERE member_no = {$this->db->quote($group['leader'])}")->fetch();
