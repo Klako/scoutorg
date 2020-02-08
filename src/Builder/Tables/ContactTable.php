@@ -1,10 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\ContactBase;
-use Scoutorg\Lib\Contact;
-use Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Builder\Bases\ContactBase;
+use Scouterna\Scoutorg\Lib\Contact;
 
 class ContactTable extends BuilderTable
 {

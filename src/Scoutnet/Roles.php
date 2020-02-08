@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 /**
  * A collection of roles in the scout group.

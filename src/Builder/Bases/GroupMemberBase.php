@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib\Arrays\GroupMemberArray;
+use Scouterna\Scoutorg\Lib\Arrays\GroupMemberArray;
 
 class GroupMemberBase extends ObjectBase
 {

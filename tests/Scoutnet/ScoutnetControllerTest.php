@@ -1,13 +1,13 @@
 <?php
 
-namespace Scoutorg\Tests\Scoutnet;
+namespace Scouterna\Scoutorg\Tests\Scoutnet;
 
 use PHPUnit\Framework\TestCase;
-use Scoutorg\Scoutnet\GroupInfo;
-use Scoutorg\Scoutnet\Member;
-use Scoutorg\Scoutnet\ScoutnetController;
-use Scoutorg\Scoutnet\Value;
-use Scoutorg\Scoutnet\WaitingMember;
+use Scouterna\Scoutorg\Scoutnet\GroupInfo;
+use Scouterna\Scoutorg\Scoutnet\Member;
+use Scouterna\Scoutorg\Scoutnet\ScoutnetController;
+use Scouterna\Scoutorg\Scoutnet\Value;
+use Scouterna\Scoutorg\Scoutnet\WaitingMember;
 use Symfony\Component\Process\Process;
 
 class ScoutnetControllerTest extends TestCase
@@ -235,7 +235,7 @@ class ScoutnetControllerTest extends TestCase
 
     /**
      * Checks that list members are equal to their database equivalents.
-     * @param \Scoutorg\Scoutnet\CustomListMember[] $listmembers
+     * @param \Scouterna\Scoutorg\Scoutnet\CustomListMember[] $listmembers
      * @param array $dblistmembers
      */
     private static function checkListMembers(&$listmembers, &$dblistmembers)

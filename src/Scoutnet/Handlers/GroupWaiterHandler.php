@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Scoutnet\Handlers;
+namespace Scouterna\Scoutorg\Scoutnet\Handlers;
 
 class GroupWaiterHandler extends Handler
 {

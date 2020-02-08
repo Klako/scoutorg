@@ -3,7 +3,7 @@
  * Contains Value class
  * @author Alexander Krantz
  */
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 /**
  * Equivalent to a scoutnet api field with only a value.

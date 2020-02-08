@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 /**
  * Contains fields that are equivalent to custom lists from scoutnet.

@@ -1,9 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder;
-use Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Builder;
+use Scouterna\Scoutorg\Lib\OrgObject;
 
 abstract class BuilderTable
 {
@@ -63,7 +63,7 @@ abstract class BuilderTable
      * @param string $source 
      * @param int|string $id 
      * @param Bases\ObjectBase $base 
-     * @return \Scoutorg\Lib\OrgObject 
+     * @return \Scouterna\Scoutorg\Lib\OrgObject 
      */
     protected abstract function build($source, $id, $base);
 

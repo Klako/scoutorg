@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib\Arrays\GroupWaiterArray;
+use Scouterna\Scoutorg\Lib\Arrays\GroupWaiterArray;
 
 class GroupWaiterBase extends ObjectBase
 {

@@ -1,9 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Builder\Uid;
-use Scoutorg\Lib\Arrays\BranchArray;
+use Scouterna\Scoutorg\Lib\Arrays\BranchArray;
 
 /**
  * A configuration for building a branch.

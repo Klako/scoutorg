@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Contains ScoutorgFactory class
+ * Contains Scouterna\ScoutorgFactory class
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
-use Scoutorg\Builder\Bases;
-use Scoutorg\Builder\Bases\GroupMemberBase;
-use Scoutorg\Builder\Uid;
-use Scoutorg\Builder\EdgeUid;
+use Scouterna\Scoutorg\Builder\Bases;
+use Scouterna\Scoutorg\Builder\Bases\GroupMemberBase;
+use Scouterna\Scoutorg\Builder\Uid;
+use Scouterna\Scoutorg\Builder\EdgeUid;
 
 /**
  * Builds a scout group from scoutnet.
@@ -35,7 +35,7 @@ class PartFactory
     public $contacts;
 
     /**
-     * Creates a new scoutorg factory.
+     * Creates a new Scouterna\Scoutorg factory.
      * @param ScoutnetController $controller
      * @param Table[] $tables
      */

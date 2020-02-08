@@ -1,10 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Builder\Uid;
-use Scoutorg\Lib;
-use Scoutorg\Lib\Arrays\CustomListArray;
+use Scouterna\Scoutorg\Lib\Arrays\CustomListArray;
 
 /**
  * A configuration for building a custom list.

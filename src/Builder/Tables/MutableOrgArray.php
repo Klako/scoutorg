@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Lib;
+use Scouterna\Scoutorg\Lib;
 
 class MutableOrgArray extends Lib\OrgArray
 {

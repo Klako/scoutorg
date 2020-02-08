@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 /**
  * Contains methods for getting data from scoutnet.
@@ -207,6 +207,6 @@ class ScoutnetController
     private function getCacheKey(string $key)
     {
         $groupId = $this->connection->getGroupConfig()->getGroupId();
-        return __FILE__ . ":{$groupId}:{$key}";
+        return "{$groupId}:{$key}";
     }
 }

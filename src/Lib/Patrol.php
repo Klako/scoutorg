@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A scout patrol that is in a troop.
@@ -21,8 +21,8 @@ class Patrol extends OrgObject
      * @param string $source
      * @param int|string $id
      * @param string $name
-     * @param Troop $troop
-     * @param OrgArray<int,Member> $members
+     * @param Troop|IObjectPromise $troop
+     * @param Arrays\PatrolMemberArray<Member> $members
      */
     public function __construct(string $source, $id,string $name, $troop, $members)
     {

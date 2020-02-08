@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Scoutnet\Handlers;
+namespace Scouterna\Scoutorg\Scoutnet\Handlers;
 
-use Scoutorg\Scoutnet\PartFactory;
+use Scouterna\Scoutorg\Scoutnet\PartFactory;
 
 abstract class Handler
 {

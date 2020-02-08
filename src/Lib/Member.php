@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A scout member with various personal and group info.
@@ -14,10 +14,11 @@ namespace Scoutorg\Lib;
  * @property-read Location $home
  * @property-read string $note
  * @property-read bool $leaderInterest
- * @property-read OrgArray<int,Contact> $contacts
- * @property-read OrgArray<int,Troop> $troops
- * @property-read OrgArray<int,Patrol> $patrols
- * @property-read OrgArray<int,GroupRole> $groupRoles
+ * @property-read Arrays\ContactArray<mixed,Contact> $contacts
+ * @property-read Arrays\TroopMemberArray<mixed,Troop> $troops
+ * @property-read Arrays\PatrolMemberArray<mixed,Patrol> $patrols
+ * @property-read Arrays\GroupMemberArray<mixed,GroupMember> $groups
+ * @property-read Arrays\GroupWaiterArray<mixed,GroupWaiter> $waitGroups
  */
 class Member extends OrgObject
 {
@@ -29,12 +30,12 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param Arrays\ContactArray<mixed,Contact> $contacts
+     * @param Arrays\ContactArray|IArrayPromise $contacts
      * @param string $startdate
-     * @param Arrays\TroopMemberArray<mixed,TroopMember> $troops
-     * @param Arrays\PatrolMemberArray<mixed,PatrolMember> $patrols
-     * @param Arrays\GroupMemberArray<mixed,GroupMember> $groups
-     * @param Arrays\GroupWaiterArray<mixed,GroupWaiter> $waitGroups
+     * @param Arrays\TroopMemberArray|IArrayPromise $troops
+     * @param Arrays\PatrolMemberArray|IArrayPromise $patrols
+     * @param Arrays\GroupMemberArray|IArrayPromise $groups
+     * @param Arrays\GroupWaiterArray|IArrayPromise $waitGroups
      */
     public function __construct(
         string $source,

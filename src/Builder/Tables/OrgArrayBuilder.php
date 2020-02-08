@@ -1,10 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Lib\OrgArray;
-use Scoutorg\Lib\OrgObject;
-use Scoutorg\Builder\Uid;
+use Scouterna\Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Builder\Uid;
 
 class OrgArrayBuilder
 {

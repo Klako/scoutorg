@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * Contains a contact or guardian of a member.

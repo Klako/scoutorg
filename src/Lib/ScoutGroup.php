@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * The whole scout group that is part of the scout organisation.
@@ -25,12 +25,12 @@ class ScoutGroup extends OrgObject
      * @param string $source
      * @param int|string $id
      * @param string $name
-     * @param GroupMemberArray<Member> $members All members of the group.
-     * @param TroopArray<Troop> $troops
-     * @param BranchArray<Branch> $branches
-     * @param GroupRoleArray<GroupRole> $groupRoles
-     * @param CustomListArray<CustomList> $customLists
-     * @param WaitingMemberArray<WaitingList> $waitingList
+     * @param Arrays\GroupMemberArray|IArrayPromise $members All members of the group.
+     * @param Arrays\TroopArray|IArrayPromise $troops
+     * @param Arrays\BranchArray|IArrayPromise $branches
+     * @param Arrays\GroupRoleArray|IArrayPromise $groupRoles
+     * @param Arrays\CustomListArray|IArrayPromise $customLists
+     * @param Arrays\WaitingMemberArray|IArrayPromise $waitingList
      */
     public function __construct(
         string $source,

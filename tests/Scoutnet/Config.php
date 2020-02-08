@@ -1,14 +1,14 @@
 <?php
 
-namespace Scoutorg\Tests\Scoutnet;
+namespace Scouterna\Scoutorg\Tests\Scoutnet;
 
-use Scoutorg\Builder\Config as BuilderConfig;
-use Scoutorg\Scoutnet\ScoutGroupConfig;
-use Scoutorg\Scoutnet\ScoutnetConnection;
-use Scoutorg\Scoutnet\ScoutnetController;
-use Scoutorg\Scoutnet\PartFactory;
-use Scoutorg\Scoutnet\PartProvider;
-use Scoutorg\Lib;
+use Scouterna\Scoutorg\Builder\Config as BuilderConfig;
+use Scouterna\Scoutorg\Scoutnet\ScoutGroupConfig;
+use Scouterna\Scoutorg\Scoutnet\ScoutnetConnection;
+use Scouterna\Scoutorg\Scoutnet\ScoutnetController;
+use Scouterna\Scoutorg\Scoutnet\PartFactory;
+use Scouterna\Scoutorg\Scoutnet\PartProvider;
+use Scouterna\Scoutorg\Lib;
 
 class Config
 {
@@ -56,7 +56,7 @@ class Config
     }
 
     /**
-     * Gets default scoutorg factory
+     * Gets default Scouterna\Scoutorg factory
      * @return PartProvider
      */
     public static function getScoutnetPartProvider()

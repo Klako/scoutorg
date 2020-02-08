@@ -4,7 +4,7 @@
  * Contains PatrolMember class.
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A link between a Patrol and a member,
@@ -19,8 +19,8 @@ class PatrolMember extends OrgObject
      * Creates a Patrol-Member link.
      * @param string $source
      * @param int|string $id
-     * @param Patrol $patrol
-     * @param Member $member
+     * @param Patrol|IObjectPromise $patrol
+     * @param Member|IObjectPromise $member
      * @param PatrolRole[] $roles
      */
     public function __construct(string $source, $id, $patrol, $member, $roles)

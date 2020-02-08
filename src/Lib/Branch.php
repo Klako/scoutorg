@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A branch (gren) that contains troops.
@@ -20,7 +20,7 @@ class Branch extends OrgObject
      * @param string $source
      * @param int|string $id
      * @param string $name
-     * @param OrgArray<Troop>|IArrayPromise $troops
+     * @param Arrays\TroopArray|IArrayPromise $troops
      */
     public function __construct(string $source, $id, string $name, $troops)
     {

@@ -5,7 +5,7 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A custom member list with sub lists.
@@ -23,8 +23,8 @@ class CustomList extends OrgObject
      * @param int|string $id
      * @param string $title
      * @param string $description
-     * @param OrgArray<Member> $members
-     * @param OrgArray<CustomList> $subLists
+     * @param Arrays\MemberArray|IArrayPromise $members
+     * @param Arrays\CustomListArray|IArrayPromise $subLists
      */
     public function __construct(string $source, $id, string $title, string $description, $members, $subLists)
     {

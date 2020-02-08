@@ -1,16 +1,16 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder;
-use Scoutorg\Lib\IObjectPromise;
+use Scouterna\Scoutorg\Builder;
+use Scouterna\Scoutorg\Lib\IObjectPromise;
 
 class LinkPromise implements IObjectPromise
 {
     /** @var Builder\Config */
     private $config;
 
-    /** @var Builder\ScoutorgBuilder */
+    /** @var Builder\Scouterna\ScoutorgBuilder */
     private $scoutorg;
 
     /** @var Builder\Uid */
@@ -35,7 +35,7 @@ class LinkPromise implements IObjectPromise
         $this->toType = $toType;
     }
 
-    public function getObject(): \Scoutorg\Lib\OrgObject
+    public function getObject(): \Scouterna\Scoutorg\Lib\OrgObject
     {
         $primarySource = $this->uid->getSource();
         $table = $this->scoutorg->getTable($this->toType);

@@ -1,13 +1,12 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\GroupMemberBase;
-use Scoutorg\Builder\Bases\GroupRoleBase;
-use Scoutorg\Builder\Bases\MemberBase;
-use Scoutorg\Builder\Bases\ScoutGroupBase;
-use Scoutorg\Lib\GroupMember;
-use Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Builder\Bases\GroupMemberBase;
+use Scouterna\Scoutorg\Builder\Bases\GroupRoleBase;
+use Scouterna\Scoutorg\Builder\Bases\MemberBase;
+use Scouterna\Scoutorg\Builder\Bases\ScoutGroupBase;
+use Scouterna\Scoutorg\Lib\GroupMember;
 
 class GroupMemberTable extends BuilderTable
 {

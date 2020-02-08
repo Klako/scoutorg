@@ -1,9 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib;
-use Scoutorg\Lib\Arrays\ContactArray;
+use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Lib\Arrays\ContactArray;
 
 /**
  * A configuration for building a contact.

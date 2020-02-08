@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib\Arrays\GroupRoleArray;
+use Scouterna\Scoutorg\Lib\Arrays\GroupRoleArray;
 
 /**
  * A configuration for building a group role.

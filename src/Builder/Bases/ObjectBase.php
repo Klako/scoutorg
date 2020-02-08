@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib\OrgArray;
+use Scouterna\Scoutorg\Lib\OrgArray;
 
 abstract class ObjectBase
 {

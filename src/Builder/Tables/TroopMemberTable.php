@@ -1,13 +1,12 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\MemberBase;
-use Scoutorg\Builder\Bases\TroopBase;
-use Scoutorg\Builder\Bases\TroopMemberBase;
-use Scoutorg\Builder\Bases\TroopRoleBase;
-use Scoutorg\Lib\OrgObject;
-use Scoutorg\Lib\TroopMember;
+use Scouterna\Scoutorg\Builder\Bases\MemberBase;
+use Scouterna\Scoutorg\Builder\Bases\TroopBase;
+use Scouterna\Scoutorg\Builder\Bases\TroopMemberBase;
+use Scouterna\Scoutorg\Builder\Bases\TroopRoleBase;
+use Scouterna\Scoutorg\Lib\TroopMember;
 
 class TroopMemberTable extends BuilderTable
 {

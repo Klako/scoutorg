@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A member who's in the waiting list of a groupp.

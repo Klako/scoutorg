@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 class Table
 {

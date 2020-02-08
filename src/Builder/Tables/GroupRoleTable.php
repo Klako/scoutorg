@@ -1,9 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\GroupRoleBase;
-use Scoutorg\Lib\GroupRole;
+use Scouterna\Scoutorg\Builder\Bases\GroupRoleBase;
+use Scouterna\Scoutorg\Lib\GroupRole;
 
 class GroupRoleTable extends BuilderTable
 {

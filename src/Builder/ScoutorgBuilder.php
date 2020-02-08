@@ -1,9 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scouterna\Scoutorg\Builder;
 
-use Scoutorg\Lib;
-use Scoutorg\Builder\Tables;
+use Scouterna\Scoutorg\Builder\Tables;
 
 /**
  * @property-read Tables\ScoutGroupTable $scoutGroups

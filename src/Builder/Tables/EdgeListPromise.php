@@ -1,16 +1,16 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder;
-use Scoutorg\Lib\IArrayPromise;
+use Scouterna\Scoutorg\Builder;
+use Scouterna\Scoutorg\Lib\IArrayPromise;
 
 class EdgeListPromise implements IArrayPromise
 {
     /** @var Builder\Config */
     private $config;
 
-    /** @var Builder\ScoutorgBuilder */
+    /** @var Builder\Scouterna\ScoutorgBuilder */
     private $scoutorg;
 
     /** @var Builder\Uid */
@@ -39,7 +39,7 @@ class EdgeListPromise implements IArrayPromise
         $this->edgeType = $edgeType;
     }
 
-    public function getArray(): \Scoutorg\Lib\OrgArray
+    public function getArray(): \Scouterna\Scoutorg\Lib\OrgArray
     {
         $table = $this->scoutorg->getTable($this->toType);
         $edgeTable = $this->scoutorg->getTable($this->edgeType);

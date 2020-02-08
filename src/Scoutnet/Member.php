@@ -5,10 +5,10 @@
  * @author Alexander Krantz
  */
 
-namespace Scoutorg\Scoutnet;
+namespace Scouterna\Scoutorg\Scoutnet;
 
-use Scoutorg\Lib;
-use Scoutorg\Builder\Bases;
+use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Builder\Bases;
 
 /**
  * Contains fields equivalent to the data received through

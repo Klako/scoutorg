@@ -1,8 +1,6 @@
 <?php
 
-namespace Scoutorg\Builder;
-
-use Scoutorg\Builder\Bases\Edge;
+namespace Scouterna\Scoutorg\Builder;
 
 interface IPartProvider
 {

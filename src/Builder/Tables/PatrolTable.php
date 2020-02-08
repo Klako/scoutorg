@@ -1,13 +1,12 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\MemberBase;
-use Scoutorg\Builder\Bases\PatrolBase;
-use Scoutorg\Builder\Bases\PatrolMemberBase;
-use Scoutorg\Builder\Bases\TroopBase;
-use Scoutorg\Lib\OrgObject;
-use Scoutorg\Lib\Patrol;
+use Scouterna\Scoutorg\Builder\Bases\MemberBase;
+use Scouterna\Scoutorg\Builder\Bases\PatrolBase;
+use Scouterna\Scoutorg\Builder\Bases\PatrolMemberBase;
+use Scouterna\Scoutorg\Builder\Bases\TroopBase;
+use Scouterna\Scoutorg\Lib\Patrol;
 
 class PatrolTable extends BuilderTable
 {

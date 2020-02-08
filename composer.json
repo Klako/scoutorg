@@ -6,12 +6,12 @@
     "minimum-stability": "stable",
     "autoload":{
         "psr-4": {
-            "Scoutorg\\": "src/"
+            "Scouterna\\Scoutorg\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Scoutorg\\Tests\\": "tests/"
+            "Scouterna\\Scoutorg\\Tests\\": "tests/"
         }
     },
     "require": {

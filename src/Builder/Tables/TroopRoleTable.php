@@ -1,10 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\TroopRoleBase;
-use Scoutorg\Lib\OrgObject;
-use Scoutorg\Lib\TroopRole;
+use Scouterna\Scoutorg\Builder\Bases\TroopRoleBase;
+use Scouterna\Scoutorg\Lib\TroopRole;
 
 class TroopRoleTable extends BuilderTable
 {

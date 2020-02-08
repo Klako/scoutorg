@@ -1,9 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases;
-use Scoutorg\Lib\ScoutGroup;
+use Scouterna\Scoutorg\Builder\Bases;
+use Scouterna\Scoutorg\Lib\ScoutGroup;
 
 class ScoutGroupTable extends BuilderTable
 {

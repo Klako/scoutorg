@@ -1,8 +1,8 @@
 <?php
 
-namespace Scoutorg\Lib\Arrays;
+namespace Scouterna\Scoutorg\Lib\Arrays;
 
-use Scoutorg\Lib;
+use Scouterna\Scoutorg\Lib;
 
 class PatrolRoleArray extends Lib\OrgArray
 {

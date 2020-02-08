@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 /**
  * A link between a group and a member.
@@ -8,7 +8,7 @@ namespace Scoutorg\Lib;
  * @property-read ScoutGroup $group
  * @property-read Member $member
  * @property-read Arrays\GroupRoleArray<mixed,GroupRole> $roles
- * @package Scoutorg\Lib
+ * @package Scouterna\Scoutorg\Lib
  */
 class GroupMember extends OrgObject
 {

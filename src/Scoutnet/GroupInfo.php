@@ -1,8 +1,6 @@
 <?php
 
-namespace Scoutorg\Scoutnet;
-
-use pcrov\JsonReader\JsonReader;
+namespace Scouterna\Scoutorg\Scoutnet;
 
 /**
  * A group info object.

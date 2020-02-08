@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Lib;
+namespace Scouterna\Scoutorg\Lib;
 
 class OrgArray implements \IteratorAggregate, \Countable
 {

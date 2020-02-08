@@ -1,10 +1,10 @@
 <?php
 
-namespace Scoutorg\Builder\Tables;
+namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scoutorg\Builder\Bases\CustomListBase;
-use Scoutorg\Builder\Bases\MemberBase;
-use Scoutorg\Lib\CustomList;
+use Scouterna\Scoutorg\Builder\Bases\CustomListBase;
+use Scouterna\Scoutorg\Builder\Bases\MemberBase;
+use Scouterna\Scoutorg\Lib\CustomList;
 
 class CustomListTable extends BuilderTable
 {

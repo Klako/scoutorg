@@ -1,9 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib;
-use Scoutorg\Lib\Arrays\TroopArray;
+use Scouterna\Scoutorg\Lib\Arrays\TroopArray;
 
 /**
  * A configuration for building a troop

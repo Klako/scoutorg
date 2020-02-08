@@ -1,8 +1,8 @@
 <?php
 
-use Scoutorg\Tests\Scoutnet\MockServer\CustomLists;
-use Scoutorg\Tests\Scoutnet\MockServer\GroupInfo;
-use Scoutorg\Tests\Scoutnet\MockServer\Members;
+use Scouterna\Scoutorg\Tests\Scoutnet\MockServer\CustomLists;
+use Scouterna\Scoutorg\Tests\Scoutnet\MockServer\GroupInfo;
+use Scouterna\Scoutorg\Tests\Scoutnet\MockServer\Members;
 use Slim\Factory\AppFactory;
 
 $ds = DIRECTORY_SEPARATOR;

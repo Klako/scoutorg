@@ -1,6 +1,6 @@
 <?php
 
-namespace Scoutorg\Tests\Scoutnet;
+namespace Scouterna\Scoutorg\Tests\Scoutnet;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;

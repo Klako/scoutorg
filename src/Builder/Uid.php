@@ -1,9 +1,9 @@
 <?php
 
-namespace Scoutorg\Builder;
+namespace Scouterna\Scoutorg\Builder;
 
 /**
- * A unique identifier for a scoutorg object.
+ * A unique identifier for a Scouterna\Scoutorg object.
  */
 class Uid
 {

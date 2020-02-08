@@ -1,9 +1,8 @@
 <?php
 
-namespace Scoutorg\Builder\Bases;
+namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scoutorg\Lib;
-use Scoutorg\Lib\Arrays\PatrolArray;
+use Scouterna\Scoutorg\Lib\Arrays\PatrolArray;
 
 /**
  * A configuration for building a patrol.

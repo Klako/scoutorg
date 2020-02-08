@@ -1,16 +1,15 @@
 <?php
 
-namespace Scoutorg\Lib\Arrays;
+namespace Scouterna\Scoutorg\Lib\Arrays;
 
-use Scoutorg\Lib;
-use Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Lib;
 
 class GroupMemberArray extends Lib\OrgArray
 {
     /**
      * @return Lib\GroupMember 
      */
-    public function get(string $source, $id): \Scoutorg\Lib\OrgObject
+    public function get(string $source, $id): Lib\GroupMember
     {
         return parent::get($source, $id);
     }
