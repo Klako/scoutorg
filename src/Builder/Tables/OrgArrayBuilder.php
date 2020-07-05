@@ -28,8 +28,8 @@ class OrgArrayBuilder
                 . ', got ' . (\gettype($orgObject) === 'object' ? \get_class($orgObject) : \gettype($orgObject)))
         );
         if ($override) {
-            $source = $override->source;
-            $id = $override->id;
+            $source = $override->getSource();
+            $id = $override->getId();
         } else {
             $source = $orgObject->source;
             $id = $orgObject->id;

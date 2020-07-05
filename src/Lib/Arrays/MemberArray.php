@@ -9,7 +9,7 @@ class MemberArray extends Lib\OrgArray
     /** 
      * @return Lib\Member
      */
-    public function get(string $source, $id): Lib\Member
+    public function get(string $source, $id): ?Lib\Member
     {
         return parent::get($source, $id);
     }

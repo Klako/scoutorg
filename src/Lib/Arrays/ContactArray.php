@@ -9,7 +9,7 @@ class ContactArray extends Lib\OrgArray
     /** 
      * @return Lib\Contact
      */
-    public function get(string $source, $id): Lib\Contact
+    public function get(string $source, $id): ?Lib\Contact
     {
         return parent::get($source, $id);
     }

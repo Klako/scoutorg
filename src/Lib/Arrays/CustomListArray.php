@@ -9,7 +9,7 @@ class CustomListArray extends Lib\OrgArray
     /** 
      * @return Lib\CustomList
      */
-    public function get(string $source, $id): Lib\CustomList
+    public function get(string $source, $id): ?Lib\CustomList
     {
         return parent::get($source, $id);
     }

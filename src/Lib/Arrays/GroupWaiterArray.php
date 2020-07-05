@@ -6,7 +6,7 @@ use Scouterna\Scoutorg\Lib;
 
 class GroupWaiterArray extends Lib\OrgArray
 {
-    public function get(string $source, $id): Lib\GroupWaiter
+    public function get(string $source, $id): ?Lib\GroupWaiter
     {
         return parent::get($source, $id);
     }

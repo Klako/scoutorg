@@ -9,7 +9,7 @@ class PatrolArray extends Lib\OrgArray
     /** 
      * @return Lib\Patrol
      */
-    public function get(string $source, $id): Lib\Patrol
+    public function get(string $source, $id): ?Lib\Patrol
     {
         return parent::get($source, $id);
     }

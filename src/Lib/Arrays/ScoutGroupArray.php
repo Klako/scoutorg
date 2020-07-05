@@ -9,7 +9,7 @@ class ScoutGroupArray extends Lib\OrgArray
     /** 
      * @return Lib\ScoutGroup
      */
-    public function get(string $source, $id): Lib\ScoutGroup
+    public function get(string $source, $id): ?Lib\ScoutGroup
     {
         return parent::get($source, $id);
     }

@@ -9,7 +9,7 @@ class TroopMemberArray extends Lib\OrgArray
     /** 
      * @return Lib\TroopMember
      */
-    public function get(string $source, $id): Lib\TroopMember
+    public function get(string $source, $id): ?Lib\TroopMember
     {
         return parent::get($source, $id);
     }

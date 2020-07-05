@@ -9,7 +9,7 @@ class GroupRoleArray extends Lib\OrgArray
     /** 
      * @return Lib\GroupRole
      */
-    public function get(string $source, $id): Lib\GroupRole
+    public function get(string $source, $id): ?Lib\GroupRole
     {
         return parent::get($source, $id);
     }

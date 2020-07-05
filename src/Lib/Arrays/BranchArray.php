@@ -9,7 +9,7 @@ class BranchArray extends Lib\OrgArray
     /** 
      * @return Lib\Branch
      */
-    public function get(string $source, $id): Lib\Branch
+    public function get(string $source, $id): ?Lib\Branch
     {
         return parent::get($source, $id);
     }

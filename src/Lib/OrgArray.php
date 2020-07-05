@@ -20,10 +20,10 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function get(string $source, $id)
     {
         if (!isset($this->tree[$source])) {
-            throw new \OutOfRangeException("Source '$source' doesn't exist");
+            return null;
         }
         if (!isset($this->tree[$source][$id])) {
-            throw new \OutOfRangeException("Id '$id' in source '$source' doesn't exist");
+            return null;
         }
         return $this->tree[$source][$id];
     }
