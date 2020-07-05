@@ -167,7 +167,7 @@ class Members extends ApiEndpoint
                 if (!$rolesObj) {
                     $rolesObj = new \stdClass;
                 }
-                $rolesObj->troop = $patrolRolesObj;
+                $rolesObj->patrol = $patrolRolesObj;
             }
 
             if ($rolesObj) {
