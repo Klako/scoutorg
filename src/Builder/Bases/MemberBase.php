@@ -8,7 +8,7 @@ use Scouterna\Scoutorg\Lib\Arrays\MemberArray;
 /**
  * A configuration for building a member.
  */
-class MemberBase extends Lib\ReadOnlyObject
+class MemberBase extends ObjectBase
 {
     public const ARRAY_TYPE = MemberArray::class;
 
