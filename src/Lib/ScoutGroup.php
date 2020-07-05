@@ -14,6 +14,8 @@ namespace Scouterna\Scoutorg\Lib;
  * @property-read Arrays\TroopArray<mixed,Troop> $troops
  * @property-read Arrays\BranchArray<mixed,Branch> $branches
  * @property-read Arrays\GroupRoleArray<mixed,GroupRole> $groupRoles
+ * @property-read Arrays\TroopRoleArray<mixed,TroopRole> $troopRoles
+ * @property-read Arrays\PatrolRoleArray<mixed,PatrolRole> $patrolRoles
  * @property-read Arrays\CustomListArray<mixed,CustomList> $customLists
  * @property-read Arrays\WaitingMemberArray<mixed,WaitingList> $waitingList
  */
@@ -29,6 +31,8 @@ class ScoutGroup extends OrgObject
      * @param Arrays\TroopArray|IArrayPromise $troops
      * @param Arrays\BranchArray|IArrayPromise $branches
      * @param Arrays\GroupRoleArray|IArrayPromise $groupRoles
+     * @param Arrays\TroopRoleArray|IArrayPromise $troopRoles
+     * @param Arrays\PatrolRoleArray|IArrayPromise $patrolRoles
      * @param Arrays\CustomListArray|IArrayPromise $customLists
      * @param Arrays\WaitingMemberArray|IArrayPromise $waitingList
      */
@@ -40,6 +44,8 @@ class ScoutGroup extends OrgObject
         $troops,
         $branches,
         $groupRoles,
+        $troopRoles,
+        $patrolRoles,
         $customLists,
         $waitingList
     ) {
@@ -49,6 +55,8 @@ class ScoutGroup extends OrgObject
         $this->setArray('troops', $troops, Arrays\TroopArray::class);
         $this->setArray('branches', $branches, Arrays\BranchArray::class);
         $this->setArray('groupRoles', $groupRoles, Arrays\GroupRoleArray::class);
+        $this->setArray('troopRoles', $troopRoles, Arrays\TroopRoleArray::class);
+        $this->setArray('patrolRoles', $patrolRoles, Arrays\PatrolRoleArray::class);
         $this->setArray('customLists', $customLists, Arrays\CustomListArray::class);
         $this->setArray('waitingList', $waitingList, Arrays\GroupWaiterArray::class);
     }

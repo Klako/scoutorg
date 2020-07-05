@@ -7,11 +7,12 @@ class ContactHandler extends Handler
     public function getBasePart($id)
     {
         $this->factory->buildMemberListData();
-        $this->factory->buildWaitingListData();
 
         if ($this->factory->contacts->hasBase($id)) {
-            return null;
+            return $this->factory->contacts->getBase($id);
         }
+        
+        $this->factory->buildWaitingListData();
 
         return $this->factory->contacts->getBase($id);
     }

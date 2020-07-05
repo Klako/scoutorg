@@ -22,6 +22,6 @@ class GroupMemberHandler extends Handler
     {
         $this->factory->buildMemberListData();
 
-        return $this->factory->groupMembers->getLink($id, $method);
+        return $this->factory->groupMembers->getLinks($id, $method);
     }
 }

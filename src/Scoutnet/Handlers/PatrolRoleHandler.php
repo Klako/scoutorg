@@ -8,7 +8,7 @@ class PatrolRoleHandler extends Handler
     {
         $this->factory->buildMemberListData();
 
-        return $this->factory->contacts->getBase($id);
+        return $this->factory->patrolRoles->getBase($id);
     }
 
     public function getLinkPart($id, $method)

@@ -24,6 +24,8 @@ class ScoutGroupHandler extends Handler
             case 'members':
             case 'troops':
             case 'grouproles':
+            case 'trooproles':
+            case 'patrolroles':
                 $this->factory->buildMemberListData($id);
                 break;
             case 'customlists':
@@ -36,6 +38,6 @@ class ScoutGroupHandler extends Handler
                 return [];
         }
 
-        return $this->factory->scoutgroups->getLink($id, $method);
+        return $this->factory->scoutgroups->getLinks($id, $method);
     }
 }

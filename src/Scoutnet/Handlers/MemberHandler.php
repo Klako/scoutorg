@@ -35,11 +35,11 @@ class MemberHandler extends Handler
         $this->factory->buildMemberListData();
 
         if ($this->factory->members->hasBase($id)){
-            return $this->factory->members->getLink($id, $method);
+            return $this->factory->members->getLinks($id, $method);
         }
 
         $this->factory->buildWaitingListData();
 
-        return $this->factory->members->getLink($id, $method);
+        return $this->factory->members->getLinks($id, $method);
     }
 }

@@ -22,6 +22,6 @@ class TroopHandler extends Handler
     {
         $this->factory->buildMemberListData();
 
-        return $this->factory->troops->getLink($id, $method);
+        return $this->factory->troops->getLinks($id, $method);
     }
 }

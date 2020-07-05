@@ -104,7 +104,7 @@ class ScoutnetConnection
      * Fetches the resulting json object using
      * the scoutnet server's custom list api.
      * @param string $urlVars The uri variables to apply.
-     * @return string|false
+     * @return array|object|false
      */
     public function fetchCustomListsApi(string $urlVars = '')
     {

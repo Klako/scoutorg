@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Scoutnet;
 
-use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Builder\Bases;
 use Scouterna\Scoutorg\Builder\IPartProvider;
 
@@ -41,7 +41,7 @@ class PartProvider implements IPartProvider
         $this->handlers[$type] = new $handler($this->factory);
     }
 
-    public function getBasePart($id, string $type): \Scouterna\Scoutorg\Builder\Bases\ObjectBase
+    public function getBasePart($id, string $type): ?Bases\ObjectBase
     {
         if (!isset($this->handlers[$type])) {
             return null;
@@ -50,7 +50,7 @@ class PartProvider implements IPartProvider
         return $this->handlers[$type]->getBasePart($id);
     }
 
-    public function getLinkPart(\Scouterna\Scoutorg\Builder\Uid $uid, string $type, string $name): ?\Scouterna\Scoutorg\Builder\Uid
+    public function getLinkPart(Builder\Uid $uid, string $type, string $name): ?Builder\Uid
     {
         if (!isset($this->handlers[$type])) {
             return null;
@@ -61,7 +61,7 @@ class PartProvider implements IPartProvider
         return $this->handlers[$type]->getLinkPart($uid->getId(), $name) ?: null;
     }
 
-    public function getLinkParts(\Scouterna\Scoutorg\Builder\Uid $uid, string $type, string $name): array
+    public function getLinkParts(Builder\Uid $uid, string $type, string $name): array
     {
         if (!isset($this->handlers[$type])) {
             return [];

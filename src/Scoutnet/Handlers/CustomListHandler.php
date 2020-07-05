@@ -33,6 +33,6 @@ class CustomListHandler extends Handler
                 return [];
         }
 
-        return $this->factory->customLists->getLink($id, 'members');
+        return $this->factory->customLists->getLinks($id, 'members');
     }
 }

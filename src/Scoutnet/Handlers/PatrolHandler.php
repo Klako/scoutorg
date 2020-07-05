@@ -22,6 +22,6 @@ class PatrolHandler extends Handler
     {
         $this->factory->buildMemberListData();
 
-        return $this->factory->patrols->getLink($id, $method);
+        return $this->factory->patrols->getLinks($id, $method);
     }
 }

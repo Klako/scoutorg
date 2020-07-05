@@ -77,7 +77,7 @@ class PartFactory
     {
         $groupId = $this->controller->getGroupId();
 
-        if ($this->scoutgroups->hasLink($groupId, 'members')) {
+        if ($this->scoutgroups->hasLinks($groupId, 'members')) {
             return;
         }
 
@@ -156,6 +156,7 @@ class PartFactory
                             $this->troopRoles->setBase($roleId, new Bases\TroopRoleBase($roleName));
                         }
                         $this->troopMembers->addLink($troopMemberId, 'roles', new Uid('scoutnet', $roleId));
+                        $this->scoutgroups->addLink($groupId, 'trooproles', new Uid('scoutnet', $roleId));
                     }
                     $this->troops->addLink($troopId, 'members', new EdgeUid(
                         'scoutnet',
@@ -188,6 +189,7 @@ class PartFactory
                             $this->patrolRoles->setBase($roleId, new Bases\PatrolRoleBase($roleName));
                         }
                         $this->patrolMembers->addLink($patrolMemberId, 'roles', new Uid('scoutnet', $roleId));
+                        $this->scoutgroups->addLink($groupId, 'patrolroles', new Uid('scoutnet', $roleId));
                     }
                     $this->members->addLink($memberId, 'patrols', new EdgeUid(
                         'scoutnet',
@@ -203,7 +205,7 @@ class PartFactory
     {
         $groupId = $this->controller->getGroupId();
 
-        if ($this->scoutgroups->hasLink($groupId, 'customlists')) {
+        if ($this->scoutgroups->hasLinks($groupId, 'customlists')) {
             return;
         }
 
@@ -226,11 +228,11 @@ class PartFactory
 
     public function buildCustomListMemberData($customListId)
     {
-        if ($this->customLists->hasLink($customListId, 'members')) {
+        if ($this->customLists->hasLinks($customListId, 'members')) {
             return;
         }
 
-        $this->customLists->initLink($customListId, 'members');
+        $this->customLists->initLinks($customListId, 'members');
 
         $groupId = $this->controller->getGroupId();
         if (!$this->customLists->hasBase($customListId)) {
@@ -256,12 +258,12 @@ class PartFactory
     {
         $groupId = $this->controller->getGroupId();
 
-        if ($this->scoutgroups->hasLink($groupId, 'waitingmembers')) {
+        if ($this->scoutgroups->hasLinks($groupId, 'waitingmembers')) {
             return;
         }
 
         $waitingMembers = $this->controller->getWaitingList();
-        $this->scoutgroups->initLink($groupId, 'waitinglist');
+        $this->scoutgroups->initLinks($groupId, 'waitinglist');
 
         foreach ($waitingMembers as $waitingMember) {
             $memberId = intval($waitingMember->member_no->value);
@@ -274,7 +276,7 @@ class PartFactory
                 $waitingMember->note->value ?? '',
                 $waitingMember->contact_leader_interest->value ?? false
             ));
-            $this->members->initLink($memberId, 'contacts');
+            $this->members->initLinks($memberId, 'contacts');
             foreach ($waitingMember->getContacts() as $contactId => $contact) {
                 $this->contacts->setBase($contactId, $contact);
                 $this->members->addLink($memberId, 'contacts', new Uid('scoutnet', $contactId));
