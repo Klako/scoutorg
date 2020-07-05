@@ -37,7 +37,8 @@ class ScoutorgBuilderTest extends TestCase
         self::$process->stop();
     }
 
-    function testGroupInfo(){
+    function testGroupInfo()
+    {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
         $group = $builder->scoutGroups->get('scoutnet', 1);
@@ -47,22 +48,53 @@ class ScoutorgBuilderTest extends TestCase
         self::assertIsString($group->name);
     }
 
-    function testProbe(){
+    function testProbe()
+    {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
         $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
         self::assertIsObject($group->troops);
-
-        foreach ($group->troops as $troop){
+        foreach ($group->troops as $troop) {
             self::assertIsObject($troop->patrols);
-            foreach ($troop->patrols as $patrol){
+            foreach ($troop->patrols as $patrol) {
                 self::assertIsObject($patrol->members);
-                foreach ($patrol->members as $patrolmember){
+                foreach ($patrol->members as $patrolmember) {
                     self::assertIsObject($patrolmember->patrol);
                     $member = $patrolmember->member;
                     $member->patrols->get($patrol->source, $patrol->id);
                 }
             }
         }
+    }
+
+    function testTroopRoles()
+    {
+        $builder = new ScoutorgBuilder(Config::getBuilderConfig());
+
+        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        self::assertIsObject($group->troopRoles);
+
+        $dbtrooproles = self::$db->query("SELECT DISTINCT role_id FROM v_trooproles")->fetchAll();
+
+        foreach ($dbtrooproles as $dbtrooprole) {
+            self::assertIsObject($group->troopRoles->get('scoutnet', $dbtrooprole['role_id']));
+        }
+    }
+
+    function testPatrolRoles()
+    {
+        $builder = new ScoutorgBuilder(Config::getBuilderConfig());
+
+        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        self::assertIsObject($group->patrolRoles);
+        
+        $dbpatrolroles = self::$db->query("SELECT DISTINCT role_id FROM v_patrolroles")->fetchAll();
+        
+        foreach ($dbpatrolroles as $dbpatrolrole) {
+            self::assertIsObject($group->patrolRoles->get('scoutnet', $dbpatrolrole['role_id']));
+        }
+        
     }
 }
