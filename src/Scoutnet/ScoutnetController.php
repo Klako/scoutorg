@@ -52,6 +52,11 @@ class ScoutnetController
         }
 
         $groupInfoObject = $this->connection->fetchGroupInfoApi();
+
+        if ($groupInfoObject === false) {
+            return null;
+        }
+
         $groupInfo = new GroupInfo($groupInfoObject);
 
         $this->setCacheResource('groupinfo', $groupInfo);
@@ -71,6 +76,10 @@ class ScoutnetController
         }
 
         $memberList = $this->connection->fetchMemberListApi('');
+
+        if ($memberList === false) {
+            return [];
+        }
 
         $members = [];
         foreach ($memberList->data as $id => $member) {
@@ -95,6 +104,10 @@ class ScoutnetController
 
         $waitingList = $this->connection->fetchMemberListApi('waiting=1');
 
+        if ($waitingList === false) {
+            return [];
+        }
+
         $waitingMembers = [];
         foreach ($waitingList->data as $id => $waitingMember) {
             $waitingMembers[$id] = new WaitingMember($waitingMember);
@@ -117,6 +130,10 @@ class ScoutnetController
         }
 
         $customListsResult = $this->connection->fetchCustomListsApi('');
+
+        if ($customListsResult === false) {
+            return [];
+        }
 
         $customLists = [];
         foreach ($customListsResult as $id => $customList) {

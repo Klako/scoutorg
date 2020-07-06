@@ -133,6 +133,9 @@ class ScoutnetConnection
         ]);
         $result = curl_exec($curl);
         curl_close($curl);
+        if ($result === false){
+            \error_log("Scoutorg: failed fetching from $url");
+        }
         return $result;
     }
 

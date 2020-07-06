@@ -70,6 +70,10 @@ class PartFactory
 
         $scoutgroup = $this->controller->getGroupInfo();
 
+        if ($scoutgroup == null) {
+            return;
+        }
+
         $this->scoutgroups->setBase($groupId, new Bases\ScoutGroupBase($scoutgroup->name));
     }
 
@@ -80,6 +84,8 @@ class PartFactory
         if ($this->scoutgroups->hasLinks($groupId, 'members')) {
             return;
         }
+
+        $this->scoutgroups->initLinks($groupId, 'members');
 
         $members = $this->controller->getMemberList();
 
@@ -209,6 +215,8 @@ class PartFactory
             return;
         }
 
+        $this->scoutgroups->initLinks($groupId, 'customlists');
+
         $customlists = $this->controller->getCustomLists();
 
         foreach ($customlists as $customListId => $customList) {
@@ -258,12 +266,13 @@ class PartFactory
     {
         $groupId = $this->controller->getGroupId();
 
-        if ($this->scoutgroups->hasLinks($groupId, 'waitingmembers')) {
+        if ($this->scoutgroups->hasLinks($groupId, 'waitinglist')) {
             return;
         }
 
-        $waitingMembers = $this->controller->getWaitingList();
         $this->scoutgroups->initLinks($groupId, 'waitinglist');
+
+        $waitingMembers = $this->controller->getWaitingList();
 
         foreach ($waitingMembers as $waitingMember) {
             $memberId = intval($waitingMember->member_no->value);
