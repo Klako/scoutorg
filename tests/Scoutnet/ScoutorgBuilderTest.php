@@ -5,6 +5,7 @@ namespace Scouterna\Scoutorg\Tests\Scoutnet;
 use PHPUnit\Framework\TestCase;
 use Scouterna\Scoutorg\Builder\ScoutorgBuilder;
 use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Lib\Contact;
 use Symfony\Component\Process\Process;
 
 class ScoutorgBuilderTest extends TestCase
@@ -96,5 +97,18 @@ class ScoutorgBuilderTest extends TestCase
             self::assertIsObject($group->patrolRoles->get('scoutnet', $dbpatrolrole['role_id']));
         }
         
+    }
+
+    function testNullTroopBranches()
+    {
+        $builder = new ScoutorgBuilder(Config::getBuilderConfig());
+
+        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        self::assertIsObject($group->troops);
+
+        foreach ($group->troops as $troop){
+            $branch = $troop->branch;
+        }
     }
 }

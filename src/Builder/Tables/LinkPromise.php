@@ -3,9 +3,9 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Lib\IObjectPromise;
+use Scouterna\Scoutorg\Lib;
 
-class LinkPromise implements IObjectPromise
+class LinkPromise implements Lib\IObjectPromise
 {
     /** @var Builder\Config */
     private $config;
@@ -35,13 +35,16 @@ class LinkPromise implements IObjectPromise
         $this->toType = $toType;
     }
 
-    public function getObject(): \Scouterna\Scoutorg\Lib\OrgObject
+    public function getObject(): ?Lib\OrgObject
     {
         $primarySource = $this->uid->getSource();
         $table = $this->scoutorg->getTable($this->toType);
         $object = null;
         foreach ($this->config->providers() as $source => $provider) {
             $uid = $provider->getLinkPart($this->uid, $this->type, $this->name);
+            if ($uid == null){
+                return null;
+            }
             if (($uid && !$object) || $primarySource == $source) {
                 $object = $table->get($uid->getSource(), $uid->getId());
             }
