@@ -49,7 +49,7 @@ class EdgeListPromise implements IArrayPromise
             $edgeUids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($edgeUids as $edgeUid) {
                 $uid = $edgeUid->getTarget();
-                Builder\Helpers::checkType('edgeUid', $edgeUid, [Builder\EdgeUid::class]);
+                Builder\Helper::checkType('edgeUid', $edgeUid, [Builder\EdgeUid::class]);
                 $edge = $edgeTable->get($edgeUid->getSource(), $edgeUid->getId());
                 $object = $table->get($uid->getSource(), $uid->getId());
                 if ($edge && $object) {

@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder;
 
-class Helpers
+class Helper
 {
     public static function checkType($name, $value, $types)
     {
