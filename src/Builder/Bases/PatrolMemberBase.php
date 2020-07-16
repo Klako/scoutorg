@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\PatrolMemberArray;
+use Scouterna\Scoutorg\Model\Arrays\PatrolMemberArray;
 
 /**
  * A configuration for building a patrol member.

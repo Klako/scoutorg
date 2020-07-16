@@ -2,8 +2,8 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib;
-use Scouterna\Scoutorg\Lib\Arrays\MemberArray;
+use Scouterna\Scoutorg\Model;
+use Scouterna\Scoutorg\Model\Arrays\MemberArray;
 
 /**
  * A configuration for building a member.
@@ -19,9 +19,9 @@ class MemberBase extends ObjectBase
     private $leaderInterest;
 
     public function __construct(
-        Lib\PersonInfo $personInfo,
-        Lib\ContactInfo $contactInfo,
-        Lib\Location $home,
+        Model\PersonInfo $personInfo,
+        Model\ContactInfo $contactInfo,
+        Model\Location $home,
         string $note,
         bool $leaderInterest
     ) {

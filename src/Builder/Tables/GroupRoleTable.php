@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases\GroupRoleBase;
-use Scouterna\Scoutorg\Lib\GroupRole;
+use Scouterna\Scoutorg\Model\GroupRole;
 
 class GroupRoleTable extends BuilderTable
 {

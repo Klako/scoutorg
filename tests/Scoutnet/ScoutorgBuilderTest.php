@@ -5,8 +5,8 @@ namespace Scouterna\Scoutorg\Tests\Scoutnet;
 use PHPUnit\Framework\TestCase;
 use Scouterna\Scoutorg\Builder\ScoutorgBuilder;
 use Scouterna\Scoutorg\Builder\Uid;
-use Scouterna\Scoutorg\Lib;
-use Scouterna\Scoutorg\Lib\Contact;
+use Scouterna\Scoutorg\Model;
+use Scouterna\Scoutorg\Model\Contact;
 use Symfony\Component\Process\Process;
 
 class ScoutorgBuilderTest extends TestCase
@@ -47,7 +47,7 @@ class ScoutorgBuilderTest extends TestCase
 
         $group = $builder->scoutGroups->get($uid);
 
-        self::assertTrue(\get_class($group) === Lib\ScoutGroup::class);
+        self::assertTrue(\get_class($group) === Model\ScoutGroup::class);
 
         self::assertIsString($group->name);
     }

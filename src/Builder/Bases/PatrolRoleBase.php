@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\PatrolRoleArray;
+use Scouterna\Scoutorg\Model\Arrays\PatrolRoleArray;
 
 /**
  * A configuration for building a troop

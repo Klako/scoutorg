@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases;
-use Scouterna\Scoutorg\Lib\Branch;
+use Scouterna\Scoutorg\Model\Branch;
 
 class BranchTable extends BuilderTable
 {

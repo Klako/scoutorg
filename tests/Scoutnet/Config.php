@@ -8,7 +8,7 @@ use Scouterna\Scoutorg\Scoutnet\ScoutnetConnection;
 use Scouterna\Scoutorg\Scoutnet\ScoutnetController;
 use Scouterna\Scoutorg\Scoutnet\PartFactory;
 use Scouterna\Scoutorg\Scoutnet\PartProvider;
-use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Model;
 
 class Config
 {

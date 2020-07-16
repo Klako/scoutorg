@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases\ContactBase;
-use Scouterna\Scoutorg\Lib\Contact;
+use Scouterna\Scoutorg\Model\Contact;
 
 class ContactTable extends BuilderTable
 {

@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\TroopMemberArray;
+use Scouterna\Scoutorg\Model\Arrays\TroopMemberArray;
 
 /**
  * A configuration for building a troop member.

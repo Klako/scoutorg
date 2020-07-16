@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases\PatrolRoleBase;
-use Scouterna\Scoutorg\Lib\PatrolRole;
+use Scouterna\Scoutorg\Model\PatrolRole;
 
 class PatrolRoleTable extends BuilderTable
 {

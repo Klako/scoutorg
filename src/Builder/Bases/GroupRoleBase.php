@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\GroupRoleArray;
+use Scouterna\Scoutorg\Model\Arrays\GroupRoleArray;
 
 /**
  * A configuration for building a group role.

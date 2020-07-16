@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases\TroopRoleBase;
-use Scouterna\Scoutorg\Lib\TroopRole;
+use Scouterna\Scoutorg\Model\TroopRole;
 
 class TroopRoleTable extends BuilderTable
 {

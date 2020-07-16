@@ -2,11 +2,11 @@
 
 namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Model;
 
-class MutableOrgArray extends Lib\OrgArray
+class MutableOrgArray extends Model\OrgArray
 {
-    public function insert(Lib\OrgObject $orgObject, bool $overwrite = false)
+    public function insert(Model\OrgObject $orgObject, bool $overwrite = false)
     {
         if ($this->exists($orgObject->source, $orgObject->id) && !$overwrite) {
             return false;

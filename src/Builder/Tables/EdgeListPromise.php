@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Lib\IArrayPromise;
+use Scouterna\Scoutorg\Model\IArrayPromise;
 
 class EdgeListPromise implements IArrayPromise
 {
@@ -39,7 +39,7 @@ class EdgeListPromise implements IArrayPromise
         $this->edgeType = $edgeType;
     }
 
-    public function getArray(): \Scouterna\Scoutorg\Lib\OrgArray
+    public function getArray(): \Scouterna\Scoutorg\Model\OrgArray
     {
         $table = $this->scoutorg->getTable($this->toType);
         $edgeTable = $this->scoutorg->getTable($this->edgeType);

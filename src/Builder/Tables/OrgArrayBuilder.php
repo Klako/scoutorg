@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Tables;
 
-use Scouterna\Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Model\OrgObject;
 use Scouterna\Scoutorg\Builder\Uid;
 
 class OrgArrayBuilder

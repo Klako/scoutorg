@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\CustomListArray;
+use Scouterna\Scoutorg\Model\Arrays\CustomListArray;
 
 /**
  * A configuration for building a custom list.

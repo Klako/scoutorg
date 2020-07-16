@@ -6,7 +6,7 @@ use Scouterna\Scoutorg\Builder\Bases\MemberBase;
 use Scouterna\Scoutorg\Builder\Bases\TroopBase;
 use Scouterna\Scoutorg\Builder\Bases\TroopMemberBase;
 use Scouterna\Scoutorg\Builder\Bases\TroopRoleBase;
-use Scouterna\Scoutorg\Lib\TroopMember;
+use Scouterna\Scoutorg\Model\TroopMember;
 
 class TroopMemberTable extends BuilderTable
 {

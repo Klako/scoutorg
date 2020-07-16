@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\OrgArray;
+use Scouterna\Scoutorg\Model\OrgArray;
 
 abstract class ObjectBase
 {

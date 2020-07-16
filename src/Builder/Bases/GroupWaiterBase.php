@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\GroupWaiterArray;
+use Scouterna\Scoutorg\Model\Arrays\GroupWaiterArray;
 
 class GroupWaiterBase extends ObjectBase
 {

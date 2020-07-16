@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases;
-use Scouterna\Scoutorg\Lib\Member;
+use Scouterna\Scoutorg\Model\Member;
 
 class MemberTable extends BuilderTable
 {

@@ -5,7 +5,7 @@ namespace Scouterna\Scoutorg\Builder\Tables;
 use OutOfRangeException;
 use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Builder\Uid;
-use Scouterna\Scoutorg\Lib\OrgObject;
+use Scouterna\Scoutorg\Model\OrgObject;
 
 abstract class BuilderTable
 {
@@ -72,7 +72,7 @@ abstract class BuilderTable
     /**
      * @param Uid $uid 
      * @param Bases\ObjectBase $base 
-     * @return \Scouterna\Scoutorg\Lib\OrgObject 
+     * @return \Scouterna\Scoutorg\Model\OrgObject 
      */
     protected abstract function build($uid, $base);
 

@@ -2,8 +2,8 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib;
-use Scouterna\Scoutorg\Lib\Arrays\ContactArray;
+use Scouterna\Scoutorg\Model;
+use Scouterna\Scoutorg\Model\Arrays\ContactArray;
 
 /**
  * A configuration for building a contact.
@@ -15,7 +15,7 @@ class ContactBase extends ObjectBase
     private $name;
     private $contactInfo;
 
-    public function __construct(string $name, Lib\ContactInfo $contactInfo)
+    public function __construct(string $name, Model\ContactInfo $contactInfo)
     {
         $this->name = $name;
         $this->contactInfo = $contactInfo;

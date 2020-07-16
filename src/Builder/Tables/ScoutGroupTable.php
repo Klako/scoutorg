@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases;
-use Scouterna\Scoutorg\Lib\ScoutGroup;
+use Scouterna\Scoutorg\Model\ScoutGroup;
 
 class ScoutGroupTable extends BuilderTable
 {

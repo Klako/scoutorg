@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\BranchArray;
+use Scouterna\Scoutorg\Model\Arrays\BranchArray;
 
 /**
  * A configuration for building a branch.

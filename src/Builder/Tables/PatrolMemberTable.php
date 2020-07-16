@@ -6,7 +6,7 @@ use Scouterna\Scoutorg\Builder\Bases\MemberBase;
 use Scouterna\Scoutorg\Builder\Bases\PatrolBase;
 use Scouterna\Scoutorg\Builder\Bases\PatrolMemberBase;
 use Scouterna\Scoutorg\Builder\Bases\PatrolRoleBase;
-use Scouterna\Scoutorg\Lib\PatrolMember;
+use Scouterna\Scoutorg\Model\PatrolMember;
 
 class PatrolMemberTable extends BuilderTable
 {

@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Lib\IArrayPromise;
+use Scouterna\Scoutorg\Model\IArrayPromise;
 
 class ListPromise implements IArrayPromise
 {
@@ -35,7 +35,7 @@ class ListPromise implements IArrayPromise
         $this->toType = $toType;
     }
 
-    public function getArray(): \Scouterna\Scoutorg\Lib\OrgArray
+    public function getArray(): \Scouterna\Scoutorg\Model\OrgArray
     {
         $table = $this->scoutorg->getTable($this->toType);
         $arrayBuilder = new OrgArrayBuilder();

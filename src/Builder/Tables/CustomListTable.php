@@ -4,7 +4,7 @@ namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder\Bases\CustomListBase;
 use Scouterna\Scoutorg\Builder\Bases\MemberBase;
-use Scouterna\Scoutorg\Lib\CustomList;
+use Scouterna\Scoutorg\Model\CustomList;
 
 class CustomListTable extends BuilderTable
 {

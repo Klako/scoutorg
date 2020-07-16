@@ -7,7 +7,7 @@
 
 namespace Scouterna\Scoutorg\Scoutnet;
 
-use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Model;
 use Scouterna\Scoutorg\Builder\Bases;
 
 /**
@@ -73,11 +73,11 @@ class WaitingMember
 
     /**
      * Gets the person info of the waiting member as a new instance.
-     * @return Lib\PersonInfo
+     * @return Model\PersonInfo
      */
     public function getPersonInfo()
     {
-        $personInfo = new Lib\PersonInfo(
+        $personInfo = new Model\PersonInfo(
             $this->properties['first_name']->value,
             $this->properties['last_name']->value,
             $this->properties['ssno']->value,
@@ -89,7 +89,7 @@ class WaitingMember
 
     /**
      * Gets the contact info of the waiting member as a new instance.
-     * @return Lib\ContactInfo
+     * @return Model\ContactInfo
      */
     public function getContactInfo()
     {
@@ -98,17 +98,17 @@ class WaitingMember
         if (isset($this->properties['email'])) {
             $emailAddresses[] = $this->properties['email']->value;
         }
-        return new Lib\ContactInfo($phoneNumbers, $emailAddresses);
+        return new Model\ContactInfo($phoneNumbers, $emailAddresses);
     }
 
     /**
      * Gets the living address and postal info of the waiting
      * member as a new instance.
-     * @return Lib\Location
+     * @return Model\Location
      */
     public function getHome()
     {
-        return new Lib\Location(
+        return new Model\Location(
             $this->properties['address_1']->value,
             $this->properties['postcode']->value,
             $this->properties['town']->value
@@ -135,7 +135,7 @@ class WaitingMember
             }
             $contacts["{$this->properties['member_no']->value}-1"] = new Bases\ContactBase(
                 $this->properties['contact_mothers_name']->value,
-                new Lib\ContactInfo($phoneNumbers, $emails)
+                new Model\ContactInfo($phoneNumbers, $emails)
             );
         }
         // Create contact 2
@@ -150,7 +150,7 @@ class WaitingMember
             }
             $contacts["{$this->properties['member_no']->value}-2"] = new Bases\ContactBase(
                 $this->properties['contact_fathers_name']->value,
-                new Lib\ContactInfo($phoneNumbers, $emails)
+                new Model\ContactInfo($phoneNumbers, $emails)
             );
         }
         return $contacts;

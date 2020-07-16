@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\ScoutGroupArray;
+use Scouterna\Scoutorg\Model\Arrays\ScoutGroupArray;
 
 /**
  * A configuration for building a scout group.

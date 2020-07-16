@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Lib\Arrays\GroupMemberArray;
+use Scouterna\Scoutorg\Model\Arrays\GroupMemberArray;
 
 class GroupMemberBase extends ObjectBase
 {

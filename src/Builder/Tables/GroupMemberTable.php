@@ -6,7 +6,7 @@ use Scouterna\Scoutorg\Builder\Bases\GroupMemberBase;
 use Scouterna\Scoutorg\Builder\Bases\GroupRoleBase;
 use Scouterna\Scoutorg\Builder\Bases\MemberBase;
 use Scouterna\Scoutorg\Builder\Bases\ScoutGroupBase;
-use Scouterna\Scoutorg\Lib\GroupMember;
+use Scouterna\Scoutorg\Model\GroupMember;
 
 class GroupMemberTable extends BuilderTable
 {

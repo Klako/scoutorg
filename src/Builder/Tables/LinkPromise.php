@@ -3,9 +3,9 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Lib;
+use Scouterna\Scoutorg\Model;
 
-class LinkPromise implements Lib\IObjectPromise
+class LinkPromise implements Model\IObjectPromise
 {
     /** @var Builder\Config */
     private $config;
@@ -35,7 +35,7 @@ class LinkPromise implements Lib\IObjectPromise
         $this->toType = $toType;
     }
 
-    public function getObject(): ?Lib\OrgObject
+    public function getObject(): ?Model\OrgObject
     {
         $primarySource = $this->uid->getSource();
         $table = $this->scoutorg->getTable($this->toType);
