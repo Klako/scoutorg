@@ -19,9 +19,9 @@ class CustomListTable extends BuilderTable
      * @return CustomList 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -30,14 +30,14 @@ class CustomListTable extends BuilderTable
      * @param CustomListBase $base 
      * @return CustomList
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $subLists = $this->promiseList($source, $id, 'sublists', CustomListBase::class);
-        $members = $this->promiseList($source, $id, 'members', MemberBase::class);
+        $subLists = $this->promiseList($uid, 'sublists', CustomListBase::class);
+        $members = $this->promiseList($uid, 'members', MemberBase::class);
 
         return new CustomList(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getTitle(),
             $base->getDescription(),
             $members,

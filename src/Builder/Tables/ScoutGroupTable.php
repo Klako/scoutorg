@@ -18,9 +18,9 @@ class ScoutGroupTable extends BuilderTable
      * @return ScoutGroup 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -29,20 +29,20 @@ class ScoutGroupTable extends BuilderTable
      * @param Bases\ScoutGroupBase $base 
      * @return ScoutGroup 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $branches = $this->promiseList($source, $id, 'branches', Bases\BranchBase::class);
-        $troops = $this->promiseList($source, $id, 'troops', Bases\TroopBase::class);
-        $members = $this->promiseList($source, $id, 'members', Bases\MemberBase::class);
-        $groupRoles = $this->promiseList($source, $id, 'grouproles', Bases\GroupRoleBase::class);
-        $troopRoles = $this->promiseList($source, $id, 'trooproles', Bases\TroopRoleBase::class);
-        $patrolRoles = $this->promiseList($source, $id, 'patrolroles', Bases\PatrolRoleBase::class);
-        $customLists = $this->promiseList($source, $id, 'customlists', Bases\CustomListBase::class);
-        $waitingList = $this->promiseList($source, $id, 'waitinglist', Bases\GroupWaiterBase::class);
+        $branches = $this->promiseList($uid, 'branches', Bases\BranchBase::class);
+        $troops = $this->promiseList($uid, 'troops', Bases\TroopBase::class);
+        $members = $this->promiseList($uid, 'members', Bases\MemberBase::class);
+        $groupRoles = $this->promiseList($uid, 'grouproles', Bases\GroupRoleBase::class);
+        $troopRoles = $this->promiseList($uid, 'trooproles', Bases\TroopRoleBase::class);
+        $patrolRoles = $this->promiseList($uid, 'patrolroles', Bases\PatrolRoleBase::class);
+        $customLists = $this->promiseList($uid, 'customlists', Bases\CustomListBase::class);
+        $waitingList = $this->promiseList($uid, 'waitinglist', Bases\GroupWaiterBase::class);
 
         return new ScoutGroup(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getName(),
             $members,
             $troops,

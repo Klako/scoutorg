@@ -10,7 +10,7 @@ class ListPromise implements IArrayPromise
     /** @var Builder\Config */
     private $config;
 
-    /** @var Builder\Scouterna\ScoutorgBuilder */
+    /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
     /** @var Builder\Uid */
@@ -43,7 +43,7 @@ class ListPromise implements IArrayPromise
             $uids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($uids as $uid) {
                 Builder\Helper::checkType('uid', $uid, [Builder\Uid::class]);
-                $object = $table->get($uid->getSource(), $uid->getId());
+                $object = $table->get($uid);
                 if ($object) {
                     $arrayBuilder->addObject($object);
                 }

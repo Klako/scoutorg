@@ -18,9 +18,9 @@ class PatrolRoleTable extends BuilderTable
      * @return PatrolRole 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -30,8 +30,8 @@ class PatrolRoleTable extends BuilderTable
      * @param PatrolRoleBase $base 
      * @return PatrolRole
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        return new PatrolRole($source, $id, $base->getName());
+        return new PatrolRole($uid->getSource(), $uid->getId(), $base->getName());
     }
 }

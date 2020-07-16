@@ -21,9 +21,9 @@ class GroupWaiterTable extends BuilderTable
      * @return GroupWaiter 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -32,14 +32,14 @@ class GroupWaiterTable extends BuilderTable
      * @param GroupWaiterBase $base 
      * @return GroupWaiter 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $group = $this->promiseLink($source, $id, 'group', ScoutGroupBase::class);
-        $member = $this->promiseLink($source, $id, 'member', MemberBase::class);
+        $group = $this->promiseLink($uid, 'group', ScoutGroupBase::class);
+        $member = $this->promiseLink($uid, 'member', MemberBase::class);
 
         return new GroupWaiter(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getWaitingSince(),
             $group,
             $member

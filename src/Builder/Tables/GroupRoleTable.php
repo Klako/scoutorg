@@ -18,9 +18,9 @@ class GroupRoleTable extends BuilderTable
      * @return GroupRole 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -29,8 +29,8 @@ class GroupRoleTable extends BuilderTable
      * @param GroupRoleBase $base 
      * @return GroupRole 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        return new GroupRole($source, $id, $base->getName());
+        return new GroupRole($uid->getSource(), $uid->getId(), $base->getName());
     }
 }

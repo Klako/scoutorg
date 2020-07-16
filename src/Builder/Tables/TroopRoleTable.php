@@ -18,9 +18,9 @@ class TroopRoleTable extends BuilderTable
      * @return TroopRole 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
     
     /**
@@ -29,8 +29,8 @@ class TroopRoleTable extends BuilderTable
      * @param TroopRoleBase $base 
      * @return TroopRole
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        return new TroopRole($source, $id, $base->getName());
+        return new TroopRole($uid->getSource(), $uid->getId(), $base->getName());
     }
 }

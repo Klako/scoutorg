@@ -30,14 +30,14 @@ abstract class BuilderTable
     }
 
     /**
-     * @param string $source 
-     * @param int|string $id 
+     * @param Uid $uid
      * @return OrgObject|null
      */
-    public function get($source, $id)
+    public function get($uid)
     {
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (!$this->table->exists($source, $id)) {
-            $orgObject = $this->preBuild($source, $id);
+            $orgObject = $this->preBuild($uid);
             // TODO: error on null
             if ($orgObject) {
                 $this->table->insert($orgObject);
@@ -56,45 +56,44 @@ abstract class BuilderTable
         return $this->get($uid->getSource(), $uid->getId());
     }
 
-    private function preBuild($source, $id)
+    private function preBuild($uid)
     {
-        $provider = $this->config->getProvider($source);
+        $provider = $this->config->getProvider($uid->getSource());
         if (!$provider) {
             return null;
         }
-        $base = $provider->getBasePart($id, $this->type);
+        $base = $provider->getBasePart($uid->getId(), $this->type);
         if (!$base) {
             return null;
         }
-        return $this->build($source, $id, $base);
+        return $this->build($uid, $base);
     }
 
     /**
-     * @param string $source 
-     * @param int|string $id 
+     * @param Uid $uid 
      * @param Bases\ObjectBase $base 
      * @return \Scouterna\Scoutorg\Lib\OrgObject 
      */
-    protected abstract function build($source, $id, $base);
+    protected abstract function build($uid, $base);
 
-    protected function promiseList($source, $id, $name, $type)
+    protected function promiseList($uid, $name, $type)
     {
         return new ListPromise(
             $this->config,
             $this->scoutorg,
-            new Builder\Uid($source, $id),
+            $uid,
             $this->type,
             $name,
             $type
         );
     }
 
-    protected function promiseEdgeList($source, $id, $name, $type, $edgeType)
+    protected function promiseEdgeList($uid, $name, $type, $edgeType)
     {
         return new EdgeListPromise(
             $this->config,
             $this->scoutorg,
-            new Builder\Uid($source, $id),
+            $uid,
             $this->type,
             $name,
             $type,
@@ -102,12 +101,12 @@ abstract class BuilderTable
         );
     }
 
-    protected function promiseLink($source, $id, $name, $type)
+    protected function promiseLink($uid, $name, $type)
     {
         return new LinkPromise(
             $this->config,
             $this->scoutorg,
-            new Builder\Uid($source, $id),
+            $uid,
             $this->type,
             $name,
             $type

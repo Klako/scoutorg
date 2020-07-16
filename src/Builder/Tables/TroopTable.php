@@ -22,9 +22,9 @@ class TroopTable extends BuilderTable
      * @return Troop 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -33,15 +33,15 @@ class TroopTable extends BuilderTable
      * @param TroopBase $base 
      * @return Troop 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $branch = $this->promiseLink($source, $id, 'branch', BranchBase::class);
-        $patrols = $this->promiseList($source, $id, 'patrols', PatrolBase::class);
-        $members = $this->promiseEdgeList($source, $id, 'members', MemberBase::class, TroopMemberBase::class);
+        $branch = $this->promiseLink($uid, 'branch', BranchBase::class);
+        $patrols = $this->promiseList($uid, 'patrols', PatrolBase::class);
+        $members = $this->promiseEdgeList($uid, 'members', MemberBase::class, TroopMemberBase::class);
 
         return new Troop(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getName(),
             $branch,
             $members,

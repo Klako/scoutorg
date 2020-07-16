@@ -18,9 +18,9 @@ class ContactTable extends BuilderTable
      * @return Contact 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -29,11 +29,11 @@ class ContactTable extends BuilderTable
      * @param ContactBase $base 
      * @return Contact
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
         return new Contact(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getName(),
             $base->getContactInfo()
         );

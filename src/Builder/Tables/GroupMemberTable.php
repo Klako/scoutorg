@@ -21,9 +21,9 @@ class GroupMemberTable extends BuilderTable
      * @param int|string $id 
      * @return GroupMember 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -32,15 +32,15 @@ class GroupMemberTable extends BuilderTable
      * @param GroupMemberBase $base 
      * @return GroupMember
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $group = $this->promiseLink($source, $id, 'group', ScoutGroupBase::class);
-        $member = $this->promiseLink($source, $id, 'member', MemberBase::class);
-        $roles = $this->promiseList($source, $id, 'roles', GroupRoleBase::class);
+        $group = $this->promiseLink($uid, 'group', ScoutGroupBase::class);
+        $member = $this->promiseLink($uid, 'member', MemberBase::class);
+        $roles = $this->promiseList($uid, 'roles', GroupRoleBase::class);
 
         return new GroupMember(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getStartdate(),
             $group,
             $member,

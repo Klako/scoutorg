@@ -4,6 +4,7 @@ namespace Scouterna\Scoutorg\Tests\Scoutnet;
 
 use PHPUnit\Framework\TestCase;
 use Scouterna\Scoutorg\Builder\ScoutorgBuilder;
+use Scouterna\Scoutorg\Builder\Uid;
 use Scouterna\Scoutorg\Lib;
 use Scouterna\Scoutorg\Lib\Contact;
 use Symfony\Component\Process\Process;
@@ -42,7 +43,9 @@ class ScoutorgBuilderTest extends TestCase
     {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
-        $group = $builder->scoutGroups->get('scoutnet', 1);
+        $uid = new Uid('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        $group = $builder->scoutGroups->get($uid);
 
         self::assertTrue(\get_class($group) === Lib\ScoutGroup::class);
 
@@ -53,7 +56,10 @@ class ScoutorgBuilderTest extends TestCase
     {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
-        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+        $uid = new Uid('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        $group = $builder->scoutGroups->get($uid);
+
         self::assertIsObject($group->troops);
         foreach ($group->troops as $troop) {
             self::assertIsObject($troop->patrols);
@@ -72,7 +78,9 @@ class ScoutorgBuilderTest extends TestCase
     {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
-        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+        $uid = new Uid('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        $group = $builder->scoutGroups->get($uid);
 
         self::assertIsObject($group->troopRoles);
 
@@ -87,7 +95,9 @@ class ScoutorgBuilderTest extends TestCase
     {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
-        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+        $uid = new Uid('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        $group = $builder->scoutGroups->get($uid);
 
         self::assertIsObject($group->patrolRoles);
         
@@ -103,7 +113,9 @@ class ScoutorgBuilderTest extends TestCase
     {
         $builder = new ScoutorgBuilder(Config::getBuilderConfig());
 
-        $group = $builder->scoutGroups->get('scoutnet', Config::getGroupConfig()->getGroupId());
+        $uid = new Uid('scoutnet', Config::getGroupConfig()->getGroupId());
+
+        $group = $builder->scoutGroups->get($uid);
 
         self::assertIsObject($group->troops);
 

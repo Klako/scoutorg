@@ -13,29 +13,25 @@ class BranchTable extends BuilderTable
     }
 
     /**
-     * @param string $source 
-     * @param int|string $id 
      * @return Branch
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
-     * @param string $source 
-     * @param int|string $id 
      * @param Bases\BranchBase $base 
      * @return Branch 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $troops = $this->promiseList($source, $id, 'troops', Bases\TroopBase::class);
+        $troops = $this->promiseList($uid, 'troops', Bases\TroopBase::class);
 
         return new Branch(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getName(),
             $troops
         );

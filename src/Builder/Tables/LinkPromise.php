@@ -10,7 +10,7 @@ class LinkPromise implements Lib\IObjectPromise
     /** @var Builder\Config */
     private $config;
 
-    /** @var Builder\Scouterna\ScoutorgBuilder */
+    /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
     /** @var Builder\Uid */
@@ -46,7 +46,7 @@ class LinkPromise implements Lib\IObjectPromise
                 return null;
             }
             if (($uid && !$object) || $primarySource == $source) {
-                $object = $table->get($uid->getSource(), $uid->getId());
+                $object = $table->get($uid);
             }
         }
         return $object;

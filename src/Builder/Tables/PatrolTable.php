@@ -21,9 +21,9 @@ class PatrolTable extends BuilderTable
      * @return Patrol 
      * @throws \OutOfRangeException 
      */
-    public function get($source, $id)
+    public function get($uid)
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**
@@ -33,14 +33,14 @@ class PatrolTable extends BuilderTable
      * @param PatrolBase $base 
      * @return Patrol 
      */
-    protected function build($source, $id, $base)
+    protected function build($uid, $base)
     {
-        $troop = $this->promiseLink($source, $id, 'troop', TroopBase::class);
-        $members = $this->promiseEdgeList($source, $id, 'members', MemberBase::class, PatrolMemberBase::class);
+        $troop = $this->promiseLink($uid, 'troop', TroopBase::class);
+        $members = $this->promiseEdgeList($uid, 'members', MemberBase::class, PatrolMemberBase::class);
 
         return new Patrol(
-            $source,
-            $id,
+            $uid->getSource(),
+            $uid->getId(),
             $base->getName(),
             $troop,
             $members

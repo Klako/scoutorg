@@ -10,7 +10,7 @@ class EdgeListPromise implements IArrayPromise
     /** @var Builder\Config */
     private $config;
 
-    /** @var Builder\Scouterna\ScoutorgBuilder */
+    /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
     /** @var Builder\Uid */
@@ -48,12 +48,12 @@ class EdgeListPromise implements IArrayPromise
             /** @var Builder\EdgeUid[] $edgeUids */
             $edgeUids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($edgeUids as $edgeUid) {
-                $uid = $edgeUid->getTarget();
+                $targetUid = $edgeUid->getTarget();
                 Builder\Helper::checkType('edgeUid', $edgeUid, [Builder\EdgeUid::class]);
-                $edge = $edgeTable->get($edgeUid->getSource(), $edgeUid->getId());
-                $object = $table->get($uid->getSource(), $uid->getId());
+                $edge = $edgeTable->get($edgeUid);
+                $object = $table->get($targetUid);
                 if ($edge && $object) {
-                    $arrayBuilder->addObject($edge, $uid);
+                    $arrayBuilder->addObject($edge, $targetUid);
                 }
             }
         }
