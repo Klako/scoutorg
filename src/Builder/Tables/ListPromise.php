@@ -35,15 +35,15 @@ class ListPromise implements Model\IArrayPromise
         $this->toType = $toType;
     }
 
-    public function getArray(): \Scouterna\Scoutorg\Model\OrgArray
+    public function getArray(): Model\OrgArray
     {
         $table = $this->scoutorg->getTable($this->toType);
         $arrayBuilder = new OrgArrayBuilder();
         foreach ($this->config->providers() as $provider) {
-            $uids = $provider->getLinkParts($this->uid, $this->type, $this->name);
-            foreach ($uids as $uid) {
-                Model\Helper::checkType('uid', $uid, [Model\Uid::class]);
-                $object = $table->get($uid);
+            $links = $provider->getLinkParts($this->uid, $this->type, $this->name);
+            foreach ($links as $link) {
+                Model\Helper::checkType('link', $link, [Builder\Link::class]);
+                $object = $table->get($link->getTarget());
                 if ($object) {
                     $arrayBuilder->addObject($object);
                 }

@@ -21,7 +21,7 @@ interface IPartProvider
      * @param Uid $uid 
      * @param string $type
      * @param string $name 
-     * @return Uid[]|EdgeUid[]
+     * @return Link[]
      */
     public function getLinkParts(
         Uid $uid,
@@ -35,11 +35,11 @@ interface IPartProvider
      * @param Uid $uid 
      * @param string $type
      * @param string $name 
-     * @return Uid|EdgeUid|null
+     * @return Link|null
      */
     public function getLinkPart(
         Uid $uid,
         string $type,
         string $name
-    ): ?Uid;
+    ): ?Link;
 }

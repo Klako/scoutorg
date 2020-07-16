@@ -13,7 +13,7 @@ class LinkPromise implements Model\IObjectPromise
     /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
-    /** @var Builder\Uid */
+    /** @var Model\Uid */
     private $uid;
 
     /** @var string */
@@ -41,12 +41,12 @@ class LinkPromise implements Model\IObjectPromise
         $table = $this->scoutorg->getTable($this->toType);
         $object = null;
         foreach ($this->config->providers() as $source => $provider) {
-            $uid = $provider->getLinkPart($this->uid, $this->type, $this->name);
-            if ($uid == null){
+            $link = $provider->getLinkPart($this->uid, $this->type, $this->name);
+            if ($link == null){
                 return null;
             }
-            if (($uid && !$object) || $primarySource == $source) {
-                $object = $table->get($uid);
+            if (($link && !$object) || $primarySource == $source) {
+                $object = $table->get($link->getTarget());
             }
         }
         return $object;

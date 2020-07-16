@@ -2,10 +2,10 @@
 
 namespace Scouterna\Scoutorg\Scoutnet;
 
-use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Model;
 use Scouterna\Scoutorg\Builder\Bases;
 use Scouterna\Scoutorg\Builder\IPartProvider;
+use Scouterna\Scoutorg\Builder\Link;
 
 class PartProvider implements IPartProvider
 {
@@ -51,7 +51,7 @@ class PartProvider implements IPartProvider
         return $this->handlers[$type]->getBasePart($id);
     }
 
-    public function getLinkPart(Model\Uid $uid, string $type, string $name): ?Model\Uid
+    public function getLinkPart(Model\Uid $uid, string $type, string $name): ?Link
     {
         if (!isset($this->handlers[$type])) {
             return null;
