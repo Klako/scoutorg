@@ -41,7 +41,7 @@ class Uid
     public static function deserialize(string $uid)
     {
         $splitId = \explode(':', $uid, 2);
-        if ($splitId === false) {
+        if ($splitId === false || count($splitId) != 2) {
             return false;
         }
         return new Uid($splitId[0], $splitId[1]);
