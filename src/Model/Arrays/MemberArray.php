@@ -9,9 +9,9 @@ class MemberArray extends Model\OrgArray
     /** 
      * @return Model\Member
      */
-    public function get(string $source, $id): ?Model\Member
+    public function get(Model\Uid $uid): ?Model\Member
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

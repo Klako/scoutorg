@@ -32,6 +32,6 @@ class PatrolRoleTable extends BuilderTable
      */
     protected function build($uid, $base)
     {
-        return new PatrolRole($uid->getSource(), $uid->getId(), $base->getName());
+        return new PatrolRole($uid, $base->getName());
     }
 }

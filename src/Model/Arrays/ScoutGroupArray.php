@@ -9,9 +9,9 @@ class ScoutGroupArray extends Model\OrgArray
     /** 
      * @return Model\ScoutGroup
      */
-    public function get(string $source, $id): ?Model\ScoutGroup
+    public function get(Model\Uid $uid): ?Model\ScoutGroup
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

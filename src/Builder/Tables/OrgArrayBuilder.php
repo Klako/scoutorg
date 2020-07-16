@@ -3,7 +3,7 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Model\OrgObject;
-use Scouterna\Scoutorg\Builder\Uid;
+use Scouterna\Scoutorg\Model\Uid;
 
 class OrgArrayBuilder
 {
@@ -28,12 +28,11 @@ class OrgArrayBuilder
                 . ', got ' . (\gettype($orgObject) === 'object' ? \get_class($orgObject) : \gettype($orgObject)))
         );
         if ($override) {
-            $source = $override->getSource();
-            $id = $override->getId();
+            $uid = $override;
         } else {
-            $source = $orgObject->source;
-            $id = $orgObject->id;
+            $uid = $orgObject->uid;
         }
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (isset($this->tree[$source][$id])) {
             return false;
         }

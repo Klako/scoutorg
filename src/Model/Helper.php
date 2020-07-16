@@ -1,6 +1,6 @@
 <?php
 
-namespace Scouterna\Scoutorg\Builder;
+namespace Scouterna\Scoutorg\Model;
 
 class Helper
 {

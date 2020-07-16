@@ -19,16 +19,15 @@ class Troop extends OrgObject
     /**
      * Creates a new troop with the specified info.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name The troop name.
      * @param Branch|IObjectPromise $branch
      * @param Arrays\TroopMemberArray|IArrayPromise $members
      * @param Arrays\PatrolArray|IArrayPromise $patrols
      */
-    public function __construct(string $source, $id, string $name, $branch, $members, $patrols)
+    public function __construct(Uid $uid, string $name, $branch, $members, $patrols)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
         $this->setObject('branch', $branch, Branch::class);
         $this->setArray('members', $members, Arrays\TroopMemberArray::class);

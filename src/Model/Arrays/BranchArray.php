@@ -9,9 +9,9 @@ class BranchArray extends Model\OrgArray
     /** 
      * @return Model\Branch
      */
-    public function get(string $source, $id): ?Model\Branch
+    public function get(Model\Uid $uid): ?Model\Branch
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

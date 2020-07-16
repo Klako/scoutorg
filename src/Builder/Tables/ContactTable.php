@@ -32,8 +32,7 @@ class ContactTable extends BuilderTable
     protected function build($uid, $base)
     {
         return new Contact(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getName(),
             $base->getContactInfo()
         );

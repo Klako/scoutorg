@@ -39,8 +39,7 @@ class PatrolTable extends BuilderTable
         $members = $this->promiseEdgeList($uid, 'members', MemberBase::class, PatrolMemberBase::class);
 
         return new Patrol(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getName(),
             $troop,
             $members

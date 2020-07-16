@@ -6,9 +6,9 @@ use Scouterna\Scoutorg\Model;
 
 class GroupWaiterArray extends Model\OrgArray
 {
-    public function get(string $source, $id): ?Model\GroupWaiter
+    public function get(Model\Uid $uid): ?Model\GroupWaiter
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

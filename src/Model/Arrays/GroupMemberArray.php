@@ -9,9 +9,9 @@ class GroupMemberArray extends Model\OrgArray
     /**
      * @return Model\GroupMember 
      */
-    public function get(string $source, $id): ?Model\GroupMember
+    public function get(Model\Uid $uid): ?Model\GroupMember
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

@@ -9,9 +9,9 @@ class CustomListArray extends Model\OrgArray
     /** 
      * @return Model\CustomList
      */
-    public function get(string $source, $id): ?Model\CustomList
+    public function get(Model\Uid $uid): ?Model\CustomList
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

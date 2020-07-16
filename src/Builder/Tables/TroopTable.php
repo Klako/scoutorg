@@ -40,8 +40,7 @@ class TroopTable extends BuilderTable
         $members = $this->promiseEdgeList($uid, 'members', MemberBase::class, TroopMemberBase::class);
 
         return new Troop(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getName(),
             $branch,
             $members,

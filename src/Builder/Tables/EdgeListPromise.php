@@ -3,9 +3,11 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
+use Scouterna\Scoutorg\Model\Helper;
 use Scouterna\Scoutorg\Model\IArrayPromise;
+use Scouterna\Scoutorg\Model;
 
-class EdgeListPromise implements IArrayPromise
+class EdgeListPromise implements Model\IArrayPromise
 {
     /** @var Builder\Config */
     private $config;
@@ -13,7 +15,7 @@ class EdgeListPromise implements IArrayPromise
     /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
-    /** @var Builder\Uid */
+    /** @var Model\Uid */
     private $uid;
 
     /** @var string */
@@ -49,7 +51,7 @@ class EdgeListPromise implements IArrayPromise
             $edgeUids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($edgeUids as $edgeUid) {
                 $targetUid = $edgeUid->getTarget();
-                Builder\Helper::checkType('edgeUid', $edgeUid, [Builder\EdgeUid::class]);
+                Model\Helper::checkType('edgeUid', $edgeUid, [Builder\EdgeUid::class]);
                 $edge = $edgeTable->get($edgeUid);
                 $object = $table->get($targetUid);
                 if ($edge && $object) {

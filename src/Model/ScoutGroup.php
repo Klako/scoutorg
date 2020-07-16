@@ -24,8 +24,7 @@ class ScoutGroup extends OrgObject
     /**
      * Creates a new ScoutGroup with the specified id.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name
      * @param Arrays\GroupMemberArray|IArrayPromise $members All members of the group.
      * @param Arrays\TroopArray|IArrayPromise $troops
@@ -37,8 +36,7 @@ class ScoutGroup extends OrgObject
      * @param Arrays\WaitingMemberArray|IArrayPromise $waitingList
      */
     public function __construct(
-        string $source,
-        $id,
+        Uid $uid,
         string $name,
         $members,
         $troops,
@@ -49,7 +47,7 @@ class ScoutGroup extends OrgObject
         $customLists,
         $waitingList
     ) {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
         $this->setArray('members', $members, Arrays\GroupMemberArray::class);
         $this->setArray('troops', $troops, Arrays\TroopArray::class);

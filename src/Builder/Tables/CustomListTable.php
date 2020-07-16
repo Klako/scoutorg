@@ -36,8 +36,7 @@ class CustomListTable extends BuilderTable
         $members = $this->promiseList($uid, 'members', MemberBase::class);
 
         return new CustomList(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getTitle(),
             $base->getDescription(),
             $members,

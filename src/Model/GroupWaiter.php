@@ -10,9 +10,9 @@ namespace Scouterna\Scoutorg\Model;
  */
 class GroupWaiter extends OrgObject
 {
-    public function __construct(string $source, $id, string $waitingSince, $group, $member)
+    public function __construct(Uid $uid, string $waitingSince, $group, $member)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('waitingSince', $waitingSince);
         $this->setObject('group', $group, ScoutGroup::class);
         $this->setObject('member', $member, Member::class);

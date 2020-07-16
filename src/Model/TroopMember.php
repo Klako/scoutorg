@@ -17,15 +17,14 @@ class TroopMember extends OrgObject
 {
     /**
      * Creates a Troop-Member link.
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param Troop|IObjectPromise $troop
      * @param Member|IObjectPromise $member
      * @param Arrays\TroopRoleArray|IArrayPromise $roles
      */
-    public function __construct(string $source, $id, $troop, $member, $roles)
+    public function __construct(Uid $uid, $troop, $member, $roles)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setObject('troop', $troop, Troop::class);
         $this->setObject('member', $member, Member::class);
         $this->setArray('roles', $roles, Arrays\TroopRoleArray::class);

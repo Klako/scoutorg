@@ -9,9 +9,9 @@ class ContactArray extends Model\OrgArray
     /** 
      * @return Model\Contact
      */
-    public function get(string $source, $id): ?Model\Contact
+    public function get(Model\Uid $uid): ?Model\Contact
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

@@ -17,15 +17,14 @@ class PatrolMember extends OrgObject
 {
     /**
      * Creates a Patrol-Member link.
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param Patrol|IObjectPromise $patrol
      * @param Member|IObjectPromise $member
      * @param PatrolRole[] $roles
      */
-    public function __construct(string $source, $id, $patrol, $member, $roles)
+    public function __construct(Uid $uid, $patrol, $member, $roles)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setObject('patrol', $patrol, Patrol::class);
         $this->setObject('member', $member, Member::class);
         $this->setArray('roles', $roles, Arrays\PatrolRoleArray::class);

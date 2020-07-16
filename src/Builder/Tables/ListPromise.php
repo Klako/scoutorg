@@ -3,9 +3,9 @@
 namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Model\IArrayPromise;
+use Scouterna\Scoutorg\Model;
 
-class ListPromise implements IArrayPromise
+class ListPromise implements Model\IArrayPromise
 {
     /** @var Builder\Config */
     private $config;
@@ -13,7 +13,7 @@ class ListPromise implements IArrayPromise
     /** @var Builder\ScoutorgBuilder */
     private $scoutorg;
 
-    /** @var Builder\Uid */
+    /** @var Model\Uid */
     private $uid;
 
     /** @var string */
@@ -42,7 +42,7 @@ class ListPromise implements IArrayPromise
         foreach ($this->config->providers() as $provider) {
             $uids = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($uids as $uid) {
-                Builder\Helper::checkType('uid', $uid, [Builder\Uid::class]);
+                Model\Helper::checkType('uid', $uid, [Model\Uid::class]);
                 $object = $table->get($uid);
                 if ($object) {
                     $arrayBuilder->addObject($object);

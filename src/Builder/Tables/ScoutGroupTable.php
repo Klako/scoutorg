@@ -41,8 +41,7 @@ class ScoutGroupTable extends BuilderTable
         $waitingList = $this->promiseList($uid, 'waitinglist', Bases\GroupWaiterBase::class);
 
         return new ScoutGroup(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getName(),
             $members,
             $troops,

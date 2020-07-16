@@ -9,9 +9,9 @@ class PatrolMemberArray extends Model\OrgArray
     /** 
      * @return Model\PatrolMember
      */
-    public function get(string $source, $id): ?Model\PatrolMember
+    public function get(Model\Uid $uid): ?Model\PatrolMember
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

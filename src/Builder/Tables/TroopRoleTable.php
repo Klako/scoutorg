@@ -31,6 +31,6 @@ class TroopRoleTable extends BuilderTable
      */
     protected function build($uid, $base)
     {
-        return new TroopRole($uid->getSource(), $uid->getId(), $base->getName());
+        return new TroopRole($uid, $base->getName());
     }
 }

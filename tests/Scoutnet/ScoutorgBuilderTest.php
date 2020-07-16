@@ -4,7 +4,7 @@ namespace Scouterna\Scoutorg\Tests\Scoutnet;
 
 use PHPUnit\Framework\TestCase;
 use Scouterna\Scoutorg\Builder\ScoutorgBuilder;
-use Scouterna\Scoutorg\Builder\Uid;
+use Scouterna\Scoutorg\Model\Uid;
 use Scouterna\Scoutorg\Model;
 use Scouterna\Scoutorg\Model\Contact;
 use Symfony\Component\Process\Process;
@@ -68,7 +68,7 @@ class ScoutorgBuilderTest extends TestCase
                 foreach ($patrol->members as $patrolmember) {
                     self::assertIsObject($patrolmember->patrol);
                     $member = $patrolmember->member;
-                    $member->patrols->get($patrol->source, $patrol->id);
+                    $member->patrols->get($patrol->uid);
                 }
             }
         }
@@ -87,7 +87,7 @@ class ScoutorgBuilderTest extends TestCase
         $dbtrooproles = self::$db->query("SELECT DISTINCT role_id FROM v_trooproles")->fetchAll();
 
         foreach ($dbtrooproles as $dbtrooprole) {
-            self::assertIsObject($group->troopRoles->get('scoutnet', $dbtrooprole['role_id']));
+            self::assertIsObject($group->troopRoles->get(new Uid('scoutnet', $dbtrooprole['role_id'])));
         }
     }
 
@@ -104,7 +104,7 @@ class ScoutorgBuilderTest extends TestCase
         $dbpatrolroles = self::$db->query("SELECT DISTINCT role_id FROM v_patrolroles")->fetchAll();
         
         foreach ($dbpatrolroles as $dbpatrolrole) {
-            self::assertIsObject($group->patrolRoles->get('scoutnet', $dbpatrolrole['role_id']));
+            self::assertIsObject($group->patrolRoles->get(new Uid('scoutnet', $dbpatrolrole['role_id'])));
         }
         
     }

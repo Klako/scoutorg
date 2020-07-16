@@ -17,14 +17,13 @@ class Branch extends OrgObject
     /**
      * Creates a new branch with an id and name.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name
      * @param Arrays\TroopArray|IArrayPromise $troops
      */
-    public function __construct(string $source, $id, string $name, $troops)
+    public function __construct(Uid $uid, string $name, $troops)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
         $this->setArray('troops', $troops, Arrays\TroopArray::class);
     }

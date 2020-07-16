@@ -1,6 +1,6 @@
 <?php
 
-namespace Scouterna\Scoutorg\Builder;
+namespace Scouterna\Scoutorg\Model;
 
 /**
  * A unique identifier for a Scouterna\Scoutorg object.

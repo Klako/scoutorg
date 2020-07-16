@@ -38,8 +38,7 @@ class MemberTable extends BuilderTable
         $waitGroups = $this->promiseEdgeList($uid, 'waitgroups', Bases\ScoutGroupBase::class, Bases\GroupWaiterBase::class);
 
         return new Member(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getPersonInfo(),
             $base->getContactInfo(),
             $base->getHome(),

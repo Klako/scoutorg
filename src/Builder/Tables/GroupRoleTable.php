@@ -31,6 +31,6 @@ class GroupRoleTable extends BuilderTable
      */
     protected function build($uid, $base)
     {
-        return new GroupRole($uid->getSource(), $uid->getId(), $base->getName());
+        return new GroupRole($uid, $base->getName());
     }
 }

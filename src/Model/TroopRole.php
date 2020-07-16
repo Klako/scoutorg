@@ -10,13 +10,12 @@ class TroopRole extends OrgObject
 {
     /**
      * Creates a new troop role.
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name
      */
-    public function __construct(string $source, $id, string $name)
+    public function __construct(Uid $uid, string $name)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
     }
 }

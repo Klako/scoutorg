@@ -9,7 +9,7 @@ namespace Scouterna\Scoutorg\Scoutnet;
 
 use Scouterna\Scoutorg\Builder\Bases;
 use Scouterna\Scoutorg\Builder\Bases\GroupMemberBase;
-use Scouterna\Scoutorg\Builder\Uid;
+use Scouterna\Scoutorg\Model\Uid;
 use Scouterna\Scoutorg\Builder\EdgeUid;
 
 /**

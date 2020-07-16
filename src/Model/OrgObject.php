@@ -4,16 +4,14 @@ namespace Scouterna\Scoutorg\Model;
 
 /**
  * A generic organizational object.
- * @property-read string $source
- * @property-read int|string $id
+ * @property-read Uid $uid
  */
-class OrgObject extends ReadOnlyObject
+abstract class OrgObject extends ReadOnlyObject
 {
-    protected function __construct(string $source, $id)
+    protected function __construct(Uid $uid)
     {
         parent::__construct();
-        $this->setProperty('source', $source);
-        $this->setProperty('id', $id, ['integer', 'string']);
+        $this->setProperty('uid', $uid);
     }
 
     protected function setArray(string $name, $value, string $arrayType)

@@ -17,14 +17,13 @@ class Contact extends OrgObject
     /**
      * Creates a new contact.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name
      * @param ContactInfo $contactInfo
      */
-    public function __construct(string $source, $id, string $name, ContactInfo $contactInfo)
+    public function __construct(Uid $uid, string $name, ContactInfo $contactInfo)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
         $this->setProperty('contactInfo', $contactInfo);
     }

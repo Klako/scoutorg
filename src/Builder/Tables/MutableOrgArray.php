@@ -8,15 +8,18 @@ class MutableOrgArray extends Model\OrgArray
 {
     public function insert(Model\OrgObject $orgObject, bool $overwrite = false)
     {
-        if ($this->exists($orgObject->source, $orgObject->id) && !$overwrite) {
+        $uid = $orgObject->uid;
+        if ($this->exists($orgObject->uid) && !$overwrite) {
             return false;
         }
-        $this->tree[$orgObject->source][$orgObject->id] = $orgObject;
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
+        $this->tree[$source][$id] = $orgObject;
         return true;
     }
 
-    public function delete(string $source, $id)
+    public function delete(Model\Uid $uid)
     {
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
         if ($this->exists($source, $id)) {
             unset($this->tree[$source][$id]);
             return true;

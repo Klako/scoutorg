@@ -11,14 +11,16 @@ class OrgArray implements \IteratorAggregate, \Countable
         $this->tree = $tree;
     }
 
-    public function exists(string $source, $id): bool
+    public function exists(Uid $uid): bool
     {
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
         return isset($this->tree[$source])
             && isset($this->tree[$source][$id]);
     }
 
-    public function get(string $source, $id)
+    public function get(Uid $uid)
     {
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (!isset($this->tree[$source])) {
             return null;
         }

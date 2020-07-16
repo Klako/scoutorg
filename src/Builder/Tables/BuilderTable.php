@@ -2,10 +2,9 @@
 
 namespace Scouterna\Scoutorg\Builder\Tables;
 
-use OutOfRangeException;
 use Scouterna\Scoutorg\Builder;
-use Scouterna\Scoutorg\Builder\Uid;
 use Scouterna\Scoutorg\Model\OrgObject;
+use Scouterna\Scoutorg\Model\Uid;
 
 abstract class BuilderTable
 {
@@ -33,10 +32,9 @@ abstract class BuilderTable
      * @param Uid $uid
      * @return OrgObject|null
      */
-    public function get($uid)
+    public function get(Uid $uid)
     {
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (!$this->table->exists($source, $id)) {
+        if (!$this->table->exists($uid)) {
             $orgObject = $this->preBuild($uid);
             // TODO: error on null
             if ($orgObject) {
@@ -44,16 +42,7 @@ abstract class BuilderTable
             }
         }
 
-        return $this->table->get($source, $id);
-    }
-
-    /**
-     * @param Uid $uid 
-     * @return OrgObject|null
-     */
-    public function getByUid(Builder\Uid $uid)
-    {
-        return $this->get($uid->getSource(), $uid->getId());
+        return $this->table->get($uid);
     }
 
     private function preBuild($uid)

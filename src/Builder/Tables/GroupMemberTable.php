@@ -39,8 +39,7 @@ class GroupMemberTable extends BuilderTable
         $roles = $this->promiseList($uid, 'roles', GroupRoleBase::class);
 
         return new GroupMember(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getStartdate(),
             $group,
             $member,

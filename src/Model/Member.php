@@ -25,8 +25,7 @@ class Member extends OrgObject
     /**
      * Creates a new member.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
@@ -38,8 +37,7 @@ class Member extends OrgObject
      * @param Arrays\GroupWaiterArray|IArrayPromise $waitGroups
      */
     public function __construct(
-        string $source,
-        $id,
+        Uid $uid,
         PersonInfo $personInfo,
         ContactInfo $contactInfo,
         Location $home,
@@ -51,7 +49,7 @@ class Member extends OrgObject
         $groups,
         $waitGroups
     ) {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('personInfo', $personInfo);
         $this->setProperty('contactInfo', $contactInfo);
         $this->setProperty('home', $home);

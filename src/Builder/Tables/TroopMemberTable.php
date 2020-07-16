@@ -39,8 +39,7 @@ class TroopMemberTable extends BuilderTable
         $roles = $this->promiseList($uid, 'roles', TroopRoleBase::class);
 
         return new TroopMember(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $troop,
             $member,
             $roles

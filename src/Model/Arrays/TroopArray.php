@@ -9,9 +9,9 @@ class TroopArray extends Model\OrgArray
     /** 
      * @return Model\Troop
      */
-    public function get(string $source, $id): ?Model\Troop
+    public function get(Model\Uid $uid): ?Model\Troop
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

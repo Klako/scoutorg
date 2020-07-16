@@ -38,8 +38,7 @@ class GroupWaiterTable extends BuilderTable
         $member = $this->promiseLink($uid, 'member', MemberBase::class);
 
         return new GroupWaiter(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getWaitingSince(),
             $group,
             $member

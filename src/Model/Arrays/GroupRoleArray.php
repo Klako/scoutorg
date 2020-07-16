@@ -9,9 +9,9 @@ class GroupRoleArray extends Model\OrgArray
     /** 
      * @return Model\GroupRole
      */
-    public function get(string $source, $id): ?Model\GroupRole
+    public function get(Model\Uid $uid): ?Model\GroupRole
     {
-        return parent::get($source, $id);
+        return parent::get($uid);
     }
 
     /**

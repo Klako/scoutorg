@@ -16,13 +16,12 @@ class GroupRole extends OrgObject
     /**
      * Creates a new group role with the specified role.
      * @internal
-     * @param string $source
-     * @param int|string $id
+     * @param Uid $uid
      * @param string $name
      */
-    public function __construct(string $source, $id, string $name)
+    public function __construct(Uid $uid, string $name)
     {
-        parent::__construct($source, $id);
+        parent::__construct($uid);
         $this->setProperty('name', $name);
     }
 }

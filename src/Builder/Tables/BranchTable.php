@@ -30,8 +30,7 @@ class BranchTable extends BuilderTable
         $troops = $this->promiseList($uid, 'troops', Bases\TroopBase::class);
 
         return new Branch(
-            $uid->getSource(),
-            $uid->getId(),
+            $uid,
             $base->getName(),
             $troops
         );

@@ -2,6 +2,8 @@
 
 namespace Scouterna\Scoutorg\Builder;
 
+use Scouterna\Scoutorg\Model\Uid;
+
 class EdgeUid extends Uid
 {
     private $target;
