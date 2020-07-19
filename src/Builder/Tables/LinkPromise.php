@@ -42,10 +42,7 @@ class LinkPromise implements Model\IObjectPromise
         $object = null;
         foreach ($this->config->providers() as $source => $provider) {
             $link = $provider->getLinkPart($this->uid, $this->type, $this->name);
-            if ($link == null){
-                return null;
-            }
-            if (($link && !$object) || $primarySource == $source) {
+            if (($link && !$object) || ($link && $primarySource == $source)) {
                 $object = $table->get($link->getTarget());
             }
         }
