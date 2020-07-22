@@ -36,13 +36,13 @@ class Uid
     /**
      * Deserializes a string into a uid.
      * @param string $uid 
-     * @return Uid 
+     * @return Uid|null
      */
     public static function deserialize(string $uid)
     {
         $splitId = \explode(':', $uid, 2);
         if ($splitId === false || count($splitId) != 2) {
-            return false;
+            return null;
         }
         return new Uid($splitId[0], $splitId[1]);
     }
