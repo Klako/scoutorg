@@ -18,6 +18,7 @@ use Scouterna\Scoutorg\Builder\Tables;
  * @property-read Tables\TroopRoleTable $troopRoles
  * @property-read Tables\PatrolRoleTable $patrolRoles
  * @property-read Tables\GroupRoleTable $groupRoles
+ * @property-read Tables\GroupMemberTable $groupMembers
  */
 class ScoutorgBuilder
 {
