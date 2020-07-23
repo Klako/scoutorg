@@ -33,12 +33,12 @@ class ScoutGroupTable extends BuilderTable
     {
         $branches = $this->promiseList($uid, 'branches', Bases\BranchBase::class);
         $troops = $this->promiseList($uid, 'troops', Bases\TroopBase::class);
-        $members = $this->promiseList($uid, 'members', Bases\GroupMemberBase::class);
+        $members = $this->promiseEdgeList($uid, 'members', Bases\MemberBase::class, Bases\GroupMemberBase::class);
         $groupRoles = $this->promiseList($uid, 'grouproles', Bases\GroupRoleBase::class);
         $troopRoles = $this->promiseList($uid, 'trooproles', Bases\TroopRoleBase::class);
         $patrolRoles = $this->promiseList($uid, 'patrolroles', Bases\PatrolRoleBase::class);
         $customLists = $this->promiseList($uid, 'customlists', Bases\CustomListBase::class);
-        $waitingList = $this->promiseList($uid, 'waitinglist', Bases\GroupWaiterBase::class);
+        $waitingList = $this->promiseEdgeList($uid, 'waitinglist', Bases\MemberBase::class, Bases\GroupWaiterBase::class);
 
         return new ScoutGroup(
             $uid,
