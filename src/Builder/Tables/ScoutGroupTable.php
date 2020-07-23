@@ -33,7 +33,7 @@ class ScoutGroupTable extends BuilderTable
     {
         $branches = $this->promiseList($uid, 'branches', Bases\BranchBase::class);
         $troops = $this->promiseList($uid, 'troops', Bases\TroopBase::class);
-        $members = $this->promiseList($uid, 'members', Bases\MemberBase::class);
+        $members = $this->promiseList($uid, 'members', Bases\GroupMemberBase::class);
         $groupRoles = $this->promiseList($uid, 'grouproles', Bases\GroupRoleBase::class);
         $troopRoles = $this->promiseList($uid, 'trooproles', Bases\TroopRoleBase::class);
         $patrolRoles = $this->promiseList($uid, 'patrolroles', Bases\PatrolRoleBase::class);
