@@ -45,7 +45,7 @@ class ScoutorgBuilder
         $this->setTable('patrolMembers', Bases\PatrolMemberBase::class, new Tables\PatrolMemberTable($config, $this));
         $this->setTable('troopRoles', Bases\TroopRoleBase::class, new Tables\TroopRoleTable($config, $this));
         $this->setTable('patrolRoles', Bases\PatrolRoleBase::class, new Tables\PatrolRoleTable($config, $this));
-        $this->setTable('groupRoles', bases\GroupRoleBase::class, new Tables\GroupRoleTable($config, $this));
+        $this->setTable('groupRoles', Bases\GroupRoleBase::class, new Tables\GroupRoleTable($config, $this));
         $this->setTable('groupMembers', Bases\GroupMemberBase::class, new Tables\GroupMemberTable($config, $this));
     }
 
