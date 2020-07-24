@@ -47,11 +47,9 @@ class ReadOnlyObject
             $value = $this->properties[$name];
             if ($value instanceof IObjectPromise) {
                 $value = $value->getObject();
-                self::checkType($name, $value, [OrgObject::class, 'NULL']);
                 $this->properties[$name] = $value;
             } elseif ($value instanceof IArrayPromise) {
                 $value = $value->getArray();
-                self::checkType($name, $value, [OrgArray::class]);
                 $this->properties[$name] = $value;
             }
             return $value;
