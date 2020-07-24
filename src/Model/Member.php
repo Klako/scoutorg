@@ -29,12 +29,12 @@ class Member extends OrgObject
      * @param PersonInfo $personInfo
      * @param ContactInfo $contactInfo
      * @param Location $home
-     * @param Arrays\ContactArray|IArrayPromise $contacts
+     * @param IArrayPromise $contacts
      * @param string $startdate
-     * @param Arrays\TroopMemberArray|IArrayPromise $troops
-     * @param Arrays\PatrolMemberArray|IArrayPromise $patrols
-     * @param Arrays\GroupMemberArray|IArrayPromise $groups
-     * @param Arrays\GroupWaiterArray|IArrayPromise $waitGroups
+     * @param IArrayPromise $troops
+     * @param IArrayPromise $patrols
+     * @param IArrayPromise $groups
+     * @param IArrayPromise $waitGroups
      */
     public function __construct(
         Uid $uid,
@@ -43,11 +43,11 @@ class Member extends OrgObject
         Location $home,
         string $note,
         bool $leaderInterest,
-        $contacts,
-        $troops,
-        $patrols,
-        $groups,
-        $waitGroups
+        IArrayPromise $contacts,
+        IArrayPromise $troops,
+        IArrayPromise $patrols,
+        IArrayPromise $groups,
+        IArrayPromise $waitGroups
     ) {
         parent::__construct($uid);
         $this->setProperty('personInfo', $personInfo);
@@ -55,10 +55,10 @@ class Member extends OrgObject
         $this->setProperty('home', $home);
         $this->setProperty('note', $note);
         $this->setProperty('leaderInterest', $leaderInterest);
-        $this->setArray('contacts', $contacts, Arrays\ContactArray::class);
-        $this->setArray('troops', $troops, Arrays\TroopMemberArray::class);
-        $this->setArray('patrols', $patrols, Arrays\PatrolMemberArray::class);
-        $this->setArray('groups', $groups, Arrays\GroupMemberArray::class);
-        $this->setArray('waitGroups', $waitGroups, Arrays\GroupWaiterArray::class);
+        $this->setArray('contacts', $contacts);
+        $this->setArray('troops', $troops);
+        $this->setArray('patrols', $patrols);
+        $this->setArray('groups', $groups);
+        $this->setArray('waitGroups', $waitGroups);
     }
 }

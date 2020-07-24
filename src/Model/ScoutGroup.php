@@ -26,36 +26,36 @@ class ScoutGroup extends OrgObject
      * @internal
      * @param Uid $uid
      * @param string $name
-     * @param Arrays\GroupMemberArray|IArrayPromise $members All members of the group.
-     * @param Arrays\TroopArray|IArrayPromise $troops
-     * @param Arrays\BranchArray|IArrayPromise $branches
-     * @param Arrays\GroupRoleArray|IArrayPromise $groupRoles
-     * @param Arrays\TroopRoleArray|IArrayPromise $troopRoles
-     * @param Arrays\PatrolRoleArray|IArrayPromise $patrolRoles
-     * @param Arrays\CustomListArray|IArrayPromise $customLists
-     * @param Arrays\GroupWaiterArray|IArrayPromise $waitingList
+     * @param IArrayPromise $members All members of the group.
+     * @param IArrayPromise $troops
+     * @param IArrayPromise $branches
+     * @param IArrayPromise $groupRoles
+     * @param IArrayPromise $troopRoles
+     * @param IArrayPromise $patrolRoles
+     * @param IArrayPromise $customLists
+     * @param IArrayPromise $waitingList
      */
     public function __construct(
         Uid $uid,
         string $name,
-        $members,
-        $troops,
-        $branches,
-        $groupRoles,
-        $troopRoles,
-        $patrolRoles,
-        $customLists,
-        $waitingList
+        IArrayPromise $members,
+        IArrayPromise $troops,
+        IArrayPromise $branches,
+        IArrayPromise $groupRoles,
+        IArrayPromise $troopRoles,
+        IArrayPromise $patrolRoles,
+        IArrayPromise $customLists,
+        IArrayPromise $waitingList
     ) {
         parent::__construct($uid);
         $this->setProperty('name', $name);
-        $this->setArray('members', $members, Arrays\GroupMemberArray::class);
-        $this->setArray('troops', $troops, Arrays\TroopArray::class);
-        $this->setArray('branches', $branches, Arrays\BranchArray::class);
-        $this->setArray('groupRoles', $groupRoles, Arrays\GroupRoleArray::class);
-        $this->setArray('troopRoles', $troopRoles, Arrays\TroopRoleArray::class);
-        $this->setArray('patrolRoles', $patrolRoles, Arrays\PatrolRoleArray::class);
-        $this->setArray('customLists', $customLists, Arrays\CustomListArray::class);
-        $this->setArray('waitingList', $waitingList, Arrays\GroupWaiterArray::class);
+        $this->setArray('members', $members);
+        $this->setArray('troops', $troops);
+        $this->setArray('branches', $branches);
+        $this->setArray('groupRoles', $groupRoles);
+        $this->setArray('troopRoles', $troopRoles);
+        $this->setArray('patrolRoles', $patrolRoles);
+        $this->setArray('customLists', $customLists);
+        $this->setArray('waitingList', $waitingList);
     }
 }

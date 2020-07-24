@@ -12,12 +12,17 @@ namespace Scouterna\Scoutorg\Model;
  */
 class GroupMember extends OrgObject
 {
-    public function __construct(Uid $uid, string $startdate, $group, $member, $roles)
-    {
+    public function __construct(
+        Uid $uid,
+        string $startdate,
+        IObjectPromise $group,
+        IObjectPromise $member,
+        IArrayPromise $roles
+    ) {
         parent::__construct($uid);
         $this->setProperty('startdate', $startdate);
-        $this->setObject('group', $group, ScoutGroup::class);
-        $this->setObject('member', $member, Member::class);
-        $this->setArray('roles', $roles, Arrays\GroupRoleArray::class);
+        $this->setObject('group', $group);
+        $this->setObject('member', $member);
+        $this->setArray('roles', $roles);
     }
 }

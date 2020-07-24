@@ -21,11 +21,11 @@ class Troop extends OrgObject
      * @internal
      * @param Uid $uid
      * @param string $name The troop name.
-     * @param Branch|IObjectPromise $branch
-     * @param Arrays\TroopMemberArray|IArrayPromise $members
-     * @param Arrays\PatrolArray|IArrayPromise $patrols
+     * @param IObjectPromise $branch
+     * @param IArrayPromise $members
+     * @param IArrayPromise $patrols
      */
-    public function __construct(Uid $uid, string $name, $branch, $members, $patrols)
+    public function __construct(Uid $uid, string $name, IObjectPromise $branch, IArrayPromise $members, IArrayPromise $patrols)
     {
         parent::__construct($uid);
         $this->setProperty('name', $name);

@@ -22,11 +22,11 @@ class PatrolMember extends OrgObject
      * @param Member|IObjectPromise $member
      * @param PatrolRole[] $roles
      */
-    public function __construct(Uid $uid, $patrol, $member, $roles)
+    public function __construct(Uid $uid, IObjectPromise $patrol, IObjectPromise $member, IArrayPromise $roles)
     {
         parent::__construct($uid);
-        $this->setObject('patrol', $patrol, Patrol::class);
-        $this->setObject('member', $member, Member::class);
-        $this->setArray('roles', $roles, Arrays\PatrolRoleArray::class);
+        $this->setObject('patrol', $patrol);
+        $this->setObject('member', $member);
+        $this->setArray('roles', $roles);
     }
 }

@@ -19,12 +19,12 @@ class Branch extends OrgObject
      * @internal
      * @param Uid $uid
      * @param string $name
-     * @param Arrays\TroopArray|IArrayPromise $troops
+     * @param IArrayPromise $troops
      */
-    public function __construct(Uid $uid, string $name, $troops)
+    public function __construct(Uid $uid, string $name, IArrayPromise $troops)
     {
         parent::__construct($uid);
         $this->setProperty('name', $name);
-        $this->setArray('troops', $troops, Arrays\TroopArray::class);
+        $this->setArray('troops', $troops);
     }
 }

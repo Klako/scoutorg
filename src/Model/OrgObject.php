@@ -14,13 +14,13 @@ abstract class OrgObject extends ReadOnlyObject
         $this->setProperty('uid', $uid);
     }
 
-    protected function setArray(string $name, $value, string $arrayType)
+    protected function setArray(string $name, IArrayPromise $value)
     {
-        $this->setProperty($name, $value, [$arrayType, IArrayPromise::class]);
+        $this->setProperty($name, $value);
     }
 
-    protected function setObject(string $name, $value, string $objectType)
+    protected function setObject(string $name, IObjectPromise $value)
     {
-        $this->setProperty($name, $value, [$objectType, IObjectPromise::class]);
+        $this->setProperty($name, $value);
     }
 }

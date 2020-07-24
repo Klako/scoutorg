@@ -22,15 +22,15 @@ class CustomList extends OrgObject
      * @param Uid $uid
      * @param string $title
      * @param string $description
-     * @param Arrays\MemberArray|IArrayPromise $members
-     * @param Arrays\CustomListArray|IArrayPromise $subLists
+     * @param IArrayPromise $members
+     * @param IArrayPromise $subLists
      */
-    public function __construct(Uid $uid, string $title, string $description, $members, $subLists)
+    public function __construct(Uid $uid, string $title, string $description, IArrayPromise $members, IArrayPromise $subLists)
     {
         parent::__construct($uid);
         $this->setProperty('title', $title);
         $this->setProperty('description', $description);
-        $this->setArray('members', $members, Arrays\MemberArray::class);
-        $this->setArray('subLists', $subLists, Arrays\CustomListArray::class);
+        $this->setArray('members', $members);
+        $this->setArray('subLists', $subLists);
     }
 }
