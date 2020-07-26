@@ -16,8 +16,6 @@ class GroupRole extends OrgObject
     /**
      * Creates a new group role with the specified role.
      * @internal
-     * @param Uid $uid
-     * @param string $name
      */
     public function __construct(Uid $uid, string $name)
     {

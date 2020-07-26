@@ -14,27 +14,17 @@ namespace Scouterna\Scoutorg\Model;
  * @property-read Location $home
  * @property-read string $note
  * @property-read bool $leaderInterest
- * @property-read Arrays\ContactArray<mixed,Contact> $contacts
- * @property-read Arrays\TroopMemberArray<mixed,Troop> $troops
- * @property-read Arrays\PatrolMemberArray<mixed,Patrol> $patrols
- * @property-read Arrays\GroupMemberArray<mixed,GroupMember> $groups
- * @property-read Arrays\GroupWaiterArray<mixed,GroupWaiter> $waitGroups
+ * @property-read Arrays\ContactArray<string,Contact> $contacts
+ * @property-read Arrays\MemberTroopArray<string,TroopMember> $troops
+ * @property-read Arrays\MemberPatrolArray<string,PatrolMember> $patrols
+ * @property-read Arrays\MemberGroupArray<string,GroupMember> $groups
+ * @property-read Arrays\WaiterGroupArray<string,GroupWaiter> $waitGroups
  */
 class Member extends OrgObject
 {
     /**
      * Creates a new member.
      * @internal
-     * @param Uid $uid
-     * @param PersonInfo $personInfo
-     * @param ContactInfo $contactInfo
-     * @param Location $home
-     * @param IArrayPromise $contacts
-     * @param string $startdate
-     * @param IArrayPromise $troops
-     * @param IArrayPromise $patrols
-     * @param IArrayPromise $groups
-     * @param IArrayPromise $waitGroups
      */
     public function __construct(
         Uid $uid,

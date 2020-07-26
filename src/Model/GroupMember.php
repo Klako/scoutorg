@@ -7,11 +7,14 @@ namespace Scouterna\Scoutorg\Model;
  * @property-read string $startdate
  * @property-read ScoutGroup $group
  * @property-read Member $member
- * @property-read Arrays\GroupRoleArray<mixed,GroupRole> $roles
+ * @property-read Arrays\GroupRoleArray<string,GroupRole> $roles
  * @package Scouterna\Scoutorg\Model
  */
 class GroupMember extends OrgObject
 {
+    /**
+     * @internal
+     */
     public function __construct(
         Uid $uid,
         string $startdate,

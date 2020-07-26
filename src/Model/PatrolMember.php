@@ -11,16 +11,12 @@ namespace Scouterna\Scoutorg\Model;
  * containing information about the relationship.
  * @property-read Patrol $patrol
  * @property-read Member $member
- * @property-read Arrays\PatrolRoleArray<mixed,PatrolRole> $roles
+ * @property-read Arrays\PatrolRoleArray<string,PatrolRole> $roles
  */
 class PatrolMember extends OrgObject
 {
     /**
      * Creates a Patrol-Member link.
-     * @param Uid $uid
-     * @param Patrol|IObjectPromise $patrol
-     * @param Member|IObjectPromise $member
-     * @param PatrolRole[] $roles
      */
     public function __construct(
         Uid $uid,

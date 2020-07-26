@@ -10,8 +10,7 @@ class PatrolRole extends OrgObject
 {
     /**
      * Creates a new patrol role.
-     * @param Uid $uid
-     * @param string $name
+     * @internal
      */
     public function __construct(Uid $uid, string $name)
     {

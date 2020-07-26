@@ -10,16 +10,13 @@ namespace Scouterna\Scoutorg\Model;
 /**
  * A branch (gren) that contains troops.
  * @property-read string $name
- * @property-read Arrays\TroopArray<mixed,Troop> $troops
+ * @property-read Arrays\TroopArray<string,Troop> $troops
  */
 class Branch extends OrgObject
 {
     /**
      * Creates a new branch with an id and name.
      * @internal
-     * @param Uid $uid
-     * @param string $name
-     * @param IArrayPromise $troops
      */
     public function __construct(Uid $uid, string $name, IArrayPromise $troops)
     {

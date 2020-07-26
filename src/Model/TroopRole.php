@@ -10,8 +10,7 @@ class TroopRole extends OrgObject
 {
     /**
      * Creates a new troop role.
-     * @param Uid $uid
-     * @param string $name
+     * @internal
      */
     public function __construct(Uid $uid, string $name)
     {
