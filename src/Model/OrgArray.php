@@ -4,6 +4,10 @@ namespace Scouterna\Scoutorg\Model;
 
 class OrgArray implements \IteratorAggregate, \Countable
 {
+    /**
+     * Tree holding array of source which hold array of OrgObjects
+     * @var OrgObject[][]
+     */
     protected $tree;
 
     public function __construct($tree)
@@ -42,7 +46,9 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function getIterator()
     {
         foreach ($this->tree as $sourceArray) {
-            yield from $sourceArray;
+            foreach ($sourceArray as $orgObject) {
+                yield $orgObject->uid->serialize() => $orgObject;
+            }
         }
     }
 
@@ -53,7 +59,9 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function fromSource(string $source): \Generator
     {
         if (isset($this->tree[$source])) {
-            yield from $this->tree[$source];
+            foreach ($this->tree[$source] as $orgObject){
+                yield $orgObject->uid->serialize() => $orgObject;
+            }
         }
     }
 }
