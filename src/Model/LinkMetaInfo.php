@@ -8,6 +8,9 @@ namespace Scouterna\Scoutorg\Model;
  */
 class LinkMetaInfo extends ReadOnlyObject
 {
+    /**
+     * @internal
+     */
     public function __construct(string $source, Uid $uid)
     {
         parent::__construct();

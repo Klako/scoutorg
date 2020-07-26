@@ -41,6 +41,9 @@ class ReadOnlyObject
         }
     }
 
+    /**
+     * @internal
+     */
     public function __get($name)
     {
         if (\array_key_exists($name, $this->properties)) {
@@ -66,6 +69,9 @@ class ReadOnlyObject
         }
     }
 
+    /**
+     * @internal
+     */
     public function __isset($name)
     {
         return isset($this->properties[$name]);
