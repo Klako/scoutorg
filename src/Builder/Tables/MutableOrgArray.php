@@ -13,7 +13,7 @@ class MutableOrgArray extends Model\OrgArray
             return false;
         }
         [$source, $id] = [$uid->getSource(), $uid->getId()];
-        $this->tree[$source][$id] = $orgObject;
+        $this->tree[$source][$id]['object'] = $orgObject;
         return true;
     }
 

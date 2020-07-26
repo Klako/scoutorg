@@ -39,13 +39,13 @@ class ListPromise implements Model\IArrayPromise
     {
         $table = $this->scoutorg->getTable($this->toType);
         $arrayBuilder = new OrgArrayBuilder();
-        foreach ($this->config->providers() as $provider) {
+        foreach ($this->config->providers() as $source => $provider) {
             $links = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($links as $link) {
                 Model\Helper::checkType('link', $link, [Builder\Link::class]);
                 $object = $table->get($link->getTarget());
                 if ($object) {
-                    $arrayBuilder->addObject($object);
+                    $arrayBuilder->addObject($object, $source);
                 }
             }
         }

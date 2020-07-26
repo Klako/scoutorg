@@ -10,7 +10,9 @@ namespace Scouterna\Scoutorg\Model;
  * A link between a Patrol and a member,
  * containing information about the relationship.
  * @property-read Patrol $patrol
+ * @property-read LinkMetaInfo[] $patrolInfo
  * @property-read Member $member
+ * @property-read LinkMetaInfo[] $memberInfo
  * @property-read Arrays\PatrolRoleArray<string,PatrolRole> $roles
  */
 class PatrolMember extends OrgObject

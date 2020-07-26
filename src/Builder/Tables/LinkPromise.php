@@ -4,6 +4,8 @@ namespace Scouterna\Scoutorg\Builder\Tables;
 
 use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Model;
+use Scouterna\Scoutorg\Model\LinkMetaInfo;
+use Scouterna\Scoutorg\Model\OrgObjectLink;
 
 class LinkPromise implements Model\IObjectPromise
 {
@@ -35,17 +37,21 @@ class LinkPromise implements Model\IObjectPromise
         $this->toType = $toType;
     }
 
-    public function getObject(): ?Model\OrgObject
+    public function getObjectLink(): ?Model\OrgObjectLink
     {
         $primarySource = $this->uid->getSource();
         $table = $this->scoutorg->getTable($this->toType);
         $object = null;
+        $metaInfos = [];
         foreach ($this->config->providers() as $source => $provider) {
             $link = $provider->getLinkPart($this->uid, $this->type, $this->name);
-            if (($link && !$object) || ($link && $primarySource == $source)) {
-                $object = $table->get($link->getTarget());
+            if ($link) {
+                $metaInfos[$source] = new LinkMetaInfo($source, $link->getTarget());
+                if (!$object || $primarySource == $source) {
+                    $object = $table->get($link->getTarget());
+                }
             }
         }
-        return $object;
+        return $object ? new OrgObjectLink($object, $metaInfos) : null;
     }
 }

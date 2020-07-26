@@ -10,7 +10,9 @@ namespace Scouterna\Scoutorg\Model;
  * A link between a Troop and a member,
  * containing information about the relationship.
  * @property-read Troop $troop
+ * @property-read LinkMetaInfo[] $troopInfo
  * @property-read Member $member
+ * @property-read LinkMetaInfo[] $memberInfo
  * @property-read Arrays\TroopRoleArray<string,TroopRole> $roles
  */
 class TroopMember extends OrgObject

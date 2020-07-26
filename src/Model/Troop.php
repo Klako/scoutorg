@@ -11,6 +11,7 @@ namespace Scouterna\Scoutorg\Model;
  * A troop that is in the scout group.
  * @property-read string $name
  * @property-read Branch|null $branch
+ * @property-read LinkMetaInfo[] $branchInfo
  * @property-read Arrays\TroopMemberArray<string,TroopMember> $members
  * @property-read Arrays\PatrolArray<string,Patrol> $patrols
  */

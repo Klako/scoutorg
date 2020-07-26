@@ -10,9 +10,12 @@ class OrgArrayBuilder
 {
     private $tree;
 
+    private $sources;
+
     public function __construct()
     {
         $this->tree = [];
+        $this->sources = [];
     }
 
     /**
@@ -21,14 +24,16 @@ class OrgArrayBuilder
      * @param Uid $override
      * @return bool
      */
-    public function addObject(OrgObject $orgObject)
+    public function addObject(OrgObject $orgObject, string $source)
     {
         $uid = $orgObject->uid;
         [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (isset($this->tree[$source][$id])) {
+            $this->tree[$source][$id]['sources'][$source] = $source;
             return false;
         }
-        $this->tree[$source][$id] = $orgObject;
+        $this->tree[$source][$id]['object'] = $orgObject;
+        $this->tree[$source][$id]['sources'] = [$source => $source];
         return true;
     }
 

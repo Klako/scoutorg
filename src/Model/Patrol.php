@@ -11,6 +11,7 @@ namespace Scouterna\Scoutorg\Model;
  * A scout patrol that is in a troop.
  * @property-read string $name
  * @property-read Troop $troop
+ * @property-read LinkMetaInfo[] $troopInfo
  * @property-read Arrays\PatrolMemberArray<string,PatrolMember> $members
  */
 class Patrol extends OrgObject

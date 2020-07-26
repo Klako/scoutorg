@@ -44,7 +44,7 @@ class EdgeListPromise implements Model\IEdgeArrayPromise
         $edgeTable = $this->scoutorg->getTable($this->edgeType);
         $targetTable = $this->scoutorg->getTable($this->toType);
         $arrayBuilder = new OrgEdgeArrayBuilder();
-        foreach ($this->config->providers() as $provider) {
+        foreach ($this->config->providers() as $source => $provider) {
             $links = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($links as $link) {
                 Model\Helper::checkType('link', $link, [Builder\Link::class]);
@@ -54,7 +54,7 @@ class EdgeListPromise implements Model\IEdgeArrayPromise
                 $edge = $edgeTable->get($link->getEdge());
                 $target = $targetTable->get($link->getTarget());
                 if ($edge && $target) {
-                    $arrayBuilder->addObject($edge, $target);
+                    $arrayBuilder->addObject($edge, $target, $source);
                 }
             }
         }

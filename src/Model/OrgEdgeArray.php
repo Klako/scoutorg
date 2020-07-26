@@ -17,7 +17,7 @@ class OrgEdgeArray extends OrgArray
         $this->targetTree = $targetArray;
     }
 
-    public function getTargetArray()
+    public function targets()
     {
         return $this->targetArray;
     }

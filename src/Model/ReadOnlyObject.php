@@ -46,8 +46,16 @@ class ReadOnlyObject
         if (\array_key_exists($name, $this->properties)) {
             $value = $this->properties[$name];
             if ($value instanceof IObjectPromise) {
-                $value = $value->getObject();
+                $link = $value->getObjectLink();
+                if ($link === null) {
+                    $value = null;
+                    $metaInfos = [];
+                } else {
+                    $value = $link->getObject();
+                    $metaInfos = $link->getMetaInfos();
+                }
                 $this->properties[$name] = $value;
+                $this->properties["{$name}Info"] = $metaInfos;
             } elseif ($value instanceof IArrayPromise) {
                 $value = $value->getArray();
                 $this->properties[$name] = $value;

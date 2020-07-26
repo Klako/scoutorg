@@ -68,7 +68,7 @@ class ScoutorgBuilderTest extends TestCase
                 foreach ($patrol->members as $patrolmember) {
                     self::assertIsObject($patrolmember->patrol);
                     $member = $patrolmember->member;
-                    $member->patrols->get($patrol->uid);
+                    $member->patrols->get($patrolmember->uid);
                 }
             }
         }
