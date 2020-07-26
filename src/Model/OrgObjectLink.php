@@ -22,7 +22,7 @@ class OrgObjectLink
     }
 
     /**
-     * @return LinkMetaInfos[] 
+     * @return LinkMetaInfo[] 
      */
     public function getMetaInfos()
     {
