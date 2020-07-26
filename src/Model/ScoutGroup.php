@@ -38,24 +38,24 @@ class ScoutGroup extends OrgObject
     public function __construct(
         Uid $uid,
         string $name,
-        IArrayPromise $members,
+        IEdgeArrayPromise $members,
         IArrayPromise $troops,
         IArrayPromise $branches,
         IArrayPromise $groupRoles,
         IArrayPromise $troopRoles,
         IArrayPromise $patrolRoles,
         IArrayPromise $customLists,
-        IArrayPromise $waitingList
+        IEdgeArrayPromise $waitingList
     ) {
         parent::__construct($uid);
         $this->setProperty('name', $name);
-        $this->setArray('members', $members);
+        $this->setEdgeArray('members', $members);
         $this->setArray('troops', $troops);
         $this->setArray('branches', $branches);
         $this->setArray('groupRoles', $groupRoles);
         $this->setArray('troopRoles', $troopRoles);
         $this->setArray('patrolRoles', $patrolRoles);
         $this->setArray('customLists', $customLists);
-        $this->setArray('waitingList', $waitingList);
+        $this->setEdgeArray('waitingList', $waitingList);
     }
 }

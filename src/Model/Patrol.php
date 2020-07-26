@@ -23,11 +23,15 @@ class Patrol extends OrgObject
      * @param IObjectPromise $troop
      * @param IArrayPromise $members
      */
-    public function __construct(Uid $uid, string $name, IObjectPromise $troop, IArrayPromise $members)
-    {
+    public function __construct(
+        Uid $uid,
+        string $name,
+        IObjectPromise $troop,
+        IEdgeArrayPromise $members
+    ) {
         parent::__construct($uid);
         $this->setProperty('name', $name);
         $this->setObject('troop', $troop);
-        $this->setArray('members', $members);
+        $this->setEdgeArray('members', $members);
     }
 }

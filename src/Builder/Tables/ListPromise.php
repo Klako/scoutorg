@@ -49,6 +49,6 @@ class ListPromise implements Model\IArrayPromise
                 }
             }
         }
-        return $arrayBuilder->build($this->toType::ARRAY_TYPE);
+        return $arrayBuilder->build();
     }
 }

@@ -22,8 +22,12 @@ class TroopMember extends OrgObject
      * @param IObjectPromise $member
      * @param IArrayPromise $roles
      */
-    public function __construct(Uid $uid, IObjectPromise $troop, IArrayPromise $member, IArrayPromise $roles)
-    {
+    public function __construct(
+        Uid $uid,
+        IObjectPromise $troop,
+        IArrayPromise $member,
+        IArrayPromise $roles
+    ) {
         parent::__construct($uid);
         $this->setObject('troop', $troop);
         $this->setObject('member', $member);

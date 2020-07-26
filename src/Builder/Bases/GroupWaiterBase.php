@@ -2,12 +2,8 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Model\Arrays\GroupWaiterArray;
-
 class GroupWaiterBase extends ObjectBase
 {
-    public const ARRAY_TYPE = GroupWaiterArray::class;
-
     private $waitingSince;
 
     public function __construct(string $waitingSince)

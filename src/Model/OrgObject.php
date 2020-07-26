@@ -19,6 +19,10 @@ abstract class OrgObject extends ReadOnlyObject
         $this->setProperty($name, $value);
     }
 
+    protected function setEdgeArray(string $name, IEdgeArrayPromise $value){
+        $this->setProperty($name, $value);
+    }
+
     protected function setObject(string $name, IObjectPromise $value)
     {
         $this->setProperty($name, $value);

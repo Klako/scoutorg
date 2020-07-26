@@ -7,8 +7,8 @@ use Scouterna\Scoutorg\Model;
 /**
  * @method Model\GroupWaiter get(Model\Uid|null $uid)
  * @method \Generator<string,Model\GroupWaiter> fromSource(string $source)
- * @method MemberArray getTargetArray()
+ * @method ScoutGroupArray getTargetArray()
  */
-class GroupWaiterArray extends Model\OrgEdgeArray
+class WaiterGroupArray extends Model\OrgEdgeArray
 {
 }

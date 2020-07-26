@@ -9,8 +9,6 @@ use Scouterna\Scoutorg\Model\Arrays\BranchArray;
  */
 class BranchBase extends ObjectBase
 {
-    public const ARRAY_TYPE = BranchArray::class;
-
     private $name;
 
     public function __construct(string $name)

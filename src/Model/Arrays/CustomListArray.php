@@ -4,22 +4,10 @@ namespace Scouterna\Scoutorg\Model\Arrays;
 
 use Scouterna\Scoutorg\Model;
 
+/**
+ * @method Model\CustomList get(Model\Uid $uid)
+ * @method \Generator<string,Model\CustomList> fromSource(string $source)
+ */
 class CustomListArray extends Model\OrgArray
 {
-    /** 
-     * @return Model\CustomList
-     */
-    public function get(Model\Uid $uid): ?Model\CustomList
-    {
-        return parent::get($uid);
-    }
-
-    /**
-     * @param string $source
-     * @return \Generator<int|string,Model\CustomList>
-     */
-    public function fromSource(string $source): \Generator
-    {
-        return parent::fromSource($source);
-    }
 }

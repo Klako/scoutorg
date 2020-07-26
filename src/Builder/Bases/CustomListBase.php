@@ -2,15 +2,11 @@
 
 namespace Scouterna\Scoutorg\Builder\Bases;
 
-use Scouterna\Scoutorg\Model\Arrays\CustomListArray;
-
 /**
  * A configuration for building a custom list.
  */
 class CustomListBase extends ObjectBase
 {
-    public const ARRAY_TYPE = CustomListArray::class;
-
     private $title;
     private $description;
 

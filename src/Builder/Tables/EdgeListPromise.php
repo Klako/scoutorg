@@ -5,7 +5,7 @@ namespace Scouterna\Scoutorg\Builder\Tables;
 use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Model;
 
-class EdgeListPromise implements Model\IArrayPromise
+class EdgeListPromise implements Model\IEdgeArrayPromise
 {
     /** @var Builder\Config */
     private $config;
@@ -39,25 +39,25 @@ class EdgeListPromise implements Model\IArrayPromise
         $this->edgeType = $edgeType;
     }
 
-    public function getArray(): Model\OrgArray
+    public function getArray(): Model\OrgEdgeArray
     {
-        $table = $this->scoutorg->getTable($this->toType);
         $edgeTable = $this->scoutorg->getTable($this->edgeType);
-        $arrayBuilder = new OrgArrayBuilder();
+        $targetTable = $this->scoutorg->getTable($this->toType);
+        $arrayBuilder = new OrgEdgeArrayBuilder();
         foreach ($this->config->providers() as $provider) {
             $links = $provider->getLinkParts($this->uid, $this->type, $this->name);
             foreach ($links as $link) {
                 Model\Helper::checkType('link', $link, [Builder\Link::class]);
-                if ($link->getEdge() == null){
+                if ($link->getEdge() == null) {
                     continue;
                 }
                 $edge = $edgeTable->get($link->getEdge());
-                $object = $table->get($link->getTarget());
-                if ($edge && $object) {
-                    $arrayBuilder->addObject($edge, $link->getTarget());
+                $target = $targetTable->get($link->getTarget());
+                if ($edge && $target) {
+                    $arrayBuilder->addObject($edge, $target);
                 }
             }
         }
-        return $arrayBuilder->build($this->edgeType::ARRAY_TYPE);
+        return $arrayBuilder->build();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Scouterna\Scoutorg\Builder\Tables;
 
+use Scouterna\Scoutorg\Model\OrgArray;
 use Scouterna\Scoutorg\Model\OrgObject;
 use Scouterna\Scoutorg\Model\Uid;
 
@@ -20,18 +21,9 @@ class OrgArrayBuilder
      * @param Uid $override
      * @return bool
      */
-    public function addObject(OrgObject $orgObject, Uid $override = null)
+    public function addObject(OrgObject $orgObject)
     {
-        assert(
-            $orgObject instanceof OrgObject,
-            new \TypeError('Type error, expected ' . OrgObject::class
-                . ', got ' . (\gettype($orgObject) === 'object' ? \get_class($orgObject) : \gettype($orgObject)))
-        );
-        if ($override) {
-            $uid = $override;
-        } else {
-            $uid = $orgObject->uid;
-        }
+        $uid = $orgObject->uid;
         [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (isset($this->tree[$source][$id])) {
             return false;
@@ -40,8 +32,8 @@ class OrgArrayBuilder
         return true;
     }
 
-    public function build($type)
+    public function build()
     {
-        return new $type($this->tree);
+        return new OrgArray($this->tree);
     }
 }

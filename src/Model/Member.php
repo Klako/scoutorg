@@ -44,10 +44,10 @@ class Member extends OrgObject
         string $note,
         bool $leaderInterest,
         IArrayPromise $contacts,
-        IArrayPromise $troops,
-        IArrayPromise $patrols,
-        IArrayPromise $groups,
-        IArrayPromise $waitGroups
+        IEdgeArrayPromise $troops,
+        IEdgeArrayPromise $patrols,
+        IEdgeArrayPromise $groups,
+        IEdgeArrayPromise $waitGroups
     ) {
         parent::__construct($uid);
         $this->setProperty('personInfo', $personInfo);
@@ -56,9 +56,9 @@ class Member extends OrgObject
         $this->setProperty('note', $note);
         $this->setProperty('leaderInterest', $leaderInterest);
         $this->setArray('contacts', $contacts);
-        $this->setArray('troops', $troops);
-        $this->setArray('patrols', $patrols);
-        $this->setArray('groups', $groups);
-        $this->setArray('waitGroups', $waitGroups);
+        $this->setEdgeArray('troops', $troops);
+        $this->setEdgeArray('patrols', $patrols);
+        $this->setEdgeArray('groups', $groups);
+        $this->setEdgeArray('waitGroups', $waitGroups);
     }
 }

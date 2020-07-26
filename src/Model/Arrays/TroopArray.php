@@ -4,22 +4,10 @@ namespace Scouterna\Scoutorg\Model\Arrays;
 
 use Scouterna\Scoutorg\Model;
 
+/**
+ * @method Model\Troop get(Model\Uid $uid)
+ * @method \Generator<string,Model\Troop> fromSource(string $source)
+ */
 class TroopArray extends Model\OrgArray
 {
-    /** 
-     * @return Model\Troop
-     */
-    public function get(Model\Uid $uid): ?Model\Troop
-    {
-        return parent::get($uid);
-    }
-
-    /**
-     * @param string $source
-     * @return \Generator<int|string,Model\Troop>
-     */
-    public function fromSource(string $source): \Generator
-    {
-        return parent::fromSource($source);
-    }
 }

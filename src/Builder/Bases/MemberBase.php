@@ -3,15 +3,12 @@
 namespace Scouterna\Scoutorg\Builder\Bases;
 
 use Scouterna\Scoutorg\Model;
-use Scouterna\Scoutorg\Model\Arrays\MemberArray;
 
 /**
  * A configuration for building a member.
  */
 class MemberBase extends ObjectBase
 {
-    public const ARRAY_TYPE = MemberArray::class;
-
     private $personInfo;
     private $contactInfo;
     private $home;
