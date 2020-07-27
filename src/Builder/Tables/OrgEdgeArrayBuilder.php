@@ -23,19 +23,19 @@ class OrgEdgeArrayBuilder
      * @param Uid $override
      * @return bool
      */
-    public function addObject(OrgObject $edgeObject, OrgObject $targetObject, string $source)
+    public function addObject(OrgObject $edgeObject, OrgObject $targetObject, string $linkSource)
     {
         $uid = $edgeObject->uid;
         [$source, $id] = [$uid->getSource(), $uid->getId()];
         if (isset($this->tree[$source][$id])) {
-            $this->tree[$source][$id]['sources'][$source] = $source;
+            $this->tree[$source][$id]['sources'][$linkSource] = $linkSource;
             return false;
         }
-        if (!$this->targetArray->addObject($targetObject, $source)) {
+        if (!$this->targetArray->addObject($targetObject, $linkSource)) {
             return false;
         }
         $this->tree[$source][$id]['object'] = $edgeObject;
-        $this->tree[$source][$id]['sources'] = [$source => $source];
+        $this->tree[$source][$id]['sources'] = [$linkSource => $linkSource];
         return true;
     }
 
