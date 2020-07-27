@@ -59,7 +59,10 @@ class ReadOnlyObject
                 }
                 $this->properties[$name] = $value;
                 $this->properties["{$name}Info"] = $metaInfos;
-            } elseif ($value instanceof IArrayPromise) {
+            } elseif (
+                $value instanceof IArrayPromise
+                || $value instanceof IEdgeArrayPromise
+            ) {
                 $value = $value->getArray();
                 $this->properties[$name] = $value;
             }
