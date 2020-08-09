@@ -2,7 +2,7 @@
 
 namespace Scouterna\Scoutorg\Model;
 
-class OrgArray implements \IteratorAggregate, \Countable
+class OrgArray implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
      * Tree holding array of source which hold array of OrgObjects
@@ -18,8 +18,14 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function exists(Uid $uid): bool
     {
         [$source, $id] = [$uid->getSource(), $uid->getId()];
-        return isset($this->tree[$source])
-            && isset($this->tree[$source][$id]);
+        return isset($this->tree[$source][$id]);
+    }
+
+    public function offsetExists($offset)
+    {
+        $offset = (string) $offset;
+        $uid = Uid::deserialize($offset);
+        return $uid ? $this->exists($uid) : false;
     }
 
     /**
@@ -28,13 +34,14 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function get(Uid $uid)
     {
         [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (!isset($this->tree[$source])) {
-            return null;
-        }
-        if (!isset($this->tree[$source][$id])) {
-            return null;
-        }
-        return $this->tree[$source][$id]['object'];
+        return $this->tree[$source][$id]['object'] ?? null;
+    }
+
+    public function offsetGet($offset)
+    {
+        $offset = (string) $offset;
+        $uid = Uid::deserialize($offset);
+        return $uid ? $this->get($uid) : null;
     }
 
     /**
@@ -46,13 +53,7 @@ class OrgArray implements \IteratorAggregate, \Countable
     public function sourcesOf(Uid $uid)
     {
         [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (!isset($this->tree[$source])) {
-            return false;
-        }
-        if (!isset($this->tree[$source][$id])) {
-            return false;
-        }
-        return $this->tree[$source][$id]['sources'];
+        return $this->tree[$source][$id]['sources'] ?? false;
     }
 
     public function count(): int
@@ -78,7 +79,7 @@ class OrgArray implements \IteratorAggregate, \Countable
      * Returns a generator to iterate through all items
      * in a source.
      * @param $source
-     * @return \Generator<int|string,OrgObject>
+     * @return \Generator<string,OrgObject>
      */
     public function fromSource(string $source): \Generator
     {
@@ -88,5 +89,15 @@ class OrgArray implements \IteratorAggregate, \Countable
                 yield $orgObject->uid->serialize() => $orgObject;
             }
         }
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        return;
+    }
+
+    public function offsetUnset($offset)
+    {
+        return;
     }
 }
