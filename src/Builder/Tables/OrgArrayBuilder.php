@@ -29,8 +29,10 @@ class OrgArrayBuilder
             $this->tree[$source][$id]['sources'][$linkSource] = $linkSource;
             return false;
         }
-        $this->tree[$source][$id]['object'] = $orgObject;
-        $this->tree[$source][$id]['sources'] = [$linkSource => $linkSource];
+        $this->tree[$source][$id] = [
+            'object' => $orgObject,
+            'sources' => [$linkSource => $linkSource]
+        ];
         return true;
     }
 
