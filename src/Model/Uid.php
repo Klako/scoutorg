@@ -4,17 +4,18 @@ namespace Scouterna\Scoutorg\Model;
 
 /**
  * A unique identifier for a Scouterna\Scoutorg object.
+ * @property-read string $source
+ * @property-read int|string $id
+ * @property-read string $serialized
  */
-class Uid
+class Uid extends ReadOnlyObject
 {
-    private $source;
-    private $id;
-
     public function __construct(string $source, $id)
     {
-        $this->source = $source;
-        Helper::checkType('id', $id, ['integer', 'string']);
-        $this->id = $id;
+        parent::__construct();
+        $this->setProperty('source', $source);
+        $this->setProperty('id', $id, ['integer', 'string']);
+        $this->setProperty('serialized', $this->serialize());
     }
 
     /**
@@ -22,7 +23,7 @@ class Uid
      */
     public function getSource()
     {
-        return $this->source;
+        return $this->getProperty('source');
     }
 
     /**
@@ -30,7 +31,7 @@ class Uid
      */
     public function getId()
     {
-        return $this->id;
+        return $this->getProperty('id');
     }
 
     /**
@@ -54,6 +55,6 @@ class Uid
      */
     public function serialize()
     {
-        return "{$this->source}:{$this->id}";
+        return "{$this->getProperty('source')}:{$this->getProperty('id')}";
     }
 }
