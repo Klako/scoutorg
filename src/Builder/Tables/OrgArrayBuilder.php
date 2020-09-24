@@ -34,6 +34,20 @@ class OrgArrayBuilder
         return true;
     }
 
+    /**
+     * Removes an organizational object
+     * @param \Scouterna\Scoutorg\Model\Uid $uid 
+     * @return bool 
+     */
+    public function removeObject(Uid $uid){
+        [$source, $id] = [$uid->getSource(), $uid->getId()];
+        if (!isset($this->tree[$source][$id])){
+            return false;
+        }
+        unset($this->tree[$source][$id]);
+        return true;
+    }
+
     public function build()
     {
         return new OrgArray($this->tree);
