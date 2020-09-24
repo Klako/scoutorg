@@ -18,7 +18,7 @@ class OrgArrayBuilder
     /**
      * Adds an organizational object.
      * @param OrgObject $orgObject
-     * @param Uid $override
+     * @param string $linkSource
      * @return bool
      */
     public function addObject(OrgObject $orgObject, string $linkSource)
