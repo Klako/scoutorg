@@ -65,7 +65,7 @@ abstract class BuilderTable
      */
     protected abstract function build($uid, $base);
 
-    protected function promiseList($uid, $name, $type)
+    protected function promiseList($uid, $name, $type, $postProcess = null)
     {
         return new ListPromise(
             $this->config,
@@ -73,7 +73,8 @@ abstract class BuilderTable
             $uid,
             $this->type,
             $name,
-            $type
+            $type,
+            $postProcess
         );
     }
 
