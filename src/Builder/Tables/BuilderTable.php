@@ -78,7 +78,7 @@ abstract class BuilderTable
         );
     }
 
-    protected function promiseEdgeList($uid, $name, $type, $edgeType)
+    protected function promiseEdgeList($uid, $name, $type, $edgeType, $postProcess = null)
     {
         return new EdgeListPromise(
             $this->config,
@@ -87,7 +87,8 @@ abstract class BuilderTable
             $this->type,
             $name,
             $type,
-            $edgeType
+            $edgeType,
+            $postProcess
         );
     }
 

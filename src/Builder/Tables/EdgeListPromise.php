@@ -28,8 +28,19 @@ class EdgeListPromise implements Model\IEdgeArrayPromise
     /** @var string */
     private $edgeType;
 
-    public function __construct($config, $scoutorg, $uid, $fromType, $name, $toType, $edgeType)
-    {
+    /** @var callable */
+    private $postProcess;
+
+    public function __construct(
+        $config,
+        $scoutorg,
+        $uid,
+        $fromType,
+        $name,
+        $toType,
+        $edgeType,
+        $postProcess = null
+    ) {
         $this->config = $config;
         $this->scoutorg = $scoutorg;
         $this->uid = $uid;
@@ -37,6 +48,7 @@ class EdgeListPromise implements Model\IEdgeArrayPromise
         $this->name = $name;
         $this->toType = $toType;
         $this->edgeType = $edgeType;
+        $this->postProcess = $postProcess;
     }
 
     public function getArray(): Model\OrgEdgeArray
@@ -57,6 +69,9 @@ class EdgeListPromise implements Model\IEdgeArrayPromise
                     $arrayBuilder->addObject($edge, $target, $source);
                 }
             }
+        }
+        if ($this->postProcess){
+            ($this->postProcess)($arrayBuilder);
         }
         return $arrayBuilder->build();
     }
