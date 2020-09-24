@@ -40,7 +40,7 @@ class OrgEdgeArrayBuilder
         }
         $this->tree[$source][$id]['object'] = $edgeObject;
         $this->tree[$source][$id]['sources'] = [$linkSource => $linkSource];
-        $this->edgeTargetLinks[$edgeObject->uid->serialize()] = $targetObject->uid->serialize();
+        $this->edgeTargetLinks[$edgeObject->uid->serialize()] = $targetObject->uid;
         return true;
     }
 
@@ -56,7 +56,7 @@ class OrgEdgeArrayBuilder
             return false;
         }
         unset($this->tree[$source][$id]);
-        $targetUid = Uid::deserialize($this->edgeTargetLinks[$edgeUid->serialize()]);
+        $targetUid = $this->edgeTargetLinks[$edgeUid->serialize()];
         $this->targetArray->removeObject($targetUid);
         return true;
     }
