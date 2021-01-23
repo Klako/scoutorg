@@ -62,6 +62,6 @@ class Config
     public static function getScoutnetPartProvider()
     {
         $controller = new ScoutnetController(self::getScoutnetConnection());
-        return new PartProvider($controller);
+        return new PartProvider($controller, 'scoutnet');
     }
 }

@@ -10,6 +10,7 @@ use Scouterna\Scoutorg\Builder\Link;
 class PartProvider implements IPartProvider
 {
     private $factory;
+    private $source;
 
     /** @var Handlers\Handler[] */
     private $handlers;
@@ -18,9 +19,10 @@ class PartProvider implements IPartProvider
      * Creates a new Scouterna\Scoutorg factory.
      * @param ScoutnetController $controller
      */
-    public function __construct(ScoutnetController $controller)
+    public function __construct(ScoutnetController $controller, $sourceName)
     {
-        $this->factory = new PartFactory($controller);
+        $this->factory = new PartFactory($controller, $sourceName);
+        $this->source = $sourceName;
         $this->handlers = [];
         $this->setHandler(Bases\ScoutGroupBase::class, Handlers\ScoutGroupHandler::class);
         $this->setHandler(Bases\MemberBase::class, Handlers\MemberHandler::class);
@@ -56,7 +58,7 @@ class PartProvider implements IPartProvider
         if (!isset($this->handlers[$type])) {
             return null;
         }
-        if ($uid->getSource() !== 'scoutnet') {
+        if ($uid->getSource() !== $this->source) {
             return null;
         }
         return $this->handlers[$type]->getLinkPart($uid->getId(), $name) ?: null;
@@ -67,7 +69,7 @@ class PartProvider implements IPartProvider
         if (!isset($this->handlers[$type])) {
             return [];
         }
-        if ($uid->getSource() !== 'scoutnet') {
+        if ($uid->getSource() !== $this->source) {
             return [];
         }
 

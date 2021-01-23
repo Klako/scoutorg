@@ -19,6 +19,7 @@ class PartFactory
 {
     /** @var ScoutnetController The source of data of which a scout group is built. */
     private $controller;
+    private $source;
 
     public $scoutgroups;
     public $troops;
@@ -39,9 +40,10 @@ class PartFactory
      * @param ScoutnetController $controller
      * @param Table[] $tables
      */
-    public function __construct($controller)
+    public function __construct($controller, $source)
     {
         $this->controller = $controller;
+        $this->source = $source;
         $this->scoutgroups = new Table;
         $this->troops = new Table;
         $this->troopMembers = new Table;
@@ -95,14 +97,14 @@ class PartFactory
                 $troopId = intval($member->unit->rawValue);
                 if (!$this->troops->hasBase($troopId)) {
                     $this->troops->setBase($troopId, new Bases\TroopBase($member->unit->value));
-                    $this->scoutgroups->addLink($groupId, 'troops', new Link(new Uid('scoutnet', $troopId)));
+                    $this->scoutgroups->addLink($groupId, 'troops', new Link(new Uid($this->source, $troopId)));
                 }
 
                 if (isset($member->patrol)) {
                     $patrolId = intval($member->patrol->rawValue);
                     if (!$this->patrols->hasBase($patrolId)) {
                         $this->patrols->setBase($patrolId, new Bases\PatrolBase($member->patrol->value));
-                        $this->troops->addLink($troopId, 'patrols', new Link(new Uid('scoutnet', $patrolId)));
+                        $this->troops->addLink($troopId, 'patrols', new Link(new Uid($this->source, $patrolId)));
                     }
                 }
             }
@@ -121,30 +123,30 @@ class PartFactory
             // Group member and group roles.
             $groupMemberId = "$groupId-$memberId";
             $this->groupMembers->setBase($groupMemberId, new GroupMemberBase($member->confirmed_at->value));
-            $this->groupMembers->setLink($groupMemberId, 'group', new Link(new Uid('scoutnet', $groupId)));
-            $this->groupMembers->setLink($groupMemberId, 'member', new Link(new Uid('scoutnet', $memberId)));
+            $this->groupMembers->setLink($groupMemberId, 'group', new Link(new Uid($this->source, $groupId)));
+            $this->groupMembers->setLink($groupMemberId, 'member', new Link(new Uid($this->source, $memberId)));
             if (isset($member->getGroupRoles()[$groupId])) {
                 foreach ($member->getGroupRoles()[$groupId] as $roleId => $roleName) {
                     if (!$this->groupRoles->hasBase($roleId)) {
                         $this->groupRoles->setBase($roleId, new Bases\GroupRoleBase($roleName));
                     }
-                    $this->scoutgroups->addLink($groupId, 'grouproles', new Link(new Uid('scoutnet', $roleId)));
-                    $this->groupMembers->addLink($groupMemberId, 'roles', new Link(new Uid('scoutnet', $roleId)));
+                    $this->scoutgroups->addLink($groupId, 'grouproles', new Link(new Uid($this->source, $roleId)));
+                    $this->groupMembers->addLink($groupMemberId, 'roles', new Link(new Uid($this->source, $roleId)));
                 }
             }
             $this->scoutgroups->addLink($groupId, 'members', new Link(
-                new Uid('scoutnet', $memberId),
-                new Uid('scoutnet', $groupMemberId)
+                new Uid($this->source, $memberId),
+                new Uid($this->source, $groupMemberId)
             ));
             $this->members->addLink($memberId, 'groups', new Link(
-                new Uid('scoutnet', $groupId),
-                new Uid('scoutnet', $groupMemberId)
+                new Uid($this->source, $groupId),
+                new Uid($this->source, $groupMemberId)
             ));
 
             // Contacts.
             foreach ($member->getContacts() as $contactId => $contact) {
                 $this->contacts->setBase($contactId, $contact);
-                $this->members->addLink($memberId, 'contacts', new Link(new Uid('scoutnet', $contactId)));
+                $this->members->addLink($memberId, 'contacts', new Link(new Uid($this->source, $contactId)));
             }
 
             // Troops and troop roles.
@@ -153,22 +155,22 @@ class PartFactory
 
                 if ($this->troops->hasBase($troopId)) {
                     $this->troopMembers->setBase($troopMemberId, new Bases\TroopMemberBase());
-                    $this->troopMembers->setLink($troopMemberId, 'troop', new Link(new Uid('scoutnet', $troopId)));
-                    $this->troopMembers->setLink($troopMemberId, 'member', new Link(new Uid('scoutnet', $memberId)));
+                    $this->troopMembers->setLink($troopMemberId, 'troop', new Link(new Uid($this->source, $troopId)));
+                    $this->troopMembers->setLink($troopMemberId, 'member', new Link(new Uid($this->source, $memberId)));
                     foreach ($troopRoles as $roleId => $roleName) {
                         if (!$this->troopRoles->hasBase($roleId)) {
                             $this->troopRoles->setBase($roleId, new Bases\TroopRoleBase($roleName));
                         }
-                        $this->troopMembers->addLink($troopMemberId, 'roles', new Link(new Uid('scoutnet', $roleId)));
-                        $this->scoutgroups->addLink($groupId, 'trooproles', new Link(new Uid('scoutnet', $roleId)));
+                        $this->troopMembers->addLink($troopMemberId, 'roles', new Link(new Uid($this->source, $roleId)));
+                        $this->scoutgroups->addLink($groupId, 'trooproles', new Link(new Uid($this->source, $roleId)));
                     }
                     $this->troops->addLink($troopId, 'members', new Link(
-                        new Uid('scoutnet', $memberId),
-                        new Uid('scoutnet', $troopMemberId)
+                        new Uid($this->source, $memberId),
+                        new Uid($this->source, $troopMemberId)
                     ));
                     $this->members->addLink($memberId, 'troops', new Link(
-                        new Uid('scoutnet', $troopId),
-                        new Uid('scoutnet', $troopMemberId)
+                        new Uid($this->source, $troopId),
+                        new Uid($this->source, $troopMemberId)
                     ));
                 }
             }
@@ -179,22 +181,22 @@ class PartFactory
 
                 if ($this->patrols->hasBase($patrolId)) {
                     $this->patrols->addLink($patrolId, 'members', new Link(
-                        new Uid('scoutnet', $memberId),
-                        new Uid('scoutnet', $patrolMemberId)
+                        new Uid($this->source, $memberId),
+                        new Uid($this->source, $patrolMemberId)
                     ));
                     $this->patrolMembers->setBase($patrolMemberId, new bases\PatrolMemberBase());
-                    $this->patrolMembers->setLink($patrolMemberId, 'patrol', new Link(new Uid('scoutnet', $patrolId)));
-                    $this->patrolMembers->setLink($patrolMemberId, 'member', new Link(new Uid('scoutnet', $memberId)));
+                    $this->patrolMembers->setLink($patrolMemberId, 'patrol', new Link(new Uid($this->source, $patrolId)));
+                    $this->patrolMembers->setLink($patrolMemberId, 'member', new Link(new Uid($this->source, $memberId)));
                     foreach ($patrolRoles as $roleId => $roleName) {
                         if (!$this->patrolRoles->hasBase($roleId)) {
                             $this->patrolRoles->setBase($roleId, new Bases\PatrolRoleBase($roleName));
                         }
-                        $this->patrolMembers->addLink($patrolMemberId, 'roles', new Link(new Uid('scoutnet', $roleId)));
-                        $this->scoutgroups->addLink($groupId, 'patrolroles', new Link(new Uid('scoutnet', $roleId)));
+                        $this->patrolMembers->addLink($patrolMemberId, 'roles', new Link(new Uid($this->source, $roleId)));
+                        $this->scoutgroups->addLink($groupId, 'patrolroles', new Link(new Uid($this->source, $roleId)));
                     }
                     $this->members->addLink($memberId, 'patrols', new Link(
-                        new Uid('scoutnet', $patrolId),
-                        new Uid('scoutnet', $patrolMemberId)
+                        new Uid($this->source, $patrolId),
+                        new Uid($this->source, $patrolMemberId)
                     ));
                 }
             }
@@ -218,12 +220,12 @@ class PartFactory
                 $customList->title,
                 $customList->description ?: ''
             ));
-            $this->scoutgroups->addLink($groupId, 'customlists', new Link(new Uid('scoutnet', $customListId)));
+            $this->scoutgroups->addLink($groupId, 'customlists', new Link(new Uid($this->source, $customListId)));
             foreach ($customList->rules as $ruleId => $rule) {
                 $ruleListId = "$customListId-$ruleId";
 
                 $this->customLists->setBase($ruleListId, new bases\CustomListBase($rule->title, ''));
-                $this->customLists->addLink($customListId, 'sublists', new Link(new Uid('scoutnet', $ruleListId)));
+                $this->customLists->addLink($customListId, 'sublists', new Link(new Uid($this->source, $ruleListId)));
             }
         }
     }
@@ -252,7 +254,7 @@ class PartFactory
 
         $members = $this->controller[$groupId]->getCustomListMembers($listId, $ruleId);
         foreach ($members as $member) {
-            $this->customLists->addLink($customListId, 'members', new Uid('scoutnet', $member->member_no->value));
+            $this->customLists->addLink($customListId, 'members', new Uid($this->source, $member->member_no->value));
         }
     }
 
@@ -282,22 +284,22 @@ class PartFactory
             $this->members->initLinks($memberId, 'contacts');
             foreach ($waitingMember->getContacts() as $contactId => $contact) {
                 $this->contacts->setBase($contactId, $contact);
-                $this->members->addLink($memberId, 'contacts', new Link(new Uid('scoutnet', $contactId)));
+                $this->members->addLink($memberId, 'contacts', new Link(new Uid($this->source, $contactId)));
             }
             $this->members->addLink($memberId, 'waitgroups', new Link(
-                new Uid('scoutnet', $groupWaiterId),
-                new Uid('scoutnet', $groupId)
+                new Uid($this->source, $groupWaiterId),
+                new Uid($this->source, $groupId)
             ));
             $this->scoutgroups->addLink($groupId, 'waitinglist', new Link(
-                new Uid('scoutnet', $groupWaiterId),
-                new Uid('scoutnet', $memberId)
+                new Uid($this->source, $groupWaiterId),
+                new Uid($this->source, $memberId)
             ));
 
             $this->groupWaiters->setBase($groupWaiterId, new Bases\GroupWaiterBase(
                 $waitingMember->waiting_since->value
             ));
-            $this->groupWaiters->setLink($groupWaiterId, 'group', new Link(new Uid('scoutnet', $groupId)));
-            $this->groupWaiters->setLink($groupWaiterId, 'member', new Link(new Uid('scoutnet', $memberId)));
+            $this->groupWaiters->setLink($groupWaiterId, 'group', new Link(new Uid($this->source, $groupId)));
+            $this->groupWaiters->setLink($groupWaiterId, 'member', new Link(new Uid($this->source, $memberId)));
         }
     }
 }
