@@ -5,27 +5,24 @@ namespace Scouterna\Scoutorg\Model;
 class OrgArray implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
-     * Tree holding array of source which hold array of OrgObjects
-     * @var OrgObject[][][]|string[][][]
+     * Array holding all org objects and their meta info.
+     * @var OrgObject[][]|string[][]
      */
-    protected $tree;
+    protected $array;
 
-    public function __construct($tree)
+    public function __construct($array)
     {
-        $this->tree = $tree;
+        $this->array = $array;
     }
 
     public function exists(Uid $uid): bool
     {
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        return isset($this->tree[$source][$id]);
+        return $this->offsetExists($uid->serialized);
     }
 
     public function offsetExists($offset)
     {
-        $offset = (string) $offset;
-        $uid = Uid::deserialize($offset);
-        return $uid ? $this->exists($uid) : false;
+        return isset($this->array[$offset]);
     }
 
     /**
@@ -33,15 +30,12 @@ class OrgArray implements \IteratorAggregate, \Countable, \ArrayAccess
      */
     public function get(Uid $uid)
     {
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        return $this->tree[$source][$id]['object'] ?? null;
+        return $this->offsetGet($uid->serialized);
     }
 
     public function offsetGet($offset)
     {
-        $offset = (string) $offset;
-        $uid = Uid::deserialize($offset);
-        return $uid ? $this->get($uid) : null;
+        return $this->array[$offset]['object'] ?? null;
     }
 
     /**
@@ -52,42 +46,18 @@ class OrgArray implements \IteratorAggregate, \Countable, \ArrayAccess
      */
     public function sourcesOf(Uid $uid)
     {
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        return $this->tree[$source][$id]['sources'] ?? false;
+        return $this->array[$uid->serialized]['sources'] ?? false;
     }
 
     public function count(): int
     {
-        $sum = 0;
-        foreach ($this->tree as $sourceArray) {
-            $sum += count($sourceArray);
-        }
-        return $sum;
+        return count($this->array);
     }
 
     public function getIterator()
     {
-        foreach ($this->tree as $sourceArray) {
-            foreach ($sourceArray as $objectElem) {
-                $orgObject = $objectElem['object'];
-                yield $orgObject->uid->serialize() => $orgObject;
-            }
-        }
-    }
-
-    /**
-     * Returns a generator to iterate through all items
-     * in a source.
-     * @param $source
-     * @return \Generator<string,OrgObject>
-     */
-    public function fromSource(string $source): \Generator
-    {
-        if (isset($this->tree[$source])) {
-            foreach ($this->tree[$source] as $objectElem) {
-                $orgObject = $objectElem['object'];
-                yield $orgObject->uid->serialize() => $orgObject;
-            }
+        foreach ($this->array as $uid => $objectElement) {
+            yield $uid => $objectElement['object'];
         }
     }
 

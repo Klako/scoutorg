@@ -12,16 +12,14 @@ class MutableOrgArray extends Model\OrgArray
         if ($this->exists($orgObject->uid) && !$overwrite) {
             return false;
         }
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        $this->tree[$source][$id]['object'] = $orgObject;
+        $this->array[$uid->serialized]['object'] = $orgObject;
         return true;
     }
 
     public function delete(Model\Uid $uid)
     {
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if ($this->exists($source, $id)) {
-            unset($this->tree[$source][$id]);
+        if ($this->exists($uid)) {
+            unset($this->array[$uid->serialized]);
             return true;
         }
         return false;

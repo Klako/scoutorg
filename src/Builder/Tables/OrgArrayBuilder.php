@@ -24,12 +24,11 @@ class OrgArrayBuilder
     public function addObject(OrgObject $orgObject, string $linkSource)
     {
         $uid = $orgObject->uid;
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (isset($this->tree[$source][$id])) {
-            $this->tree[$source][$id]['sources'][$linkSource] = $linkSource;
+        if (isset($this->tree[$uid->serialized])) {
+            $this->tree[$uid->serialized]['sources'][$linkSource] = $linkSource;
             return false;
         }
-        $this->tree[$source][$id] = [
+        $this->tree[$uid->serialized] = [
             'object' => $orgObject,
             'sources' => [$linkSource => $linkSource]
         ];
@@ -42,11 +41,10 @@ class OrgArrayBuilder
      * @return bool 
      */
     public function removeObject(Uid $uid){
-        [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (!isset($this->tree[$source][$id])){
+        if (!isset($this->tree[$uid->serialized])){
             return false;
         }
-        unset($this->tree[$source][$id]);
+        unset($this->tree[$uid->serialized]);
         return true;
     }
 

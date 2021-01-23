@@ -31,15 +31,15 @@ class OrgEdgeArrayBuilder
     {
         $uid = $edgeObject->uid;
         [$source, $id] = [$uid->getSource(), $uid->getId()];
-        if (isset($this->tree[$source][$id])) {
-            $this->tree[$source][$id]['sources'][$linkSource] = $linkSource;
+        if (isset($this->tree[$uid->serialized])) {
+            $this->tree[$uid->serialized]['sources'][$linkSource] = $linkSource;
             return false;
         }
         if (!$this->targetArray->addObject($targetObject, $linkSource)) {
             return false;
         }
-        $this->tree[$source][$id]['object'] = $edgeObject;
-        $this->tree[$source][$id]['sources'] = [$linkSource => $linkSource];
+        $this->tree[$uid->serialized]['object'] = $edgeObject;
+        $this->tree[$uid->serialized]['sources'] = [$linkSource => $linkSource];
         $this->edgeTargetLinks[$edgeObject->uid->serialize()] = $targetObject->uid;
         return true;
     }
@@ -51,12 +51,11 @@ class OrgEdgeArrayBuilder
      * @return bool 
      */
     public function removeObject(Uid $edgeUid) {
-        [$source, $id] = [$edgeUid->getSource(), $edgeUid->getId()];
-        if (!isset($this->tree[$source][$id])){
+        if (!isset($this->tree[$edgeUid->serialized])){
             return false;
         }
-        unset($this->tree[$source][$id]);
-        $targetUid = $this->edgeTargetLinks[$edgeUid->serialize()];
+        unset($this->tree[$edgeUid->serialized]);
+        $targetUid = $this->edgeTargetLinks[$edgeUid->serialized];
         $this->targetArray->removeObject($targetUid);
         return true;
     }
