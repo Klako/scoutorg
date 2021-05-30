@@ -30,7 +30,7 @@ interface IPartProvider
     ): array;
 
     /**
-     * Gets on link, from an object with the given unique id
+     * Gets one link, from an object with the given unique id
      * and base type, to an object with the given name.
      * @param Uid $uid 
      * @param string $type
