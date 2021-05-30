@@ -5,6 +5,7 @@ namespace Scouterna\Scoutorg\Builder\Tables;
 use Scouterna\Scoutorg\Builder;
 use Scouterna\Scoutorg\Model\OrgObject;
 use Scouterna\Scoutorg\Model\Uid;
+use Scouterna\Scoutorg\Model\UidException;
 
 abstract class BuilderTable
 {
@@ -31,15 +32,16 @@ abstract class BuilderTable
     /**
      * @param Uid $uid
      * @return OrgObject|null
+     * @throws \Scouterna\Scoutorg\Model\UidException if there is no object with specified uid.
      */
     public function get(Uid $uid)
     {
         if (!$this->table->exists($uid)) {
             $orgObject = $this->preBuild($uid);
-            // TODO: error on null
-            if ($orgObject) {
-                $this->table->insert($orgObject);
+            if (!$orgObject){
+                throw new UidException("Did not find object with uid", $uid);
             }
+            $this->table->insert($orgObject);
         }
 
         return $this->table->get($uid);
