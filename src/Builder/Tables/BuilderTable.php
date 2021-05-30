@@ -32,7 +32,7 @@ abstract class BuilderTable
     /**
      * @param Uid $uid
      * @return OrgObject|null
-     * @throws \Scouterna\Scoutorg\Model\UidException if there is no object with specified uid.
+     * @throws UidException if there is no object with specified uid.
      */
     public function get(Uid $uid)
     {
