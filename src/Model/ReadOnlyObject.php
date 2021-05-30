@@ -15,30 +15,17 @@ class ReadOnlyObject
     protected function setProperty($name, $value, $types = [])
     {
         if ($types) {
-            self::checkType($name, $value, $types);
+            Helper::checkType($name, $value, $types);
         }
         $this->properties[$name] = $value;
     }
 
     protected function getProperty($name)
     {
-        return $this->properties[$name] ?? null;
-    }
-
-    protected static function checkType($name, $value, $types)
-    {
-        $foundType = false;
-        foreach ($types as $type) {
-            if (\gettype($value) === $type || is_a($value, $type)) {
-                $foundType = true;
-                break;
-            }
+        if (!\array_key_exists($name, $this->properties)) {
+            throw new \Exception("Property $name is not defined");
         }
-        if (!$foundType) {
-            throw new \TypeError(
-                "Value of '$name' has the wrong type, expected [" . \join(', ', $types) . '], got ' . \gettype($value)
-            );
-        }
+        return $this->properties[$name];
     }
 
     /**
@@ -46,30 +33,7 @@ class ReadOnlyObject
      */
     public function __get($name)
     {
-        if (\array_key_exists($name, $this->properties)) {
-            $value = $this->properties[$name];
-            if ($value instanceof IObjectPromise) {
-                $link = $value->getObjectLink();
-                if ($link === null) {
-                    $value = null;
-                    $metaInfos = [];
-                } else {
-                    $value = $link->getObject();
-                    $metaInfos = $link->getMetaInfos();
-                }
-                $this->properties[$name] = $value;
-                $this->properties["{$name}Info"] = $metaInfos;
-            } elseif (
-                $value instanceof IArrayPromise
-                || $value instanceof IEdgeArrayPromise
-            ) {
-                $value = $value->getArray();
-                $this->properties[$name] = $value;
-            }
-            return $value;
-        } else {
-            throw new \Exception("Property $name is not defined");
-        }
+        return $this->getProperty($name);
     }
 
     /**

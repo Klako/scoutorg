@@ -6,9 +6,7 @@ namespace Scouterna\Scoutorg\Model;
  * A link between a group and a member.
  * @property-read string $startdate
  * @property-read ScoutGroup $group
- * @property-read LinkMetaInfo[] $groupInfo
  * @property-read Member $member
- * @property-read LinkMetaInfo[] $memberInfo
  * @property-read Arrays\GroupRoleArray<string,GroupRole> $roles
  * @package Scouterna\Scoutorg\Model
  */
