@@ -43,7 +43,7 @@ class Uid extends ReadOnlyObject
     {
         $splitId = \explode(':', $uid, 2);
         if ($splitId === false || count($splitId) != 2) {
-            return null;
+            throw new UidException("Invalid serialized uid: $uid", null);
         }
         return new Uid($splitId[0], $splitId[1]);
     }
@@ -56,5 +56,14 @@ class Uid extends ReadOnlyObject
     public function serialize()
     {
         return "{$this->getProperty('source')}:{$this->getProperty('id')}";
+    }
+
+    /**
+     * Gets the serialized uid.
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->serialized;
     }
 }
